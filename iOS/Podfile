@@ -1,0 +1,28 @@
+platform :ios, '9.0'
+inhibit_all_warnings!
+use_frameworks!
+
+def shared_pods
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Storage'
+  pod 'Firebase/Crashlytics'
+  
+  pod 'IQKeyboardManagerSwift', '5.0.0'
+  pod 'SwiftKeychainWrapper'
+  pod 'SQLite.swift', '~> 0.12.0'
+  pod 'ReachabilitySwift'
+end
+
+target 'TremorDetection' do
+  shared_pods
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if ['IQKeyboardManagerSwift'].include? target.name
+        target.build_configurations.each do |config|
+            config.build_settings['SWIFT_VERSION'] = '4.0'
+        end
+    end
+  end
+end

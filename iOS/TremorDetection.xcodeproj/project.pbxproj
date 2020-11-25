@@ -8,20 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		2571A27C256E61CE006A2F29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571A27B256E61CE006A2F29 /* AppDelegate.swift */; };
-		2571A280256E61CE006A2F29 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571A27F256E61CE006A2F29 /* ViewController.swift */; };
 		2571A283256E61CE006A2F29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2571A281256E61CE006A2F29 /* Main.storyboard */; };
 		2571A285256E61D3006A2F29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2571A284256E61D3006A2F29 /* Assets.xcassets */; };
 		2571A288256E61D3006A2F29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2571A286256E61D3006A2F29 /* LaunchScreen.storyboard */; };
+		2581878A256E652E00B18951 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25818789256E652E00B18951 /* SettingsViewController.swift */; };
+		2581878E256E654100B18951 /* MeasurementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2581878D256E654100B18951 /* MeasurementViewController.swift */; };
+		FEBC79AEAB87B1A0A336A50C /* Pods_TremorDetection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7DBC2C0542C9DF6757238AE /* Pods_TremorDetection.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2571A278256E61CE006A2F29 /* TremorDetection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TremorDetection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2571A27B256E61CE006A2F29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2571A27F256E61CE006A2F29 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2571A282256E61CE006A2F29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2571A284256E61D3006A2F29 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2571A287256E61D3006A2F29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2571A289256E61D3006A2F29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		25818784256E64A100B18951 /* TremorDetection-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TremorDetection-Bridging-Header.h"; sourceTree = "<group>"; };
+		25818789256E652E00B18951 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		2581878D256E654100B18951 /* MeasurementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementViewController.swift; sourceTree = "<group>"; };
+		736164C1AF7D817606BC6371 /* Pods-TremorDetection.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TremorDetection.debug.xcconfig"; path = "Target Support Files/Pods-TremorDetection/Pods-TremorDetection.debug.xcconfig"; sourceTree = "<group>"; };
+		8892A411E17E9629C57E5697 /* Pods-TremorDetection.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TremorDetection.release.xcconfig"; path = "Target Support Files/Pods-TremorDetection/Pods-TremorDetection.release.xcconfig"; sourceTree = "<group>"; };
+		E7DBC2C0542C9DF6757238AE /* Pods_TremorDetection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TremorDetection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEBC79AEAB87B1A0A336A50C /* Pods_TremorDetection.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +48,8 @@
 			children = (
 				2571A27A256E61CE006A2F29 /* TremorDetection */,
 				2571A279256E61CE006A2F29 /* Products */,
+				BBBD67DEC8C2B5BB8D0DC254 /* Pods */,
+				70C2D4AD6DAD8866086EE70E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,13 +65,41 @@
 			isa = PBXGroup;
 			children = (
 				2571A27B256E61CE006A2F29 /* AppDelegate.swift */,
-				2571A27F256E61CE006A2F29 /* ViewController.swift */,
+				25818789256E652E00B18951 /* SettingsViewController.swift */,
+				2581878D256E654100B18951 /* MeasurementViewController.swift */,
 				2571A281256E61CE006A2F29 /* Main.storyboard */,
-				2571A284256E61D3006A2F29 /* Assets.xcassets */,
 				2571A286256E61D3006A2F29 /* LaunchScreen.storyboard */,
-				2571A289256E61D3006A2F29 /* Info.plist */,
+				25818785256E64A900B18951 /* Supporting Files */,
 			);
 			path = TremorDetection;
+			sourceTree = "<group>";
+		};
+		25818785256E64A900B18951 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2571A284256E61D3006A2F29 /* Assets.xcassets */,
+				2571A289256E61D3006A2F29 /* Info.plist */,
+				25818784256E64A100B18951 /* TremorDetection-Bridging-Header.h */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		70C2D4AD6DAD8866086EE70E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E7DBC2C0542C9DF6757238AE /* Pods_TremorDetection.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BBBD67DEC8C2B5BB8D0DC254 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				736164C1AF7D817606BC6371 /* Pods-TremorDetection.debug.xcconfig */,
+				8892A411E17E9629C57E5697 /* Pods-TremorDetection.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +109,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2571A28C256E61D3006A2F29 /* Build configuration list for PBXNativeTarget "TremorDetection" */;
 			buildPhases = (
+				DA9D885550198908B6159E14 /* [CP] Check Pods Manifest.lock */,
 				2571A274256E61CE006A2F29 /* Sources */,
 				2571A275256E61CE006A2F29 /* Frameworks */,
 				2571A276256E61CE006A2F29 /* Resources */,
+				F7D9A0B6022F175F5688E787 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,13 +169,56 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		DA9D885550198908B6159E14 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TremorDetection-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F7D9A0B6022F175F5688E787 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TremorDetection/Pods-TremorDetection-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TremorDetection/Pods-TremorDetection-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TremorDetection/Pods-TremorDetection-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2571A274256E61CE006A2F29 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2571A280256E61CE006A2F29 /* ViewController.swift in Sources */,
 				2571A27C256E61CE006A2F29 /* AppDelegate.swift in Sources */,
+				2581878A256E652E00B18951 /* SettingsViewController.swift in Sources */,
+				2581878E256E654100B18951 /* MeasurementViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,12 +362,13 @@
 		};
 		2571A28D256E61D3006A2F29 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 736164C1AF7D817606BC6371 /* Pods-TremorDetection.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GJYUL598A7;
-				INFOPLIST_FILE = TremorDetection/Info.plist;
+				INFOPLIST_FILE = "TremorDetection/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -292,6 +376,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.happitech.TremorDetection;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/Supporting Files/TremorDetection-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -299,12 +384,13 @@
 		};
 		2571A28E256E61D3006A2F29 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8892A411E17E9629C57E5697 /* Pods-TremorDetection.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GJYUL598A7;
-				INFOPLIST_FILE = TremorDetection/Info.plist;
+				INFOPLIST_FILE = "TremorDetection/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -312,6 +398,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.happitech.TremorDetection;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/Supporting Files/TremorDetection-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
