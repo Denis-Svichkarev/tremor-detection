@@ -12,7 +12,7 @@
         <!--Settings View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="SettingsViewController" customModule="TremorDetection" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsViewController" id="BYZ-38-t0r" customClass="SettingsViewController" customModule="TremorDetection" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -92,7 +92,7 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="S2k-1q-S2e" kind="show" id="WKA-ad-fqi"/>
+                                                            <action selector="onStartButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jiG-gE-Ohs"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -125,6 +125,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="9KY-Od-zse"/>
+                    <connections>
+                        <outlet property="measurementTimeTextField" destination="iwx-uq-YXa" id="fzo-zW-U9f"/>
+                        <outlet property="startButton" destination="tsV-tB-UaU" id="HUr-CK-wYw"/>
+                        <outlet property="userIdTextField" destination="vXZ-yr-vRN" id="FXL-Kd-mSb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -149,7 +154,7 @@
         <!--Measurement View Controller-->
         <scene sceneID="Sr1-Mg-ItZ">
             <objects>
-                <viewController id="S2k-1q-S2e" customClass="MeasurementViewController" customModule="TremorDetection" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MeasurementViewController" id="S2k-1q-S2e" customClass="MeasurementViewController" customModule="TremorDetection" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="o0E-FV-eEf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -157,6 +162,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="WgX-bD-ZK6"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hBu-vz-RFK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

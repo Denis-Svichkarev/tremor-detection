@@ -13,6 +13,9 @@ class MeasurementViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        MeasurementService.shared.tremorDetectionSDK.configure(withDelegate: self, measurementTime: 10)
+        MeasurementService.shared.tremorDetectionSDK.startMeasurement()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -21,7 +24,23 @@ class MeasurementViewController: UIViewController {
         configureUI()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        MeasurementService.shared.tremorDetectionSDK.stopMeasurement()
+    }
+    
     func configureUI() {
         navigationItem.title = "Measurement"
+    }
+}
+
+extension MeasurementViewController: DSTremorDetectionDelegate {
+    func onProgressUpdated(_ percentCompleted: Int) {
+        
+    }
+    
+    func onMeasurementCompleted(_ tremorResult: DSTremorResult, accuracy: CGFloat) {
+        
     }
 }
