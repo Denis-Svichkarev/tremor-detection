@@ -12,6 +12,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var userIdTextField: UITextField!
     @IBOutlet weak var measurementTimeTextField: UITextField!
     @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var simulationSwitch: UISwitch!
     
     // MARK: - Controller Life Cycle
     

@@ -22,5 +22,11 @@
 
 - (void)onWarningReceived:(DSTremorWarning)warning;
 
+- (void)onAxisXOffsetGraphImageUpdated:(UIImage *)image;
+
+- (void)onAxisYOffsetGraphImageUpdated:(UIImage *)image;
+
+- (void)onAxisZOffsetGraphImageUpdated:(UIImage *)image;
+
 @end
 

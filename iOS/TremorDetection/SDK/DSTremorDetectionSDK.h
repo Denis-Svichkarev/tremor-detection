@@ -19,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (DSTremorDetectionSDKError)configureMeasurementTime:(NSInteger)measurementTime;
 - (void)configureWithDelegate:(id)delegate;
 
+- (void)configureAxisXGraph:(CGRect)frame;
+- (void)configureAxisYGraph:(CGRect)frame;
+- (void)configureAxisZGraph:(CGRect)frame;
+
 - (NSInteger)getMeasurementTime;
 
 - (void)startMeasurement;
