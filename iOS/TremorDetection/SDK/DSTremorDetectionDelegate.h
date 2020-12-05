@@ -9,12 +9,18 @@
 
 #import "DSTremorDetectionSDK.h"
 #import "DSTremorResult.h"
+#import "DSTremorStatus.h"
+#import "DSTremorWarning.h"
 
 @protocol DSTremorDetectionDelegate <NSObject>
 
 - (void)onProgressUpdated:(NSInteger)percentCompleted;
 
-- (void)onMeasurementCompleted:(DSTremorResult)tremorResult Accuracy:(CGFloat)accuracy;
+- (void)onMeasurementCompleted:(DSTremorResult)tremorResult Confidence:(CGFloat)confidence;
+
+- (void)onStatusReceived:(DSTremorStatus)status;
+
+- (void)onWarningReceived:(DSTremorWarning)warning;
 
 @end
 

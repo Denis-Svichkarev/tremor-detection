@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DSTremorResult.h"
+#import "DSTremorDetectionSDKError.h"
 #import "DSTremorDetectionDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -15,10 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) id<DSTremorDetectionDelegate> delegate;
 
-- (void)setMeasurementTime:(NSInteger)measurementTime;
+- (DSTremorDetectionSDKError)configureMeasurementTime:(NSInteger)measurementTime;
+- (void)configureWithDelegate:(id)delegate;
+
 - (NSInteger)getMeasurementTime;
 
-- (void)configureWithDelegate:(id)delegate MeasurementTime:(NSInteger)measurementTime;
 - (void)startMeasurement;
 - (void)stopMeasurement;
 

@@ -18,7 +18,8 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        measurementTimeTextField.text = "\(MeasurementService.shared.tremorDetectionSDK.getMeasurementTime())"
+        userIdTextField.text = MeasurementService.shared.userID
+        measurementTimeTextField.text = MeasurementService.shared.measurementTime
         
         userIdTextField.addTarget(self, action: #selector(SettingsViewController.textFieldDidChange(_:)), for: .editingChanged)
         measurementTimeTextField.addTarget(self, action: #selector(SettingsViewController.textFieldDidChange(_:)), for: .editingChanged)
@@ -33,7 +34,7 @@ class SettingsViewController: UIViewController {
     func configureUI() {
         navigationItem.title = "Settings"
         
-        if MeasurementService.shared.tremorDetectionSDK.getMeasurementTime() >= 0 && MeasurementService.shared.tremorDetectionSDK.getMeasurementTime() <= 120 {
+        if let _ = MeasurementService.shared.measurementTime {
             startButton.isEnabled = true
             startButton.alpha = 1
             
@@ -46,15 +47,29 @@ class SettingsViewController: UIViewController {
     // MARK: - IB Actions
     
     @IBAction func onStartButtonPressed(_ sender: Any) {
-        navigationController?.pushViewController(StoryboardService.shared.getMeasurementViewController(), animated: true)
+        if let measurementTime = MeasurementService.shared.measurementTime, let time = Int(measurementTime) {
+            let error = MeasurementService.shared.tremorDetectionSDK.configureMeasurementTime(time)
+            
+            switch error {
+            case .noError:
+                navigationController?.pushViewController(StoryboardService.shared.getMeasurementViewController(), animated: true)
+            case .invalidTime:
+                popupAlert(title: "Invalid time. It should be in the range (20-120 seconds)", message: nil, actionTitles: ["Close"], actions: [{ action in }])
+            default: break
+            }
+        }
     }
     
     // MARK: - TextField
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         if textField == measurementTimeTextField {
-            if let text = textField.text, let time = Int(text) {
-                MeasurementService.shared.tremorDetectionSDK.setMeasurementTime(time)
+            if let text = textField.text, let _ = Int(text) {
+                MeasurementService.shared.measurementTime = text
+            }
+        } else if textField == userIdTextField {
+            if let text = textField.text, let _ = Int(text) {
+                MeasurementService.shared.userID = text
             }
         }
 

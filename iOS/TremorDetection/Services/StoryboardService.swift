@@ -20,4 +20,8 @@ class StoryboardService: NSObject {
     func getMeasurementViewController() -> MeasurementViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MeasurementViewController") as! MeasurementViewController
     }
+    
+    func getCompletedViewController() -> CompletedViewController {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CompletedViewController") as! CompletedViewController
+    }
 }

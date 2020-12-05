@@ -9,12 +9,14 @@ import UIKit
 
 class MeasurementViewController: UIViewController {
 
+    @IBOutlet weak var progressLabel: UILabel!
+    
     // MARK: - Controller Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        MeasurementService.shared.tremorDetectionSDK.configure(withDelegate: self, measurementTime: 10)
+        MeasurementService.shared.tremorDetectionSDK.configure(withDelegate: self)
         MeasurementService.shared.tremorDetectionSDK.startMeasurement()
     }
     
@@ -26,21 +28,34 @@ class MeasurementViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        MeasurementService.shared.tremorDetectionSDK.stopMeasurement()
     }
     
     func configureUI() {
         navigationItem.title = "Measurement"
+        navigationItem.setHidesBackButton(true, animated: false)
+    }
+    
+    // MARK: - IB Actions
+    
+    @IBAction func onStopButtonPressed(_ sender: Any) {
+        MeasurementService.shared.tremorDetectionSDK.stopMeasurement()
     }
 }
 
 extension MeasurementViewController: DSTremorDetectionDelegate {
     func onProgressUpdated(_ percentCompleted: Int) {
+        progressLabel.text = "\(percentCompleted) %"
+    }
+    
+    func onMeasurementCompleted(_ tremorResult: DSTremorResult, confidence: CGFloat) {
+        navigationController?.pushViewController(StoryboardService.shared.getCompletedViewController(), animated: true)
+    }
+    
+    func onStatusReceived(_ status: DSTremorStatus) {
         
     }
     
-    func onMeasurementCompleted(_ tremorResult: DSTremorResult, accuracy: CGFloat) {
+    func onWarningReceived(_ warning: DSTremorWarning) {
         
     }
 }
