@@ -23,6 +23,8 @@
 		2589F3E2257B73FF00E93649 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2589F3DD257B73FF00E93649 /* UIDevice.swift */; };
 		2589F3E6257B7D6100E93649 /* CompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2589F3E5257B7D6100E93649 /* CompletedViewController.swift */; };
 		2589F3EA257B845300E93649 /* DSOffsetGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 2589F3E9257B845300E93649 /* DSOffsetGraph.m */; };
+		25F94075258678170016079E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25F94074258678170016079E /* GoogleService-Info.plist */; };
+		25F940782586785C0016079E /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F940772586785C0016079E /* FirebaseService.swift */; };
 		FEBC79AEAB87B1A0A336A50C /* Pods_TremorDetection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7DBC2C0542C9DF6757238AE /* Pods_TremorDetection.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +55,8 @@
 		2589F3E8257B845300E93649 /* DSOffsetGraph.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSOffsetGraph.h; sourceTree = "<group>"; };
 		2589F3E9257B845300E93649 /* DSOffsetGraph.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSOffsetGraph.m; sourceTree = "<group>"; };
 		259BA726256FFC9100DC747B /* DSTremorDetectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSTremorDetectionDelegate.h; sourceTree = "<group>"; };
+		25F94074258678170016079E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		25F940772586785C0016079E /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		736164C1AF7D817606BC6371 /* Pods-TremorDetection.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TremorDetection.debug.xcconfig"; path = "Target Support Files/Pods-TremorDetection/Pods-TremorDetection.debug.xcconfig"; sourceTree = "<group>"; };
 		8892A411E17E9629C57E5697 /* Pods-TremorDetection.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TremorDetection.release.xcconfig"; path = "Target Support Files/Pods-TremorDetection/Pods-TremorDetection.release.xcconfig"; sourceTree = "<group>"; };
 		E7DBC2C0542C9DF6757238AE /* Pods_TremorDetection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TremorDetection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +114,7 @@
 			children = (
 				2571A284256E61D3006A2F29 /* Assets.xcassets */,
 				2571A289256E61D3006A2F29 /* Info.plist */,
+				25F94074258678170016079E /* GoogleService-Info.plist */,
 				25818784256E64A100B18951 /* TremorDetection-Bridging-Header.h */,
 				2589F3D4257B6EE100E93649 /* Constants.swift */,
 			);
@@ -137,6 +142,7 @@
 			children = (
 				258187AA256E69F400B18951 /* MeasurementService.swift */,
 				258187AF256E6C5500B18951 /* StoryboardService.swift */,
+				25F940772586785C0016079E /* FirebaseService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -229,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2571A288256E61D3006A2F29 /* LaunchScreen.storyboard in Resources */,
+				25F94075258678170016079E /* GoogleService-Info.plist in Resources */,
 				2571A285256E61D3006A2F29 /* Assets.xcassets in Resources */,
 				2571A283256E61CE006A2F29 /* Main.storyboard in Resources */,
 			);
@@ -287,6 +294,7 @@
 				2571A27C256E61CE006A2F29 /* AppDelegate.swift in Sources */,
 				2589F3E0257B73FF00E93649 /* DoubleExtensions.swift in Sources */,
 				258187A8256E68F500B18951 /* DSTremorDetectionSDK.m in Sources */,
+				25F940782586785C0016079E /* FirebaseService.swift in Sources */,
 				258187B0256E6C5500B18951 /* StoryboardService.swift in Sources */,
 				2589F3EA257B845300E93649 /* DSOffsetGraph.m in Sources */,
 				2589F3E1257B73FF00E93649 /* DateExtensions.swift in Sources */,
@@ -446,7 +454,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GJYUL598A7;
 				INFOPLIST_FILE = "TremorDetection/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -468,7 +476,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GJYUL598A7;
 				INFOPLIST_FILE = "TremorDetection/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

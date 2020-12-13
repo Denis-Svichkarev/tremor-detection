@@ -89,7 +89,9 @@ extension MeasurementViewController: DSTremorDetectionDelegate {
     }
     
     func onMeasurementCompleted(_ tremorResult: DSTremorResult, confidence: CGFloat) {
-        navigationController?.pushViewController(StoryboardService.shared.getCompletedViewController(), animated: true)
+        let vc = StoryboardService.shared.getCompletedViewController()
+        vc.tremorData = MeasurementService.shared.tremorDetectionSDK.exportData()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func onStatusReceived(_ status: DSTremorStatus) {

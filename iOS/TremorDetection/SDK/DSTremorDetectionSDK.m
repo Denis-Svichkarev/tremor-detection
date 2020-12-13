@@ -25,6 +25,8 @@
 @property (nonatomic, strong) DSOffsetGraph *axisYOffsetGraph;
 @property (nonatomic, strong) DSOffsetGraph *axisZOffsetGraph;
 
+@property (nonatomic, strong) NSMutableString *exportDataString;
+
 @end
 
 @implementation DSTremorDetectionSDK
@@ -45,7 +47,7 @@
     return _measurementTime;
 }
 
-#pragma mark - Lyfe Cycle
+#pragma mark - Configurations
 
 - (void)configureWithDelegate:(id)delegate {
     self.delegate = delegate;
@@ -75,6 +77,8 @@
     self.axisZOffsetGraph.frame = frame;
 }
 
+#pragma mark - Lyfe Cycle
+
 - (void)startMeasurement {
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(onTimerFinished:) userInfo:nil repeats:YES];
     
@@ -83,6 +87,8 @@
     self.motionManager.gyroUpdateInterval = .01;
     self.firstChunkTime = 0;
     self.currentTime = 0;
+    self.exportDataString = [NSMutableString new];
+    [self.exportDataString appendString:@"timestamp; x; y; z;\n"];
     
     [self.delegate onStatusReceived:DSTremorStatusStarted];
     [self.delegate onWarningReceived:DSTremorWarningNoWarning];
@@ -93,7 +99,7 @@
         }
         
         CGFloat chunkTimestamp = accelerometerData.timestamp - self.firstChunkTime;
-        
+        [self.exportDataString appendString:[NSString stringWithFormat:@"%f; %f; %f; %f;\n", chunkTimestamp, accelerometerData.acceleration.x, accelerometerData.acceleration.y, accelerometerData.acceleration.z]];
         //NSLog(@"t: %.2f, x: %.2f, y: %.2f, z: %.2f", chunkTimestamp, accelerometerData.acceleration.x, accelerometerData.acceleration.y, accelerometerData.acceleration.z);
         //self.currentAcceleration = accelerometerData.acceleration;
         
@@ -148,6 +154,13 @@
     if (self.currentTime > [self getMeasurementTime]) {
         [self stopMeasurement];
     }
+}
+
+#pragma mark - Export
+
+- (NSData *)exportData {
+    if (!self.exportDataString) return nil;
+    return [self.exportDataString dataUsingEncoding:NSUTF8StringEncoding];;
 }
 
 @end

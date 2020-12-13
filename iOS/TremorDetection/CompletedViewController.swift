@@ -12,10 +12,20 @@ class CompletedViewController: UIViewController {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var classificationLabel: UILabel!
     
+    var tremorData: Data?
+    var isUploaded: Bool = false
+    
     // MARK: - Controller Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let tremorData = tremorData {
+            FirebaseService.shared.sendData(data: tremorData, fileName: "test1") { success in
+                self.isUploaded = true
+                self.configureUI()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,6 +38,12 @@ class CompletedViewController: UIViewController {
         navigationItem.title = "Result"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(CompletedViewController.onNextButtonPressed))
         navigationItem.setHidesBackButton(true, animated: false)
+        
+        if isUploaded {
+            navigationItem.rightBarButtonItem?.isEnabled = true
+        } else {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        }
     }
     
     // MARK: - IB Actions
