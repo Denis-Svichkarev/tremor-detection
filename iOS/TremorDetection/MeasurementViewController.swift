@@ -29,10 +29,22 @@ class MeasurementViewController: UIViewController {
     var axisYOffest: Float = 0
     var axisZOffest: Float = 0
     
+    var isSimulationMode = false
+    
     // MARK: - Controller Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if isSimulationMode {
+            MeasurementService.shared.tremorDetectionSDK.configureMode(.simulation)
+        } else {
+            MeasurementService.shared.tremorDetectionSDK.configureMode(.normal)
+        }
+        
+        if let userID = MeasurementService.shared.userID {
+            MeasurementService.shared.tremorDetectionSDK.configureUserID(userID)
+        }
         
         MeasurementService.shared.tremorDetectionSDK.configure(withDelegate: self)
         MeasurementService.shared.tremorDetectionSDK.configureAxisXGraph(axisXImageView.bounds)
@@ -91,6 +103,7 @@ extension MeasurementViewController: DSTremorDetectionDelegate {
     func onMeasurementCompleted(_ tremorResult: DSTremorResult, confidence: CGFloat) {
         let vc = StoryboardService.shared.getCompletedViewController()
         vc.tremorData = MeasurementService.shared.tremorDetectionSDK.exportData()
+        vc.tremorDataString = MeasurementService.shared.tremorDetectionSDK.exportFileName()
         navigationController?.pushViewController(vc, animated: true)
     }
     

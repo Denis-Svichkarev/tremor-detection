@@ -53,7 +53,10 @@ class SettingsViewController: UIViewController {
             
             switch error {
             case .noError:
-                navigationController?.pushViewController(StoryboardService.shared.getMeasurementViewController(), animated: true)
+                let vc = StoryboardService.shared.getMeasurementViewController()
+                vc.isSimulationMode = simulationSwitch.isOn
+                navigationController?.pushViewController(vc, animated: true)
+                
             case .invalidTime:
                 popupAlert(title: "Invalid time. It should be in the range (20-120 seconds)", message: nil, actionTitles: ["Close"], actions: [{ action in }])
             default: break

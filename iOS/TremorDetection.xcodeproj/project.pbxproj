@@ -57,6 +57,7 @@
 		259BA726256FFC9100DC747B /* DSTremorDetectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSTremorDetectionDelegate.h; sourceTree = "<group>"; };
 		25F94074258678170016079E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		25F940772586785C0016079E /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		25F9407B258692AA0016079E /* DSTremorDetectionSDKMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSTremorDetectionSDKMode.h; sourceTree = "<group>"; };
 		736164C1AF7D817606BC6371 /* Pods-TremorDetection.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TremorDetection.debug.xcconfig"; path = "Target Support Files/Pods-TremorDetection/Pods-TremorDetection.debug.xcconfig"; sourceTree = "<group>"; };
 		8892A411E17E9629C57E5697 /* Pods-TremorDetection.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TremorDetection.release.xcconfig"; path = "Target Support Files/Pods-TremorDetection/Pods-TremorDetection.release.xcconfig"; sourceTree = "<group>"; };
 		E7DBC2C0542C9DF6757238AE /* Pods_TremorDetection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TremorDetection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +128,7 @@
 				258187A6256E68F500B18951 /* DSTremorDetectionSDK.h */,
 				258187A7256E68F500B18951 /* DSTremorDetectionSDK.m */,
 				259BA726256FFC9100DC747B /* DSTremorDetectionDelegate.h */,
+				25F9407B258692AA0016079E /* DSTremorDetectionSDKMode.h */,
 				2589F3D7257B731700E93649 /* DSTremorDetectionSDKError.h */,
 				2589F3B0257943C400E93649 /* DSTremorResult.h */,
 				2589F3D1257B6D9D00E93649 /* DSTremorStatus.h */,

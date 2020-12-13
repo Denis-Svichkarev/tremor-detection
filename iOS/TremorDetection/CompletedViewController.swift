@@ -13,6 +13,8 @@ class CompletedViewController: UIViewController {
     @IBOutlet weak var classificationLabel: UILabel!
     
     var tremorData: Data?
+    var tremorDataString: String?
+    
     var isUploaded: Bool = false
     
     // MARK: - Controller Life Cycle
@@ -20,8 +22,8 @@ class CompletedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let tremorData = tremorData {
-            FirebaseService.shared.sendData(data: tremorData, fileName: "test1") { success in
+        if let tremorData = tremorData, let tremorDataString = tremorDataString {
+            FirebaseService.shared.sendData(data: tremorData, fileName:tremorDataString) { success in
                 self.isUploaded = true
                 self.configureUI()
             }

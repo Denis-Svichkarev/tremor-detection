@@ -7,9 +7,12 @@
 
 #import <CoreMotion/CoreMotion.h>
 #import <UIKit/UIKit.h>
+#import <sys/utsname.h>
 
 #import "DSTremorDetectionSDK.h"
 #import "DSOffsetGraph.h"
+
+NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 @interface DSTremorDetectionSDK()
 
@@ -26,12 +29,32 @@
 @property (nonatomic, strong) DSOffsetGraph *axisZOffsetGraph;
 
 @property (nonatomic, strong) NSMutableString *exportDataString;
+@property (nonatomic, strong) NSString *measurementID;
+
+@property (nonatomic, assign) DSTremorDetectionSDKMode mode;
+@property (nonatomic, strong) NSString *userID;
 
 @end
 
 @implementation DSTremorDetectionSDK
 
-#pragma mark - Getters / Setters
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.userID = @"0";
+        self.mode = DSTremorDetectionSDKModeNormal;
+    }
+    return self;
+}
+
+#pragma mark - Getters
+
+- (NSInteger)getMeasurementTime {
+    if (_measurementTime == 0) return 30;
+    return _measurementTime;
+}
+
+#pragma mark - Configurations
 
 - (DSTremorDetectionSDKError)configureMeasurementTime:(NSInteger)measurementTime {
     if (measurementTime < 20 || measurementTime > 120) {
@@ -42,12 +65,13 @@
     return DSTremorDetectionSDKErrorNoError;
 }
 
-- (NSInteger)getMeasurementTime {
-    if (_measurementTime == 0) return 30;
-    return _measurementTime;
+- (void)configureMode:(DSTremorDetectionSDKMode)mode {
+    self.mode = mode;
 }
 
-#pragma mark - Configurations
+- (void)configureUserID:(NSString *)userID {
+    self.userID = userID;
+}
 
 - (void)configureWithDelegate:(id)delegate {
     self.delegate = delegate;
@@ -158,9 +182,64 @@
 
 #pragma mark - Export
 
+- (NSString *)exportFileName {
+    return [self getRawDataFileNameWithVersion:@"1.0"];
+}
+
 - (NSData *)exportData {
     if (!self.exportDataString) return nil;
     return [self.exportDataString dataUsingEncoding:NSUTF8StringEncoding];;
+}
+
+- (NSString *)getRawDataFileNameWithVersion:(NSString *)version {
+    NSDate *currentDate = [NSDate date];
+    [self generateMeasurementID];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    [formatter setDateFormat:@"YYYY_MM_dd_HH_mm_ss"];
+    
+    NSString *prefix = self.mode == DSTremorDetectionSDKModeSimulation ? @"S" : @"";
+    NSString *fileFormat = @"csv";
+    NSString *fileString = [NSString stringWithFormat:@"%@%@-%@-%@-%@-Apple-%@-%@-%@.%@",
+                            prefix,
+                            @"T",
+                            [self userID],
+                            [self getUDID],
+                            [self getDeviceModel],
+                            [self measurementID],
+                            [formatter stringFromDate:currentDate],
+                            version,
+                            fileFormat];
+    return fileString;
+}
+
+- (NSString *)getUDID {
+    NSString *result = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSRange range = NSMakeRange(0, 3);
+    NSString *privacyResult = [result stringByReplacingCharactersInRange:range withString:@"000"];
+    return [privacyResult stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+}
+
+- (NSString *)getDeviceModel {
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSString *result = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+    return result;
+}
+
+- (void)generateMeasurementID {
+    _measurementID = [self randomStringWithLength:6];
+}
+
+- (NSString *)randomStringWithLength:(int)len {
+    NSMutableString *randomString = [NSMutableString stringWithCapacity: len];
+
+    for (int i = 0; i < len; i++) {
+        [randomString appendFormat: @"%C", [HRT_LETTERS characterAtIndex: arc4random_uniform((uint32_t)[HRT_LETTERS length])]];
+    }
+
+    return randomString;
 }
 
 @end
