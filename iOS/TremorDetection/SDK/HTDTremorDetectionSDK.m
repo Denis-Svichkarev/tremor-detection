@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <sys/utsname.h>
 
-#import "DSTremorDetectionSDK.h"
-#import "DSOffsetGraph.h"
+#import "HTDTremorDetectionSDK.h"
+#import "HTDOffsetGraph.h"
 
 NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-@interface DSTremorDetectionSDK()
+@interface HTDTremorDetectionSDK()
 
 @property (nonatomic, assign) NSInteger measurementTime;
 @property (nonatomic, assign) NSInteger currentTime;
@@ -24,25 +24,25 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) CMMotionManager *motionManager;
 
-@property (nonatomic, strong) DSOffsetGraph *axisXOffsetGraph;
-@property (nonatomic, strong) DSOffsetGraph *axisYOffsetGraph;
-@property (nonatomic, strong) DSOffsetGraph *axisZOffsetGraph;
+@property (nonatomic, strong) HTDOffsetGraph *axisXOffsetGraph;
+@property (nonatomic, strong) HTDOffsetGraph *axisYOffsetGraph;
+@property (nonatomic, strong) HTDOffsetGraph *axisZOffsetGraph;
 
 @property (nonatomic, strong) NSMutableString *exportDataString;
 @property (nonatomic, strong) NSString *measurementID;
 
-@property (nonatomic, assign) DSTremorDetectionSDKMode mode;
+@property (nonatomic, assign) HTDTremorDetectionSDKMode mode;
 @property (nonatomic, strong) NSString *userID;
 
 @end
 
-@implementation DSTremorDetectionSDK
+@implementation HTDTremorDetectionSDK
 
 - (instancetype)init {
     self = [super init];
     if (self) {
         self.userID = @"0";
-        self.mode = DSTremorDetectionSDKModeNormal;
+        self.mode = HTDTremorDetectionSDKModeNormal;
     }
     return self;
 }
@@ -56,16 +56,16 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
 
 #pragma mark - Configurations
 
-- (DSTremorDetectionSDKError)configureMeasurementTime:(NSInteger)measurementTime {
+- (HTDTremorDetectionSDKError)configureMeasurementTime:(NSInteger)measurementTime {
     if (measurementTime < 20 || measurementTime > 120) {
-        return DSTremorDetectionSDKErrorInvalidTime;
+        return HTDTremorDetectionSDKErrorInvalidTime;
     }
     
     _measurementTime = measurementTime;
-    return DSTremorDetectionSDKErrorNoError;
+    return HTDTremorDetectionSDKErrorNoError;
 }
 
-- (void)configureMode:(DSTremorDetectionSDKMode)mode {
+- (void)configureMode:(HTDTremorDetectionSDKMode)mode {
     self.mode = mode;
 }
 
@@ -78,7 +78,7 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
 }
 
 - (void)configureAxisXGraph:(CGRect)frame {
-    self.axisXOffsetGraph = [DSOffsetGraph new];
+    self.axisXOffsetGraph = [HTDOffsetGraph new];
     self.axisXOffsetGraph.graphColor = UIColor.blackColor;
     self.axisXOffsetGraph.backgroundColor = UIColor.clearColor;
     self.axisXOffsetGraph.graphLineWidth = 1;
@@ -86,7 +86,7 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
 }
 
 - (void)configureAxisYGraph:(CGRect)frame {
-    self.axisYOffsetGraph = [DSOffsetGraph new];
+    self.axisYOffsetGraph = [HTDOffsetGraph new];
     self.axisYOffsetGraph.graphColor = UIColor.blackColor;
     self.axisYOffsetGraph.backgroundColor = UIColor.clearColor;
     self.axisYOffsetGraph.graphLineWidth = 1;
@@ -94,7 +94,7 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
 }
 
 - (void)configureAxisZGraph:(CGRect)frame {
-    self.axisZOffsetGraph = [DSOffsetGraph new];
+    self.axisZOffsetGraph = [HTDOffsetGraph new];
     self.axisZOffsetGraph.graphColor = UIColor.blackColor;
     self.axisZOffsetGraph.backgroundColor = UIColor.clearColor;
     self.axisZOffsetGraph.graphLineWidth = 1;
@@ -114,8 +114,8 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
     self.exportDataString = [NSMutableString new];
     [self.exportDataString appendString:@"timestamp; x; y; z;\n"];
     
-    [self.delegate onStatusReceived:DSTremorStatusStarted];
-    [self.delegate onWarningReceived:DSTremorWarningNoWarning];
+    [self.delegate onStatusReceived:HTDTremorStatusStarted];
+    [self.delegate onWarningReceived:HTDTremorWarningNoWarning];
     
     [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMAccelerometerData  *accelerometerData, NSError *error) {
         if (self.firstChunkTime == 0) {
@@ -144,8 +144,8 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
 - (void)stopMeasurement {
     [self.timer invalidate];
     [self.motionManager stopAccelerometerUpdates];
-    [self.delegate onMeasurementCompleted:DSTremorResultUndetermined Confidence:0];
-    [self.delegate onStatusReceived:DSTremorStatusStopped];
+    [self.delegate onMeasurementCompleted:HTDTremorResultUndetermined Confidence:0];
+    [self.delegate onStatusReceived:HTDTremorStatusStopped];
 }
 
 - (void)onTimerFinished:(id)sender {
@@ -199,7 +199,7 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
     [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
     [formatter setDateFormat:@"YYYY_MM_dd_HH_mm_ss"];
     
-    NSString *prefix = self.mode == DSTremorDetectionSDKModeSimulation ? @"S" : @"";
+    NSString *prefix = self.mode == HTDTremorDetectionSDKModeSimulation ? @"S" : @"";
     NSString *fileFormat = @"csv";
     NSString *fileString = [NSString stringWithFormat:@"%@%@-%@-%@-%@-Apple-%@-%@-%@.%@",
                             prefix,

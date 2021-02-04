@@ -1,13 +1,13 @@
 //
-//  DSOffsetGraph.m
+//  HTDOffsetGraph.m
 //  TremorDetection
 //
 //  Created by Denis Svichkarev on 05.12.2020.
 //
 
-#import "DSOffsetGraph.h"
+#import "HTDOffsetGraph.h"
 
-@implementation DSOffsetGraph {
+@implementation HTDOffsetGraph {
     NSMutableArray *points;
 }
 

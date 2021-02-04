@@ -1,24 +1,24 @@
 //
-//  DSTremorDetectionSDK.h
+//  HTDTremorDetectionSDK.h
 //  TremorDetection
 //
 //  Created by Denis Svichkarev on 25.11.2020.
 //
 
 #import <Foundation/Foundation.h>
-#import "DSTremorResult.h"
-#import "DSTremorDetectionSDKError.h"
-#import "DSTremorDetectionDelegate.h"
-#import "DSTremorDetectionSDKMode.h"
+#import "HTDTremorResult.h"
+#import "HTDTremorDetectionSDKError.h"
+#import "HTDTremorDetectionDelegate.h"
+#import "HTDTremorDetectionSDKMode.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DSTremorDetectionSDK : NSObject
+@interface HTDTremorDetectionSDK : NSObject
 
-@property (weak, nonatomic) id<DSTremorDetectionDelegate> delegate;
+@property (weak, nonatomic) id<HTDTremorDetectionDelegate> delegate;
 
-- (DSTremorDetectionSDKError)configureMeasurementTime:(NSInteger)measurementTime;
-- (void)configureMode:(DSTremorDetectionSDKMode)mode;
+- (HTDTremorDetectionSDKError)configureMeasurementTime:(NSInteger)measurementTime;
+- (void)configureMode:(HTDTremorDetectionSDKMode)mode;
 - (void)configureUserID:(NSString *)userID;
 - (void)configureWithDelegate:(id)delegate;
 - (void)configureAxisXGraph:(CGRect)frame;

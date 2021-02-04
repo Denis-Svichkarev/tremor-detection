@@ -1,5 +1,5 @@
 //
-//  DSOffsetGraph.h
+//  HTDOffsetGraph.h
 //  TremorDetection
 //
 //  Created by Denis Svichkarev on 05.12.2020.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DSOffsetGraph : UIView
+@interface HTDOffsetGraph : UIView
 
 @property (nonatomic, readwrite) UIColor *backgroundColor;
 @property (nonatomic, readwrite) UIColor *graphColor;

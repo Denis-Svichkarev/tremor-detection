@@ -8,6 +8,6 @@
 #ifndef TremorDetection_Bridging_Header_h
 #define TremorDetection_Bridging_Header_h
 
-#import "DSTremorDetectionSDK.h"
+#import "HTDTremorDetectionSDK.h"
 
 #endif /* TremorDetection_Bridging_Header_h */

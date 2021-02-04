@@ -76,7 +76,7 @@ class MeasurementViewController: UIViewController {
     
     // MARK: - Helpers
     
-    func getStatusString(status: DSTremorStatus) -> String {
+    func getStatusString(status: HTDTremorStatus) -> String {
         switch status {
         case .started: return "Started"
         case .stopped: return "Stopped"
@@ -84,7 +84,7 @@ class MeasurementViewController: UIViewController {
         }
     }
     
-    func getWarningString(warning: DSTremorWarning) -> String {
+    func getWarningString(warning: HTDTremorWarning) -> String {
         switch warning {
         case .noWarning: return "No warning"
         case .movementDetected: return "Movement detected"
@@ -94,24 +94,24 @@ class MeasurementViewController: UIViewController {
     }
 }
 
-extension MeasurementViewController: DSTremorDetectionDelegate {
+extension MeasurementViewController: HTDTremorDetectionDelegate {
     
     func onProgressUpdated(_ percentCompleted: Int) {
         progressLabel.text = "\(percentCompleted) %"
     }
     
-    func onMeasurementCompleted(_ tremorResult: DSTremorResult, confidence: CGFloat) {
+    func onMeasurementCompleted(_ tremorResult: HTDTremorResult, confidence: CGFloat) {
         let vc = StoryboardService.shared.getCompletedViewController()
         vc.tremorData = MeasurementService.shared.tremorDetectionSDK.exportData()
         vc.tremorDataString = MeasurementService.shared.tremorDetectionSDK.exportFileName()
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    func onStatusReceived(_ status: DSTremorStatus) {
+    func onStatusReceived(_ status: HTDTremorStatus) {
         statusLabel.text = "Status: \(getStatusString(status: status))"
     }
     
-    func onWarningReceived(_ warning: DSTremorWarning) {
+    func onWarningReceived(_ warning: HTDTremorWarning) {
         warningLabel.text = "Warning: \(getWarningString(warning: warning))"
     }
     

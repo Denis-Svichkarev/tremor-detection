@@ -11,7 +11,7 @@ class MeasurementService: NSObject {
 
     static let shared = MeasurementService()
     
-    let tremorDetectionSDK = DSTremorDetectionSDK()
+    let tremorDetectionSDK = HTDTremorDetectionSDK()
     
     private override init() {}
     
