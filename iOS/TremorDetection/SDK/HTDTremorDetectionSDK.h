@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) id<HTDTremorDetectionDelegate> delegate;
 
+- (HTDTremorDetectionSDKMode)getMode;
+
 - (HTDTremorDetectionSDKError)configureMeasurementTime:(NSInteger)measurementTime;
 - (void)configureMode:(HTDTremorDetectionSDKMode)mode;
 - (void)configureUserID:(NSString *)userID;

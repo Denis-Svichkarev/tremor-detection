@@ -54,6 +54,10 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
     return _measurementTime;
 }
 
+- (HTDTremorDetectionSDKMode)getMode {
+    return _mode;
+}
+
 #pragma mark - Configurations
 
 - (HTDTremorDetectionSDKError)configureMeasurementTime:(NSInteger)measurementTime {

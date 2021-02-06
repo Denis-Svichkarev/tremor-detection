@@ -23,7 +23,15 @@ class FirebaseService: NSObject {
         let storage = Storage.storage()
         let storageRef = storage.reference()
 
-        let csvRef = storageRef.child("/iOS/" + fileName)
+        var folder = ""
+        
+        if MeasurementService.shared.tremorDetectionSDK.getMode() == .normal {
+            folder = "/iOS/Movement/"
+        } else if MeasurementService.shared.tremorDetectionSDK.getMode() == .simulation {
+            folder = "/iOS/Simulation/"
+        }
+        
+        let csvRef = storageRef.child(folder + fileName)
         let metadata = StorageMetadata()
         metadata.contentType = "text/csv";
 
