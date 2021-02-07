@@ -6,20 +6,26 @@ clear all
 movementData = get_tremor_data("Movement");
 simulationData = get_tremor_data("Simulation");
 
-% Butterworth filter at 0.3 Hz
+% FFT
 
-movementTimestamps = movementData{1}.timestamp;
-movementValues = movementData{1}.x;
+N = length(movementData);
 
-tremorTimestamps = simulationData{1}.timestamp;
-tremorValues = simulationData{1}.x;
+for i = 1:N
+    [amplitudes, frequencies] = get_frequencies_spectrum(movementData{i}.y);
 
-[a, b] = butter(3, 0.3, 'high');
+    plot(frequencies, amplitudes, 'r'); hold on;
+    title('Single-Sided Amplitude Spectrum of X(t)')
+    xlabel('f (Hz)')
+    ylabel('A')
+end
 
-filteredMovementValues = filtfilt(a, b, movementValues);
-filteredTremorValues = filtfilt(a, b, tremorValues);
+M = length(simulationData);
 
-plot(movementTimestamps, filteredMovementValues, 'r'); hold on;
-plot(tremorTimestamps, filteredTremorValues, 'b'); hold on;
-xlabel('Timestamp');
-ylabel('X');
+for i = 1:M
+    [amplitudes, frequencies] = get_frequencies_spectrum(simulationData{i}.y);
+
+    plot(frequencies, amplitudes, 'b'); hold on;
+    title('Single-Sided Amplitude Spectrum of X(t)')
+    xlabel('f (Hz)')
+    ylabel('A')
+end
