@@ -6,8 +6,8 @@ const storage = new Storage({
 
 const bucketName = 'tremordetection.appspot.com';
 
-const iosSimulationFolder = './iOS/Simulation/';
-const iosMovementFolder = './iOS/Movement/';
+const data1_ios_simulation_folder = './iOS/Simulation/data1/';
+const data6_ios_simulation_folder = './iOS/Simulation/data6/';
 
 const fs = require('fs');
 const util = require('util');
@@ -22,33 +22,33 @@ function uploadFile(filename, folder) {
 	});
 };
 
-const uploadSimulationFiles = async function() {
+const uploadIOSData1Files = async function() {
 	const readdir = util.promisify(fs.readdir);
 
 	let names;
 	try {
-	    files = await readdir(iosSimulationFolder);
+	    files = await readdir(data1_ios_simulation_folder);
 	    for (const file of files) {
-			await uploadFile(file, 'Simulation');
+			await uploadFile(file, 'Simulation/data1');
 		}
 	} catch (err) {
 	    console.log(err);
 	}
 }
 
-const uploadMovementFiles = async function() {
+const uploadIOSData6Files = async function() {
 	const readdir = util.promisify(fs.readdir);
 
 	let names;
 	try {
-	    files = await readdir(iosMovementFolder);
+	    files = await readdir(data6_ios_simulation_folder);
 	    for (const file of files) {
-			await uploadFile(file, 'Movement');
+			await uploadFile(file, 'Simulation/data6');
 		}
 	} catch (err) {
 	    console.log(err);
 	}
 }
 
-uploadSimulationFiles();
-uploadMovementFiles();
+uploadIOSData1Files();
+uploadIOSData6Files();

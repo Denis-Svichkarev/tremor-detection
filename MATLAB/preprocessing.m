@@ -1,15 +1,29 @@
 % Preprocessing
 
+%% Welch
+
+close all
+clear all
+
+movementData = get_tremor_data("Simulation/data6");
+simulationData = get_tremor_data("Simulation/data1");
+
+pxx1 = pwelch(movementData{1}.z(401:801));
+pxx2 = pwelch(simulationData{1}.z(401:801));
+
+plot(pxx1, 'b'); hold on;
+plot(pxx2, 'r'); hold on;
+
 %% Extract 3-9 Hz frequencies
 
 close all
 clear all
 
-movementData = get_tremor_data("Movement");
-simulationData = get_tremor_data("Simulation");
+movementData = get_tremor_data("Simulation/data6");
+simulationData = get_tremor_data("Simulation/data1");
 
-[amplitudes1, frequencies1] = get_frequencies_spectrum(movementData{1}.x(1:401));
-[amplitudes2, frequencies2] = get_frequencies_spectrum(simulationData{1}.x(1:401));
+[amplitudes1, frequencies1] = get_frequencies_spectrum(movementData{1}.z(1:401));
+[amplitudes2, frequencies2] = get_frequencies_spectrum(simulationData{1}.z(1:401));
 
 % plot(frequencies, amplitudes, 'r'); hold on;
 % title('X(t), 4 sec')
@@ -41,6 +55,14 @@ plot(rangedFrequencies2, rangedAmplitudess2, 'r'); hold on;
 title('X(t), 4 sec')
 xlabel('f (Hz)')
 ylabel('A')
+
+% Basic features
+
+m1 = mean(rangedAmplitudess1);
+m2 = mean(rangedAmplitudess2);
+
+
+
 
 %% FFT
 
