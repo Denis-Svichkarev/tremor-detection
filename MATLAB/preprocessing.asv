@@ -1,29 +1,55 @@
 % Preprocessing
 
+%% Extract 3-9 Hz frequencies
+
+close all
+clear all
+
+simulationData = get_tremor_data("Simulation");
+
+[amplitudes, frequencies] = get_frequencies_spectrum(simulationData{1}.x(100:500));
+
+plot(frequencies, amplitudes, 'r'); hold on;
+title('X(t), 4 sec')
+xlabel('f (Hz)')
+ylabel('A')
+
+rangedFrequencies = [];
+rangedAmplitudess = [];
+
+for i = 1:length(frequencies)
+    if frequencies(i) >= 3 && frequencies(i) <= 9 
+        rangedFrequencies = [rangedFrequencies, frequencies(i)];
+        rangedAmplitudess = [rangedAmplitudess, amplitudes(i)];
+    end
+end
+
+%% FFT
+
 close all
 clear all
 
 movementData = get_tremor_data("Movement");
 simulationData = get_tremor_data("Simulation");
 
-% FFT
+N = length(movementData);
 
 for i = 1:N
-
-    [amplitudes, frequencies] = get_frequencies_spectrum(movementData{2}.x);
+    [amplitudes, frequencies] = get_frequencies_spectrum(movementData{i}.x);
 
     plot(frequencies, amplitudes, 'r'); hold on;
     title('Single-Sided Amplitude Spectrum of X(t)')
     xlabel('f (Hz)')
     ylabel('A')
-
 end
 
-% Butterworth filter at 0.3 Hz
+M = length(simulationData);
 
-% [a, b] = butter(3, 0.3, 'high');
-% filteredMovementValues = filtfilt(a, b, amplitudes);
-%  
-% plot(frequencies, filteredMovementValues, 'b'); hold on;
-% xlabel('Timestamp');
-% ylabel('X');
+for i = 1:M
+    [amplitudes, frequencies] = get_frequencies_spectrum(simulationData{i}.x);
+
+    plot(frequencies, amplitudes, 'b'); hold on;
+    title('Single-Sided Amplitude Spectrum of X(t)')
+    xlabel('f (Hz)')
+    ylabel('A')
+end
