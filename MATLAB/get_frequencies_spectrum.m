@@ -1,4 +1,4 @@
-%% Get tremor data from folder
+% Get tremor data from folder
 function [amplitudes, frequencies] = get_frequencies_spectrum(signal) 
     timewindow = signal;
     Fs = 100; % sampling frequency
@@ -7,9 +7,9 @@ function [amplitudes, frequencies] = get_frequencies_spectrum(signal)
     Y = fft(timewindow);
 
     P2 = abs(Y / L);
-    P1 = P2(1:L/2+1);
+    P1 = P2(1:floor(L/2)+1);
     P1(2:end-1) = 2 * P1(2:end-1);
-    f = Fs * (0:(L/2))/L;
+    f = Fs * (0:floor(L/2))/L;
 
     amplitudes = P1;
     frequencies = f;
