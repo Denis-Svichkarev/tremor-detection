@@ -1,4 +1,4 @@
-% Get tremor data from folder
+% FFT spectrum from signal
 function [amplitudes, frequencies] = get_frequencies_spectrum(signal) 
     timewindow = signal;
     Fs = 100; % sampling frequency
@@ -13,9 +13,7 @@ function [amplitudes, frequencies] = get_frequencies_spectrum(signal)
 
     amplitudes = P1;
     frequencies = f;
-
-    % plot(f, P1, 'r'); hold on;
-
+    
     % fs = 100;               % sampling frequency
     % t = 0:(1/fs):(10-1/fs); % time vector
     % 

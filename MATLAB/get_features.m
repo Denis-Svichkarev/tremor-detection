@@ -1,5 +1,5 @@
-% Extract 3-9 Hz frequencies
-function [freq, amp, M] = get_features(amplitudes, frequencies, color)
+% Extract 3-9 Hz frequencies and basic characteristics
+function [freq, amp, M, S, M2, maxValue, minValue] = get_features(amplitudes, frequencies, color)
     min_tremor_freq = 3.0;
     max_tremor_freq = 9.0;
 
@@ -21,5 +21,9 @@ function [freq, amp, M] = get_features(amplitudes, frequencies, color)
     % Basic features
 
     M = mean(amp);
+    S = std(amp);
+    M2 = median(amp);
+    maxValue = max(amp);
+    minValue = min(amp);
 end
  
