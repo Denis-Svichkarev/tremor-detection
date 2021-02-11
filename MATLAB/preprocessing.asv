@@ -1,4 +1,4 @@
-% Preprocessing
+%% Preprocessing
 
 close all
 clear all
@@ -11,16 +11,16 @@ timewindow_size_milisec = 400;
 [data1_features] = extract_features_in_timewindow(data1, timewindow_size_milisec, 'r');
 [data6_features] = extract_features_in_timewindow(data6, timewindow_size_milisec, 'b');
 
-% p
+%% Plot Mean values
 
 data1_M = [];
 for i = 1:length(data1_features)
-    data1_M = [data1_M; data1_features{i, 7}];
+    data1_M = [data1_M; data1_features{7, i}];
 end
 
 data6_M = [];
 for i = 1:length(data6_features)
-    data6_M = [data6_M; data6_features{i, 7}];
+    data6_M = [data6_M; data6_features{i, 38}];
 end
 
 plot(data1_M, 'r'); hold on;

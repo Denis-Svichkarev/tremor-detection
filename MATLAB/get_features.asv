@@ -1,5 +1,5 @@
-% Extract 3-9 Hz frequencies
-function [freq, amp, M, S, M2, maxValue, minValue] = get_features(amplitudes, frequencies, color)
+% Extract 3-9 Hz frequencies and basic characteristics
+function [freq, amp, M, S, M2, maxValue, minValue, ecdf_f, ecdf_x, E, I, Q] = get_features(amplitudes, frequencies, color)
     min_tremor_freq = 3.0;
     max_tremor_freq = 9.0;
 
@@ -18,18 +18,23 @@ function [freq, amp, M, S, M2, maxValue, minValue] = get_features(amplitudes, fr
 %     xlabel('f (Hz)')
 %     ylabel('A')
 
-    % Basic features
+    % Time domain features
+
+    % ...
+    
+    % Frequency domain features
 
     M = mean(amp);
     S = std(amp);
     M2 = median(amp);
     maxValue = max(amp);
     minValue = min(amp);
+    [ecdf_f,ecdf_x] = ecdf(amp);
+    E = entropy(amp);
+    I = iqr(amp);
+    Q = trapz(amp);
     
-    N = 250; % window length
-Fs = 500; % sample frequency
-df = Fs/N; % frequency increment
-y_squared = (y/Fs)*conj(y/Fs);  % Fs is used to normalize the FFT amplitudes
-energy_10Hz_to_90Hz = 2*sum(y_squared( f>=10 & f<=90,: ))*df;
+    SK = skewness(amp);
+    
 end
  
