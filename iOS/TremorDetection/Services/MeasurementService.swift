@@ -25,6 +25,11 @@ class MeasurementService: NSObject {
         get { return loadMeasurementTime() }
     }
     
+    var exerciseNumber: String? {
+        set { saveExerciseNumber(number: newValue) }
+        get { return loadExerciseNumber() }
+    }
+    
     // MARK: - UserDefaults
     
     private func saveUserID(id: String?) {
@@ -43,5 +48,14 @@ class MeasurementService: NSObject {
     
     private func loadMeasurementTime() -> String? {
         UserDefaults.standard.string(forKey: kMeasurementTimeKey)
+    }
+    
+    private func saveExerciseNumber(number: String?) {
+        UserDefaults.standard.set(number, forKey: kExerciseNumberKey)
+        UserDefaults.standard.synchronize()
+    }
+    
+    private func loadExerciseNumber() -> String? {
+        UserDefaults.standard.string(forKey: kExerciseNumberKey)
     }
 }

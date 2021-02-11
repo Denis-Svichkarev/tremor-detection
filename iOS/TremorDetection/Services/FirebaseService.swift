@@ -26,9 +26,15 @@ class FirebaseService: NSObject {
         var folder = ""
         
         if MeasurementService.shared.tremorDetectionSDK.getMode() == .normal {
-            folder = "/iOS/Movement/"
+            folder = "/iOS/All/"
+            
         } else if MeasurementService.shared.tremorDetectionSDK.getMode() == .simulation {
-            folder = "/iOS/Simulation/"
+            if let exerciseNumber = MeasurementService.shared.exerciseNumber {
+                folder = "/iOS/Simulation/data\(exerciseNumber)/"
+                
+            } else {
+                folder = "/iOS/All/"
+            }
         }
         
         let csvRef = storageRef.child(folder + fileName)

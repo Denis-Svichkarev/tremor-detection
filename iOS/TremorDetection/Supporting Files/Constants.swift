@@ -9,3 +9,4 @@ import Foundation
 
 let kUserIDKey = "kUserIDKey"
 let kMeasurementTimeKey = "kMeasurementTimeKey"
+let kExerciseNumberKey = "kExerciseNumberKey"
