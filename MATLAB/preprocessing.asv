@@ -4,27 +4,41 @@ close all
 clear all
 
 data1 = get_tremor_data("Simulation/data1");
+data2 = get_tremor_data("Simulation/data2");
+data3 = get_tremor_data("Simulation/data3");
+data4 = get_tremor_data("Simulation/data4");
+data5 = get_tremor_data("Simulation/data");
 data6 = get_tremor_data("Simulation/data6");
+data7 = get_tremor_data("Simulation/data1");
+data8= get_tremor_data("Simulation/data1");
+data9 = get_tremor_data("Simulation/data1");
+data10 = get_tremor_data("Simulation/data1");
+data11 = get_tremor_data("Simulation/data1");
+data12 = get_tremor_data("Simulation/data1");
+data13 = get_tremor_data("Simulation/data1");
+data14 = get_tremor_data("Simulation/data1");
+data15 = get_tremor_data("Simulation/data1");
+data16 = get_tremor_data("Simulation/data1");
 
 timewindow_size_milisec = 400;
 
 [data1_features] = extract_features_in_timewindow(data1, timewindow_size_milisec, 'r');
 [data6_features] = extract_features_in_timewindow(data6, timewindow_size_milisec, 'b');
 
-%% Plot Mean values
+%% Plot Features
 
 data1_M = [];
-for i = 1:length(data1_features)
-    data1_M = [data1_M; data1_features{7, i}];
+for i = 1:size(data1_features, 1)
+    data1_M = [data1_M; data1_features{i, 73}];
 end
 
 data6_M = [];
-for i = 1:length(data6_features)
-    data6_M = [data6_M; data6_features{i, 38}];
+for i = 1:size(data6_features, 1)
+    data6_M = [data6_M; data6_features{i, 73}];
 end
 
 plot(data1_M, 'r'); hold on;
 plot(data6_M, 'b'); hold on;
-title('Mean (x axis)')
+title('Feature (x axis)')
 xlabel('x')
 ylabel('y')
