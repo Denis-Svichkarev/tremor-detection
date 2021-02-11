@@ -11,13 +11,13 @@ function [data_features] = extract_features_in_timewindow(data, timewindow_size_
                 if j + timewindow_size_milisec <= measurement_time
                     
                     [amplitudes_X, frequencies_X] = get_frequencies_spectrum(data{i}.x(j:j + timewindow_size_milisec));
-                    [freq_X, amp_X, M_X, S_X, M2_X, maxValue_X, minValue_X, ecdf_f_X, ecdf_x_X, entropy_X, I_X, Q_X, SK_X, K_X, W_X, M_T_X, S_T_X] = get_features(amplitudes_X, frequencies_X, color);
+                    [freq_X, amp_X, M_X, S_X, M2_X, maxValue_X, minValue_X, ecdf_f_X, ecdf_x_X, entropy_X, I_X, Q_X, SK_X, K_X, W_X, M_T_X, S_T_X, M2_T_X, maxValue_T_X, minValue_T_X, ecdf_f_T_X, ecdf_x_T_X, E_T_X, I_T_X, Q_T_X] = get_features(amplitudes_X, frequencies_X, color);
 
                     [amplitudes_Y, frequencies_Y] = get_frequencies_spectrum(data{i}.y(j:j + timewindow_size_milisec));
-                    [freq_Y, amp_Y, M_Y, S_Y, M2_Y, maxValue_Y, minValue_Y, ecdf_f_Y, ecdf_x_Y, entropy_Y, I_Y, Q_Y, SK_Y, K_Y, W_Y, M_T_Y, S_T_Y] = get_features(amplitudes_Y, frequencies_Y, color);
+                    [freq_Y, amp_Y, M_Y, S_Y, M2_Y, maxValue_Y, minValue_Y, ecdf_f_Y, ecdf_x_Y, entropy_Y, I_Y, Q_Y, SK_Y, K_Y, W_Y, M_T_Y, S_T_Y, M2_T_Y, maxValue_T_Y, minValue_T_Y, ecdf_f_T_Y, ecdf_x_T_Y, E_T_Y, I_T_Y, Q_T_Y] = get_features(amplitudes_Y, frequencies_Y, color);
 
                     [amplitudes_Z, frequencies_Z] = get_frequencies_spectrum(data{i}.z(j:j + timewindow_size_milisec));
-                    [freq_Z, amp_Z, M_Z, S_Z, M2_Z, maxValue_Z, minValue_Z, ecdf_f_Z, ecdf_x_Z, entropy_Z, I_Z, Q_Z, SK_Z, K_Z, W_Z, M_T_Z, S_T_Z] = get_features(amplitudes_Z, frequencies_Z, color);
+                    [freq_Z, amp_Z, M_Z, S_Z, M2_Z, maxValue_Z, minValue_Z, ecdf_f_Z, ecdf_x_Z, entropy_Z, I_Z, Q_Z, SK_Z, K_Z, W_Z, M_T_Z, S_T_Z, M2_T_Z, maxValue_T_Z, minValue_T_Z, ecdf_f_T_Z, ecdf_x_T_Z, E_T_Z, I_T_Z, Q_T_Z] = get_features(amplitudes_Z, frequencies_Z, color);
 
                     % Frequency domain features
                     
@@ -90,6 +90,38 @@ function [data_features] = extract_features_in_timewindow(data, timewindow_size_
                     data_features{index, 49} = S_T_X;
                     data_features{index, 50} = S_T_Y;
                     data_features{index, 51} = S_T_Z;
+                    
+                    data_features{index, 52} = M2_T_X;
+                    data_features{index, 53} = M2_T_Y;
+                    data_features{index, 54} = M2_T_Z;
+                    
+                    data_features{index, 55} = maxValue_T_X;
+                    data_features{index, 56} = maxValue_T_Y;
+                    data_features{index, 57} = maxValue_T_Z;
+                    
+                    data_features{index, 58} = minValue_T_X;
+                    data_features{index, 59} = minValue_T_Y;
+                    data_features{index, 60} = minValue_T_Z;
+                    
+                    data_features{index, 61} = ecdf_f_T_X;
+                    data_features{index, 62} = ecdf_f_T_Y;
+                    data_features{index, 63} = ecdf_f_T_Z;
+                    
+                    data_features{index, 64} = ecdf_x_T_X;
+                    data_features{index, 65} = ecdf_x_T_Y;
+                    data_features{index, 66} = ecdf_x_T_Z;
+                    
+                    data_features{index, 67} = E_T_X;
+                    data_features{index, 68} = E_T_Y;
+                    data_features{index, 69} = E_T_Z;
+                    
+                    data_features{index, 70} = I_T_X;
+                    data_features{index, 71} = I_T_Y;
+                    data_features{index, 72} = I_T_Z;
+                    
+                    data_features{index, 73} = Q_T_X;
+                    data_features{index, 74} = Q_T_Y;
+                    data_features{index, 75} = Q_T_Z;
                     
                     index = index + 1;
                 end

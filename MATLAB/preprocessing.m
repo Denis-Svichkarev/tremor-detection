@@ -15,12 +15,12 @@ timewindow_size_milisec = 400;
 
 data1_M = [];
 for i = 1:size(data1_features, 1)
-    data1_M = [data1_M; data1_features{i, 10}];
+    data1_M = [data1_M; data1_features{i, 73}];
 end
 
 data6_M = [];
 for i = 1:size(data6_features, 1)
-    data6_M = [data6_M; data6_features{i, 10}];
+    data6_M = [data6_M; data6_features{i, 73}];
 end
 
 plot(data1_M, 'r'); hold on;
