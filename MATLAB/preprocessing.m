@@ -26,22 +26,22 @@ timewindow_size_milisec = 400;
 [data2_features] = extract_features_in_timewindow(data2, timewindow_size_milisec, 'r');
 [data3_features] = extract_features_in_timewindow(data3, timewindow_size_milisec, 'r');
 [data4_features] = extract_features_in_timewindow(data4, timewindow_size_milisec, 'r');
-[data5_features] = extract_features_in_timewindow(data5, timewindow_size_milisec, 'c');
-[data6_features] = extract_features_in_timewindow(data6, timewindow_size_milisec, 'c');
-[data7_features] = extract_features_in_timewindow(data7, timewindow_size_milisec, 'c');
-[data8_features] = extract_features_in_timewindow(data8, timewindow_size_milisec, 'c');
-[data9_features] = extract_features_in_timewindow(data9, timewindow_size_milisec, 'g');
-[data10_features] = extract_features_in_timewindow(data10, timewindow_size_milisec, 'g');
-[data11_features] = extract_features_in_timewindow(data11, timewindow_size_milisec, 'g');
-[data12_features] = extract_features_in_timewindow(data12, timewindow_size_milisec, 'g');
+[data5_features] = extract_features_in_timewindow(data5, timewindow_size_milisec, 'r');
+[data6_features] = extract_features_in_timewindow(data6, timewindow_size_milisec, 'r');
+[data7_features] = extract_features_in_timewindow(data7, timewindow_size_milisec, 'r');
+[data8_features] = extract_features_in_timewindow(data8, timewindow_size_milisec, 'r');
+[data9_features] = extract_features_in_timewindow(data9, timewindow_size_milisec, 'r');
+[data10_features] = extract_features_in_timewindow(data10, timewindow_size_milisec, 'r');
+[data11_features] = extract_features_in_timewindow(data11, timewindow_size_milisec, 'r');
+[data12_features] = extract_features_in_timewindow(data12, timewindow_size_milisec, 'r');
 [data13_features] = extract_features_in_timewindow(data13, timewindow_size_milisec, 'b');
 [data14_features] = extract_features_in_timewindow(data14, timewindow_size_milisec, 'b');
 [data15_features] = extract_features_in_timewindow(data15, timewindow_size_milisec, 'b');
-[data16_features] = extract_features_in_timewindow(data16, timewindow_size_milisec, 'b');
+[data16_features] = extract_features_in_timewindow(data16, timewindow_size_milisec, 'g');
 
 %% Plot Features
 
-selected_feature = 19;
+selected_feature = 34;
 
 data1_M = [];
 for i = 1:size(data1_features, 1)
@@ -127,18 +127,18 @@ plot(data1_M, 'r'); hold on;
 plot(data2_M, 'r'); hold on;
 plot(data3_M, 'r'); hold on;
 plot(data4_M, 'r'); hold on;
-plot(data5_M, 'c'); hold on;
-plot(data6_M, 'c'); hold on;
-plot(data7_M, 'c'); hold on;
-plot(data8_M, 'c'); hold on;
-plot(data9_M, 'g'); hold on;
-plot(data10_M, 'g'); hold on;
-plot(data11_M, 'g'); hold on;
-plot(data12_M, 'g'); hold on;
+plot(data5_M, 'r'); hold on;
+plot(data6_M, 'r'); hold on;
+plot(data7_M, 'r'); hold on;
+plot(data8_M, 'r'); hold on;
+plot(data9_M, 'r'); hold on;
+plot(data10_M, 'r'); hold on;
+plot(data11_M, 'r'); hold on;
+plot(data12_M, 'r'); hold on;
 plot(data13_M, 'b'); hold on;
 plot(data14_M, 'b'); hold on;
 plot(data15_M, 'b'); hold on;
-plot(data16_M, 'b'); hold on;
+plot(data16_M, 'g'); hold on;
 
 title('Feature (x axis)')
 xlabel('x')
