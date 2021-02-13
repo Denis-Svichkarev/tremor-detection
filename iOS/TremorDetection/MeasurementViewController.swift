@@ -112,6 +112,14 @@ extension MeasurementViewController: HTDTremorDetectionDelegate {
     }
     
     func onWarningReceived(_ warning: HTDTremorWarning) {
+        if warning == .tremorDetected {
+            warningLabel.textColor = .red
+        } else if warning == .movementDetected {
+            warningLabel.textColor = .orange
+        } else if warning == .noWarning {
+            warningLabel.textColor = .black
+        }
+        
         warningLabel.text = "Warning: \(getWarningString(warning: warning))"
     }
     
