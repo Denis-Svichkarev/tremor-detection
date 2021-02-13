@@ -1,5 +1,5 @@
 % Extract 3-9 Hz frequencies and basic characteristics
-function [freq, amp, M, S, M2, maxValue, minValue, ecdf_f, ecdf_x, E, I, Q, SK, K, W, M_T, S_T, M2_T, maxValue_T, minValue_T, ecdf_f_T, ecdf_x_T, E_T, I_T, Q_T] = get_features(amplitudes, frequencies, color)
+function [freq, amp, M, S, M2, maxValue, minValue, ecdf_f, ecdf_x, I, Q, SK, K, W, M_T, S_T, M2_T, maxValue_T, minValue_T, ecdf_f_T, ecdf_x_T, I_T, Q_T] = get_features(amplitudes, frequencies)
     min_tremor_freq = 3.0;
     max_tremor_freq = 9.0;
 
@@ -21,7 +21,7 @@ function [freq, amp, M, S, M2, maxValue, minValue, ecdf_f, ecdf_x, E, I, Q, SK, 
     maxValue = max(amp);
     minValue = min(amp);
     [ecdf_f, ecdf_x] = ecdf(amp);
-    E = entropy(amp);
+    %E = entropy(amp);
     I = iqr(amp);
     Q = trapz(amp);
     
@@ -37,7 +37,7 @@ function [freq, amp, M, S, M2, maxValue, minValue, ecdf_f, ecdf_x, E, I, Q, SK, 
     maxValue_T = max(amplitudes);
     minValue_T = min(amplitudes);
     [ecdf_f_T, ecdf_x_T] = ecdf(amplitudes);
-    E_T = entropy(amplitudes);
+    %E_T = entropy(amplitudes);
     I_T = iqr(amplitudes);
     Q_T = trapz(amplitudes);
 end

@@ -1,0 +1,11 @@
+close all
+clear all
+
+model = loadLearnerForCoder('SVM_Accelerometer_Model');
+label1 = classify_accelerometer_data([0.04,0.05,0.08,0.02,0.01,0.04]);
+label2 = classify_accelerometer_data([0.001,0.0021,0.0023,0.0004,0.0005,0.002]);
+label3 = classify_accelerometer_data([0.000647399906035301,0.000670152757610268,0.000570581209109132,0.000301201453286081,0.000300053257889005,0.000274247696707663]);
+
+label1
+label2
+label3

@@ -1,0 +1,11 @@
+close all
+clear all
+
+data1 = get_tremor_data("Simulation/data1");
+timewindow_size_milisec = 400;
+
+[data1_features] = extract_features_in_timewindow(data1, timewindow_size_milisec, 'r');
+
+col; = 
+T = array2table(data1_features{1, 2}, 'VariableNames', Columns);
+writetable(T, 'accelerometer_data.csv');

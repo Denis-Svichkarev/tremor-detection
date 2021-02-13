@@ -5,6 +5,7 @@
 //  Created by Denis Svichkarev on 25.11.2020.
 //
 
+#import <CoreMotion/CoreMotion.h>
 #import <Foundation/Foundation.h>
 #import "HTDTremorResult.h"
 #import "HTDTremorDetectionSDKError.h"
