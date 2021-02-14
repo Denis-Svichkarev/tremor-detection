@@ -1,3 +1,5 @@
+%% SVM model
+
 load accelerometer_data
 
 X = accelerometer_data{:, [1:end-1]};
@@ -6,37 +8,20 @@ Y = accelerometer_data{:, end};
 model = fitcecoc(X,Y);
 saveLearnerForCoder(model,'SVM_Accelerometer_Model');
 
-%% 
+%% SVM model with score
 
-t = templateSVM('Standardize',true,'SaveSupportVectors',true);
-predictorNames = {'M_X','M_Y','M_Z','S_X','S_Y','S_Z', 'S_X','S_Y','S_Z'};
-responseName = 'irisSpecies';
+load accelerometer_data
+
+X = accelerometer_data{:, [1:end-1]};
+Y = accelerometer_data{:, end}; 
+
 classNames = {'Tremor','Movement','Motionless'};
+t = templateSVM('Standardize',true,'KernelFunction','gaussian');
 
-Mdl = fitcecoc(X,Y,'Learners',t,'ResponseName',responseName,...
-    'PredictorNames',predictorNames,'ClassNames',classNames);
+model = fitcecoc(X,Y,'Learners',t,'FitPosterior',true, ...
+     'ClassNames', classNames, ...
+      'Verbose', 2);
 
-L = size(Mdl.CodingMatrix,2); % Number of SVMs
-sv = cell(L,1); % Preallocate for support vector indices
-for j = 1:L
-    SVM = Mdl.BinaryLearners{j};
-    sv{j} = SVM.SupportVectors;
-    sv{j} = sv{j}.*SVM.Sigma + SVM.Mu;
-end
+%[label,~,~,Posterior] = resubPredict(model,'Verbose',1);
 
-figure
-gscatter(X(:,1),X(:,2),Y);
-hold on
-markers = {'ko','ro','bo'}; % Should be of length L
-for j = 1:L
-    svs = sv{j};
-    plot(svs(:,1),svs(:,2),markers{j},...
-        'MarkerSize',10 + (j - 1)*3);
-end
-title('Fisher''s Iris -- ECOC Support Vectors')
-xlabel(predictorNames{1})
-ylabel(predictorNames{2})
-legend([classNames,{'Support vectors - SVM 1',...
-    'Support vectors - SVM 2','Support vectors - SVM 3'}],...
-    'Location','Best')
-hold off
+save('SVM_Accelerometer_Score_Model.mat','model');
