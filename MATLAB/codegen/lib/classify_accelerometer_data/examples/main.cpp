@@ -2,7 +2,7 @@
 // File: main.cpp
 //
 // MATLAB Coder version            : 5.1
-// C/C++ source code generated on  : 14-Feb-2021 13:23:25
+// C/C++ source code generated on  : 17-Feb-2021 12:44:00
 //
 
 //***********************************************************************
@@ -36,7 +36,6 @@
 #include "classify_accelerometer_data_terminate.h"
 #include "classify_accelerometer_data_types.h"
 #include "rt_nonfinite.h"
-#include <string.h>
 
 // Function Declarations
 static void argInit_1x48_real_T(double result[48]);
@@ -75,12 +74,13 @@ static void main_classify_accelerometer_data()
 {
   cell_wrap_0 label[1];
   double dv[48];
+  double p[2];
 
   // Initialize function 'classify_accelerometer_data' input arguments.
   // Initialize function input argument 'X'.
   // Call the entry-point 'classify_accelerometer_data'.
   argInit_1x48_real_T(dv);
-  classify_accelerometer_data(dv, label);
+  classify_accelerometer_data(dv, label, p);
 }
 
 //

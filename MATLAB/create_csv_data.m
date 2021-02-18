@@ -1,3 +1,5 @@
+%% Load data
+
 close all
 clear all
 
@@ -20,428 +22,105 @@ data16 = get_tremor_data("Simulation/data16");
 
 timewindow_size_milisec = 200;
 
-[data1_features] = extract_features_in_timewindow(data1, timewindow_size_milisec);
-[data2_features] = extract_features_in_timewindow(data2, timewindow_size_milisec);
-[data3_features] = extract_features_in_timewindow(data3, timewindow_size_milisec);
-[data4_features] = extract_features_in_timewindow(data4, timewindow_size_milisec);
-[data5_features] = extract_features_in_timewindow(data5, timewindow_size_milisec);
-[data6_features] = extract_features_in_timewindow(data6, timewindow_size_milisec);
-[data7_features] = extract_features_in_timewindow(data7, timewindow_size_milisec);
-[data8_features] = extract_features_in_timewindow(data8, timewindow_size_milisec);
-[data9_features] = extract_features_in_timewindow(data9, timewindow_size_milisec);
-[data10_features] = extract_features_in_timewindow(data10, timewindow_size_milisec);
-[data11_features] = extract_features_in_timewindow(data11, timewindow_size_milisec);
-[data12_features] = extract_features_in_timewindow(data12, timewindow_size_milisec);
-[data13_features] = extract_features_in_timewindow(data13, timewindow_size_milisec);
-[data14_features] = extract_features_in_timewindow(data14, timewindow_size_milisec);
-[data15_features] = extract_features_in_timewindow(data15, timewindow_size_milisec);
-[data16_features] = extract_features_in_timewindow(data16, timewindow_size_milisec);
+data1_features = extract_features_in_timewindow(data1, timewindow_size_milisec);
+data2_features = extract_features_in_timewindow(data2, timewindow_size_milisec);
+data3_features = extract_features_in_timewindow(data3, timewindow_size_milisec);
+data4_features = extract_features_in_timewindow(data4, timewindow_size_milisec);
+data5_features = extract_features_in_timewindow(data5, timewindow_size_milisec);
+data6_features = extract_features_in_timewindow(data6, timewindow_size_milisec);
+data7_features = extract_features_in_timewindow(data7, timewindow_size_milisec);
+data8_features = extract_features_in_timewindow(data8, timewindow_size_milisec);
+data9_features = extract_features_in_timewindow(data9, timewindow_size_milisec);
+data10_features = extract_features_in_timewindow(data10, timewindow_size_milisec);
+data11_features = extract_features_in_timewindow(data11, timewindow_size_milisec);
+data12_features = extract_features_in_timewindow(data12, timewindow_size_milisec);
+data13_features = extract_features_in_timewindow(data13, timewindow_size_milisec);
+data14_features = extract_features_in_timewindow(data14, timewindow_size_milisec);
+data15_features = extract_features_in_timewindow(data15, timewindow_size_milisec);
+data16_features = extract_features_in_timewindow(data16, timewindow_size_milisec);
 
-columns = {
-    'FREQ_X_1', 'FREQ_X_2', 'FREQ_X_3', 'FREQ_X_4', 'FREQ_X_5', 'FREQ_X_6', 'FREQ_X_7', 'FREQ_X_8', 'FREQ_X_9', 'FREQ_X_10', 'FREQ_X_11', 'FREQ_X_12', 'FREQ_X_13', ...
-    'FREQ_Y_1', 'FREQ_Y_2', 'FREQ_Y_3', 'FREQ_Y_4', 'FREQ_Y_5', 'FREQ_Y_6', 'FREQ_Y_7', 'FREQ_Y_8', 'FREQ_Y_9', 'FREQ_Y_10', 'FREQ_Y_11', 'FREQ_Y_12', 'FREQ_Y_13', ...
-    'FREQ_Z_1', 'FREQ_Z_2', 'FREQ_Z_3', 'FREQ_Z_4', 'FREQ_Z_5', 'FREQ_Z_6', 'FREQ_Z_7', 'FREQ_Z_8', 'FREQ_Z_9', 'FREQ_Z_10', 'FREQ_Z_11', 'FREQ_Z_12', 'FREQ_Z_13', ...
-    'M_X', 'M_Y', 'M_Z', 'S_X', 'S_Y', 'S_Z', 'M2_X', 'M2_Y', 'M2_Z', ...
-    'CLASS'
-};
+all_features = {data1_features, data2_features, data3_features, data4_features, data5_features ...
+    data6_features, data7_features, data8_features, data9_features, data10_features, data11_features ...
+    data12_features, data13_features, data14_features, data15_features, data16_features};
+
+%% Data for classificator with three classes
+
 class1 = 'Tremor';
 class2 = 'Movement';
 class3 = 'Motionless';
 
 table = [];
 
-min_feature = 7;
-max_feature = 15;
-
-% Tremor data
-
-for i = 1:size(data1_features, 1)
-    features = {};
+for i = 1:size(all_features, 2)
+    class = '';
     
-    for j = 1:13
-       features = [features data1_features{i, 4}(j)];
+    if (i >= 1 && i <= 12)
+        class = class1;
+        T = fillTableWithFeatures(all_features{i}, class);
+        table = [table; T];
     end
     
-    for j = 1:13
-       features = [features data1_features{i, 5}(j)];
+    if (i >= 13 && i <= 15)
+        class = class2;
+        T = fillTableWithFeatures(all_features{i}, class);
+        table = [table; T];
     end
     
-    for j = 1:13
-       features = [features data1_features{i, 6}(j)];
+    if (i == 16)
+        class = class3;
+        T = fillTableWithFeatures(all_features{i}, class);
+        table = [table; T];
     end
-    
-    for j = min_feature:max_feature
-        features = [features data1_features{i, j}];
-    end
-    
-    features = [features class1];
-    
-    T = array2table(features, 'VariableNames', columns);
-    table = [table; T];
-end
-
-for i = 1:size(data2_features, 1)
-    features = {};
-    
-    for j = 1:13
-       features = [features data2_features{i, 4}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data2_features{i, 5}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data2_features{i, 6}(j)];
-    end
-    
-    for j = min_feature:max_feature
-        features = [features data2_features{i, j}];
-    end
-    features = [features class1];
-    
-    T = array2table(features, 'VariableNames', columns);
-    table = [table; T];
-end
-
-for i = 1:size(data3_features, 1)
-    features = {};
-    
-    for j = 1:13
-       features = [features data3_features{i, 4}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data3_features{i, 5}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data3_features{i, 6}(j)];
-    end
-    
-    for j = min_feature:max_feature
-        features = [features data3_features{i, j}];
-    end
-    features = [features class1];
-    
-    T = array2table(features, 'VariableNames', columns);
-    table = [table; T];
-end
-
-for i = 1:size(data4_features, 1)
-    features = {};
-    
-    for j = 1:13
-       features = [features data4_features{i, 4}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data4_features{i, 5}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data4_features{i, 6}(j)];
-    end
-    
-    for j = min_feature:max_feature
-        features = [features data4_features{i, j}];
-    end
-    features = [features class1];
-    
-    T = array2table(features, 'VariableNames', columns);
-    table = [table; T];
-end
-
-for i = 1:size(data5_features, 1)
-    features = {};
-    
-    for j = 1:13
-       features = [features data5_features{i, 4}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data5_features{i, 5}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data5_features{i, 6}(j)];
-    end
-    
-    for j = min_feature:max_feature
-        features = [features data5_features{i, j}];
-    end
-    features = [features class1];
-    
-    T = array2table(features, 'VariableNames', columns);
-    table = [table; T];
-end
-
-for i = 1:size(data6_features, 1)
-    features = {};
-    
-    for j = 1:13
-       features = [features data6_features{i, 4}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data6_features{i, 5}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data6_features{i, 6}(j)];
-    end
-    
-    for j = min_feature:max_feature
-        features = [features data6_features{i, j}];
-    end
-    features = [features class1];
-    
-    T = array2table(features, 'VariableNames', columns);
-    table = [table; T];
-end
-
-for i = 1:size(data7_features, 1)
-    features = {};
-    
-        for j = 1:13
-       features = [features data7_features{i, 4}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data7_features{i, 5}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data7_features{i, 6}(j)];
-    end
-    
-    for j = min_feature:max_feature
-        features = [features data7_features{i, j}];
-    end
-    features = [features class1];
-    
-    T = array2table(features, 'VariableNames', columns);
-    table = [table; T];
-end
-
-for i = 1:size(data8_features, 1)
-    features = {};
-    
-        for j = 1:13
-       features = [features data8_features{i, 4}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data8_features{i, 5}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data8_features{i, 6}(j)];
-    end
-    
-    for j = min_feature:max_feature
-        features = [features data8_features{i, j}];
-    end
-    features = [features class1];
-    
-    T = array2table(features, 'VariableNames', columns);
-    table = [table; T];
-end
-
-for i = 1:size(data9_features, 1)
-    features = {};
-    
-        for j = 1:13
-       features = [features data9_features{i, 4}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data9_features{i, 5}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data9_features{i, 6}(j)];
-    end
-    
-    for j = min_feature:max_feature
-        features = [features data9_features{i, j}];
-    end
-    features = [features class1];
-    
-    T = array2table(features, 'VariableNames', columns);
-    table = [table; T];
-end
-
-for i = 1:size(data10_features, 1)
-    features = {};
-    
-        for j = 1:13
-       features = [features data10_features{i, 4}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data10_features{i, 5}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data10_features{i, 6}(j)];
-    end
-    
-    for j = min_feature:max_feature
-        features = [features data10_features{i, j}];
-    end
-    features = [features class1];
-    
-    T = array2table(features, 'VariableNames', columns);
-    table = [table; T];
-end
-
-for i = 1:size(data11_features, 1)
-    features = {};
-    
-        for j = 1:13
-       features = [features data11_features{i, 4}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data11_features{i, 5}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data11_features{i, 6}(j)];
-    end
-    
-    for j = min_feature:max_feature
-        features = [features data11_features{i, j}];
-    end
-    features = [features class1];
-    
-    T = array2table(features, 'VariableNames', columns);
-    table = [table; T];
-end
-
-for i = 1:size(data12_features, 1)
-    features = {};
-    
-        for j = 1:13
-       features = [features data12_features{i, 4}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data12_features{i, 5}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data12_features{i, 6}(j)];
-    end
-    
-    for j = min_feature:max_feature
-        features = [features data12_features{i, j}];
-    end
-    features = [features class1];
-    
-    T = array2table(features, 'VariableNames', columns);
-    table = [table; T];
-end
-
-% Movement
-
-for i = 1:size(data13_features, 1)
-    features = {};
-    
-    for j = 1:13
-       features = [features data13_features{i, 4}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data13_features{i, 5}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data13_features{i, 6}(j)];
-    end
-    
-    for j = min_feature:max_feature
-        features = [features data13_features{i, j}];
-    end
-    features = [features class2];
-    
-    T = array2table(features, 'VariableNames', columns);
-    table = [table; T];
-end
-
-for i = 1:size(data14_features, 1)
-    features = {};
-    
-        for j = 1:13
-       features = [features data14_features{i, 4}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data14_features{i, 5}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data14_features{i, 6}(j)];
-    end
-    
-    for j = min_feature:max_feature
-        features = [features data14_features{i, j}];
-    end
-    features = [features class2];
-    
-    T = array2table(features, 'VariableNames', columns);
-    table = [table; T];
-end
-
-for i = 1:size(data15_features, 1)
-    features = {};
-    
-        for j = 1:13
-       features = [features data15_features{i, 4}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data15_features{i, 5}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data15_features{i, 6}(j)];
-    end
-    
-    for j = min_feature:max_feature
-        features = [features data15_features{i, j}];
-    end
-    features = [features class2];
-    
-    T = array2table(features, 'VariableNames', columns);
-    table = [table; T];
-end
-
-% Motionless
-
-for i = 1:size(data16_features, 1)
-    features = {};
-    
-        for j = 1:13
-       features = [features data16_features{i, 4}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data16_features{i, 5}(j)];
-    end
-    
-    for j = 1:13
-       features = [features data16_features{i, 6}(j)];
-    end
-    
-    for j = min_feature:max_feature
-        features = [features data16_features{i, j}];
-    end
-    features = [features class3];
-    
-    T = array2table(features, 'VariableNames', columns);
-    table = [table; T];
 end
 
 writetable(table, 'accelerometer_data.csv');
+
+%% Data for classificator with two classes: Action and Motionless
+
+class1 = 'Action';
+class2 = 'Motionless';
+
+table = [];
+
+for i = 1:size(all_features, 2)
+    class = '';
+    
+    if (i >= 1 && i <= 15)
+        class = class1;
+        T = fillTableWithFeatures(all_features{i}, class);
+        table = [table; T];
+    end
+    
+    if (i == 16)
+        class = class2;
+        T = fillTableWithFeatures(all_features{i}, class);
+        table = [table; T];
+    end
+end
+
+writetable(table, 'accelerometer_data_ACT_MOT.csv');
+
+%% Data for classificator with two classes: Tremor and Movement
+
+class1 = 'Tremor';
+class2 = 'Movement';
+
+table = [];
+
+for i = 1:size(all_features, 2)
+    class = '';
+    
+    if (i >= 1 && i <= 12)
+        class = class1;
+        T = fillTableWithFeatures(all_features{i}, class);
+        table = [table; T];
+    end
+    
+    if (i >= 13 && i <= 15)
+        class = class2;
+        T = fillTableWithFeatures(all_features{i}, class);
+        table = [table; T];
+    end
+end
+
+writetable(table, 'accelerometer_data_TRE_MOV.csv');

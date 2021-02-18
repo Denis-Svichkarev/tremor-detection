@@ -28,19 +28,19 @@ timewindow_size_milisec = 200;
 [data6_features] = extract_features_in_timewindow(data6, timewindow_size_milisec);
 [data7_features] = extract_features_in_timewindow(data7, timewindow_size_milisec);
 [data8_features] = extract_features_in_timewindow(data8, timewindow_size_milisec);
-[data9_features] = extract_features_in_timewindow(data9, timewindow_size_milisec, ');
-[data10_features] = extract_features_in_timewindow(data10, timewindow_size_milisec, 'r');
-[data11_features] = extract_features_in_timewindow(data11, timewindow_size_milisec, 'r');
-[data12_features] = extract_features_in_timewindow(data12, timewindow_size_milisec, 'r');
-[data13_features] = extract_features_in_timewindow(data13, timewindow_size_milisec, 'b');
-[data14_features] = extract_features_in_timewindow(data14, timewindow_size_milisec, 'b');
-[data15_features] = extract_features_in_timewindow(data15, timewindow_size_milisec, 'b');
-[data16_features] = extract_features_in_timewindow(data16, timewindow_size_milisec, 'g');
+[data9_features] = extract_features_in_timewindow(data9, timewindow_size_milisec);
+[data10_features] = extract_features_in_timewindow(data10, timewindow_size_milisec);
+[data11_features] = extract_features_in_timewindow(data11, timewindow_size_milisec);
+[data12_features] = extract_features_in_timewindow(data12, timewindow_size_milisec);
+[data13_features] = extract_features_in_timewindow(data13, timewindow_size_milisec);
+[data14_features] = extract_features_in_timewindow(data14, timewindow_size_milisec);
+[data15_features] = extract_features_in_timewindow(data15, timewindow_size_milisec);
+[data16_features] = extract_features_in_timewindow(data16, timewindow_size_milisec);
 
 columns = {
-    'FREQ_X_1', 'FREQ_X_2', 'FREQ_X_3', 'FREQ_X_4', 'FREQ_X_5', 'FREQ_X_6', 'FREQ_X_7', 'FREQ_X_8', 'FREQ_X_9', 'FREQ_X_10', 'FREQ_X_11', 'FREQ_X_12', ...
-    'FREQ_Y_1', 'FREQ_Y_2', 'FREQ_Y_3', 'FREQ_Y_4', 'FREQ_Y_5', 'FREQ_Y_6', 'FREQ_Y_7', 'FREQ_Y_8', 'FREQ_Y_9', 'FREQ_Y_10', 'FREQ_Y_11', 'FREQ_Y_12', ...
-    'FREQ_Z_1', 'FREQ_Z_2', 'FREQ_Z_3', 'FREQ_Z_4', 'FREQ_Z_5', 'FREQ_Z_6', 'FREQ_Z_7', 'FREQ_Z_8', 'FREQ_Z_9', 'FREQ_Z_10', 'FREQ_Z_11', 'FREQ_Z_12', ...
+    'FREQ_X_1', 'FREQ_X_2', 'FREQ_X_3', 'FREQ_X_4', 'FREQ_X_5', 'FREQ_X_6', 'FREQ_X_7', 'FREQ_X_8', 'FREQ_X_9', 'FREQ_X_10', 'FREQ_X_11', 'FREQ_X_12', 'FREQ_X_13', ...
+    'FREQ_Y_1', 'FREQ_Y_2', 'FREQ_Y_3', 'FREQ_Y_4', 'FREQ_Y_5', 'FREQ_Y_6', 'FREQ_Y_7', 'FREQ_Y_8', 'FREQ_Y_9', 'FREQ_Y_10', 'FREQ_Y_11', 'FREQ_Y_12', 'FREQ_Y_13', ...
+    'FREQ_Z_1', 'FREQ_Z_2', 'FREQ_Z_3', 'FREQ_Z_4', 'FREQ_Z_5', 'FREQ_Z_6', 'FREQ_Z_7', 'FREQ_Z_8', 'FREQ_Z_9', 'FREQ_Z_10', 'FREQ_Z_11', 'FREQ_Z_12', 'FREQ_Z_13', ...
     'M_X', 'M_Y', 'M_Z', 'S_X', 'S_Y', 'S_Z', 'M2_X', 'M2_Y', 'M2_Z', ...
     'CLASS'
 };
@@ -55,18 +55,21 @@ max_feature = 15;
 
 % Tremor data
 
+T = fillTableWithFeature(data1_features, class1);
+table = [table; T];
+
 for i = 1:size(data1_features, 1)
     features = {};
     
-    for j = 1:12
+    for j = 1:13
        features = [features data1_features{i, 4}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data1_features{i, 5}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data1_features{i, 6}(j)];
     end
     
@@ -83,15 +86,15 @@ end
 for i = 1:size(data2_features, 1)
     features = {};
     
-    for j = 1:12
+    for j = 1:13
        features = [features data2_features{i, 4}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data2_features{i, 5}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data2_features{i, 6}(j)];
     end
     
@@ -107,15 +110,15 @@ end
 for i = 1:size(data3_features, 1)
     features = {};
     
-    for j = 1:12
+    for j = 1:13
        features = [features data3_features{i, 4}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data3_features{i, 5}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data3_features{i, 6}(j)];
     end
     
@@ -131,15 +134,15 @@ end
 for i = 1:size(data4_features, 1)
     features = {};
     
-    for j = 1:12
+    for j = 1:13
        features = [features data4_features{i, 4}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data4_features{i, 5}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data4_features{i, 6}(j)];
     end
     
@@ -155,15 +158,15 @@ end
 for i = 1:size(data5_features, 1)
     features = {};
     
-    for j = 1:12
+    for j = 1:13
        features = [features data5_features{i, 4}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data5_features{i, 5}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data5_features{i, 6}(j)];
     end
     
@@ -179,15 +182,15 @@ end
 for i = 1:size(data6_features, 1)
     features = {};
     
-    for j = 1:12
+    for j = 1:13
        features = [features data6_features{i, 4}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data6_features{i, 5}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data6_features{i, 6}(j)];
     end
     
@@ -203,15 +206,15 @@ end
 for i = 1:size(data7_features, 1)
     features = {};
     
-        for j = 1:12
+        for j = 1:13
        features = [features data7_features{i, 4}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data7_features{i, 5}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data7_features{i, 6}(j)];
     end
     
@@ -227,15 +230,15 @@ end
 for i = 1:size(data8_features, 1)
     features = {};
     
-        for j = 1:12
+        for j = 1:13
        features = [features data8_features{i, 4}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data8_features{i, 5}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data8_features{i, 6}(j)];
     end
     
@@ -251,15 +254,15 @@ end
 for i = 1:size(data9_features, 1)
     features = {};
     
-        for j = 1:12
+        for j = 1:13
        features = [features data9_features{i, 4}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data9_features{i, 5}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data9_features{i, 6}(j)];
     end
     
@@ -275,15 +278,15 @@ end
 for i = 1:size(data10_features, 1)
     features = {};
     
-        for j = 1:12
+        for j = 1:13
        features = [features data10_features{i, 4}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data10_features{i, 5}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data10_features{i, 6}(j)];
     end
     
@@ -299,15 +302,15 @@ end
 for i = 1:size(data11_features, 1)
     features = {};
     
-        for j = 1:12
+        for j = 1:13
        features = [features data11_features{i, 4}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data11_features{i, 5}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data11_features{i, 6}(j)];
     end
     
@@ -323,15 +326,15 @@ end
 for i = 1:size(data12_features, 1)
     features = {};
     
-        for j = 1:12
+        for j = 1:13
        features = [features data12_features{i, 4}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data12_features{i, 5}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data12_features{i, 6}(j)];
     end
     
@@ -349,15 +352,15 @@ end
 for i = 1:size(data13_features, 1)
     features = {};
     
-    for j = 1:12
+    for j = 1:13
        features = [features data13_features{i, 4}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data13_features{i, 5}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data13_features{i, 6}(j)];
     end
     
@@ -373,15 +376,15 @@ end
 for i = 1:size(data14_features, 1)
     features = {};
     
-        for j = 1:12
+        for j = 1:13
        features = [features data14_features{i, 4}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data14_features{i, 5}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data14_features{i, 6}(j)];
     end
     
@@ -397,15 +400,15 @@ end
 for i = 1:size(data15_features, 1)
     features = {};
     
-        for j = 1:12
+        for j = 1:13
        features = [features data15_features{i, 4}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data15_features{i, 5}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data15_features{i, 6}(j)];
     end
     
@@ -423,15 +426,15 @@ end
 for i = 1:size(data16_features, 1)
     features = {};
     
-        for j = 1:12
+        for j = 1:13
        features = [features data16_features{i, 4}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data16_features{i, 5}(j)];
     end
     
-    for j = 1:12
+    for j = 1:13
        features = [features data16_features{i, 6}(j)];
     end
     

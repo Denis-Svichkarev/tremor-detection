@@ -2,7 +2,7 @@
  * File: _coder_classify_accelerometer_data_mex.c
  *
  * MATLAB Coder version            : 5.1
- * C/C++ source code generated on  : 14-Feb-2021 13:23:25
+ * C/C++ source code generated on  : 17-Feb-2021 12:44:00
  */
 
 /* Include Files */
@@ -12,12 +12,12 @@
 /* Function Definitions */
 /*
  * Arguments    : int32_T nlhs
- *                mxArray *plhs[1]
+ *                mxArray *plhs[2]
  *                int32_T nrhs
  *                const mxArray *prhs[1]
  * Return Type  : void
  */
-void classify_accelerometer_data_mexFunction(int32_T nlhs, mxArray *plhs[1],
+void classify_accelerometer_data_mexFunction(int32_T nlhs, mxArray *plhs[2],
   int32_T nrhs, const mxArray *prhs[1])
 {
   emlrtStack st = { NULL,              /* site */
@@ -25,7 +25,8 @@ void classify_accelerometer_data_mexFunction(int32_T nlhs, mxArray *plhs[1],
     NULL                               /* prev */
   };
 
-  const mxArray *outputs[1];
+  const mxArray *outputs[2];
+  int32_T b_nlhs;
   st.tls = emlrtRootTLSGlobal;
 
   /* Check for proper number of arguments. */
@@ -34,16 +35,22 @@ void classify_accelerometer_data_mexFunction(int32_T nlhs, mxArray *plhs[1],
                         27, "classify_accelerometer_data");
   }
 
-  if (nlhs > 1) {
+  if (nlhs > 2) {
     emlrtErrMsgIdAndTxt(&st, "EMLRT:runTime:TooManyOutputArguments", 3, 4, 27,
                         "classify_accelerometer_data");
   }
 
   /* Call the function. */
-  classify_accelerometer_data_api(prhs, outputs);
+  classify_accelerometer_data_api(prhs, nlhs, outputs);
 
   /* Copy over outputs to the caller. */
-  emlrtReturnArrays(1, plhs, outputs);
+  if (nlhs < 1) {
+    b_nlhs = 1;
+  } else {
+    b_nlhs = nlhs;
+  }
+
+  emlrtReturnArrays(b_nlhs, plhs, outputs);
 }
 
 /*

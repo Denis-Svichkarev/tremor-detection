@@ -2,7 +2,7 @@
  * File: _coder_classify_accelerometer_data_api.c
  *
  * MATLAB Coder version            : 5.1
- * C/C++ source code generated on  : 14-Feb-2021 13:23:25
+ * C/C++ source code generated on  : 17-Feb-2021 12:44:00
  */
 
 /* Include Files */
@@ -25,6 +25,7 @@ emlrtContext emlrtContextGlobal = { true,/* bFirstTime */
 /* Function Declarations */
 static real_T (*b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
   emlrtMsgIdentifier *parentId))[48];
+static const mxArray *b_emlrt_marshallOut(const real_T u[2]);
 static real_T (*c_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
   const emlrtMsgIdentifier *msgId))[48];
 static real_T (*emlrt_marshallIn(const emlrtStack *sp, const mxArray *X, const
@@ -48,12 +49,32 @@ static real_T (*b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
   return y;
 }
 /*
+ * Arguments    : const real_T u[2]
+ * Return Type  : const mxArray *
+ */
+  static const mxArray *b_emlrt_marshallOut(const real_T u[2])
+{
+  static const int32_T iv[2] = { 0, 0 };
+
+  static const int32_T iv1[2] = { 1, 2 };
+
+  const mxArray *m;
+  const mxArray *y;
+  y = NULL;
+  m = emlrtCreateNumericArray(2, &iv[0], mxDOUBLE_CLASS, mxREAL);
+  emlrtMxSetData((mxArray *)m, (void *)&u[0]);
+  emlrtSetDimensions((mxArray *)m, iv1, 2);
+  emlrtAssign(&y, m);
+  return y;
+}
+
+/*
  * Arguments    : const emlrtStack *sp
  *                const mxArray *src
  *                const emlrtMsgIdentifier *msgId
  * Return Type  : real_T (*)[48]
  */
-  static real_T (*c_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
+static real_T (*c_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
   const emlrtMsgIdentifier *msgId))[48]
 {
   static const int32_T dims[2] = { 1, 48 };
@@ -64,14 +85,13 @@ static real_T (*b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
   emlrtDestroyArray(&src);
   return ret;
 }
-
 /*
  * Arguments    : const emlrtStack *sp
  *                const mxArray *X
  *                const char_T *identifier
  * Return Type  : real_T (*)[48]
  */
-static real_T (*emlrt_marshallIn(const emlrtStack *sp, const mxArray *X, const
+  static real_T (*emlrt_marshallIn(const emlrtStack *sp, const mxArray *X, const
   char_T *identifier))[48]
 {
   emlrtMsgIdentifier thisId;
@@ -83,13 +103,14 @@ static real_T (*emlrt_marshallIn(const emlrtStack *sp, const mxArray *X, const
   emlrtDestroyArray(&X);
   return y;
 }
+
 /*
  * Arguments    : const emlrtStack *sp
  *                const cell_wrap_0 u[1]
  * Return Type  : const mxArray *
  */
-  static const mxArray *emlrt_marshallOut(const emlrtStack *sp, const
-  cell_wrap_0 u[1])
+static const mxArray *emlrt_marshallOut(const emlrtStack *sp, const cell_wrap_0
+  u[1])
 {
   const mxArray *b_y;
   const mxArray *m;
@@ -111,11 +132,12 @@ static real_T (*emlrt_marshallIn(const emlrtStack *sp, const mxArray *X, const
 
 /*
  * Arguments    : const mxArray * const prhs[1]
- *                const mxArray *plhs[1]
+ *                int32_T nlhs
+ *                const mxArray *plhs[2]
  * Return Type  : void
  */
-void classify_accelerometer_data_api(const mxArray * const prhs[1], const
-  mxArray *plhs[1])
+void classify_accelerometer_data_api(const mxArray * const prhs[1], int32_T nlhs,
+  const mxArray *plhs[2])
 {
   cell_wrap_0 label[1];
   emlrtStack st = { NULL,              /* site */
@@ -124,16 +146,21 @@ void classify_accelerometer_data_api(const mxArray * const prhs[1], const
   };
 
   real_T (*X)[48];
+  real_T (*p)[2];
   st.tls = emlrtRootTLSGlobal;
+  p = (real_T (*)[2])mxMalloc(sizeof(real_T [2]));
 
   /* Marshall function inputs */
   X = emlrt_marshallIn(&st, emlrtAlias(prhs[0]), "X");
 
   /* Invoke the target function */
-  classify_accelerometer_data(*X, label);
+  classify_accelerometer_data(*X, label, *p);
 
   /* Marshall function outputs */
   plhs[0] = emlrt_marshallOut(&st, label);
+  if (nlhs > 1) {
+    plhs[1] = b_emlrt_marshallOut(*p);
+  }
 }
 
 /*

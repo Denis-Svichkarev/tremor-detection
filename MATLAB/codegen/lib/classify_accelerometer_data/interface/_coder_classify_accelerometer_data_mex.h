@@ -2,7 +2,7 @@
  * File: _coder_classify_accelerometer_data_mex.h
  *
  * MATLAB Coder version            : 5.1
- * C/C++ source code generated on  : 14-Feb-2021 13:23:25
+ * C/C++ source code generated on  : 17-Feb-2021 12:44:00
  */
 
 #ifndef _CODER_CLASSIFY_ACCELEROMETER_DATA_MEX_H
@@ -19,7 +19,7 @@ extern "C" {
 #endif
 
   /* Function Declarations */
-  void classify_accelerometer_data_mexFunction(int32_T nlhs, mxArray *plhs[1],
+  void classify_accelerometer_data_mexFunction(int32_T nlhs, mxArray *plhs[2],
     int32_T nrhs, const mxArray *prhs[1]);
   MEXFUNCTION_LINKAGE void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T
     nrhs, const mxArray *prhs[]);

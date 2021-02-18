@@ -2,19 +2,22 @@
 // File: CompactClassificationSVM.cpp
 //
 // MATLAB Coder version            : 5.1
-// C/C++ source code generated on  : 14-Feb-2021 13:23:25
+// C/C++ source code generated on  : 17-Feb-2021 12:44:00
 //
 
 // Include Files
 #include "CompactClassificationSVM.h"
+#include "Linear.h"
+#include "classify_accelerometer_data_types.h"
 #include "rt_nonfinite.h"
+#include "coder_array.h"
 #include "rt_nonfinite.h"
-#include <string.h>
+#include <cmath>
 
 // Function Definitions
 //
 // Arguments    : const double Xin[48]
-//                double *labels
+//                cell_wrap_0 labels[1]
 //                double scores[2]
 // Return Type  : void
 //
@@ -26,30 +29,34 @@ namespace coder
     {
       namespace classif
       {
-        void CompactClassificationSVM::predict(const double Xin[48], double
-          *labels, double scores[2]) const
+        void CompactClassificationSVM::predict(const double Xin[48], cell_wrap_0
+          labels[1], double scores[2]) const
         {
-          double f;
+          double dv[941];
+          double d;
+          int i;
           int k;
+          int loop_ub;
           bool b[2];
           bool b_tmp;
           bool exitg1;
           bool y;
-          f = 0.0;
-          for (k = 0; k < 48; k++) {
-            f += Xin[k] * this->Beta[k];
+          coder::kernel::Linear(this->SupportVectorsT, Xin, dv);
+          d = 0.0;
+          for (i = 0; i < 941; i++) {
+            d += dv[i] * this->Alpha[i];
           }
 
-          f += this->Bias;
-          scores[0] = -f;
-          scores[1] = f;
-          b[0] = rtIsNaN(-f);
-          b_tmp = rtIsNaN(f);
+          scores[1] = 1.0 / (std::exp(-10.10475 * (d + 1.0140577453077437) +
+            5.736836) + 1.0);
+          scores[0] = 1.0 - scores[1];
+          b[0] = rtIsNaN(scores[0]);
+          b_tmp = rtIsNaN(scores[1]);
           b[1] = b_tmp;
           y = true;
           k = 0;
           exitg1 = false;
-          while ((!exitg1) && (k <= 1)) {
+          while ((!exitg1) && (k < 2)) {
             if (!b[k]) {
               y = false;
               exitg1 = true;
@@ -65,15 +72,26 @@ namespace coder
             k = 0;
           }
 
-          *labels = this->ClassNames[k];
+          loop_ub = this->ClassNamesLength[k];
+          labels[0].f1.size[0] = 1;
+          labels[0].f1.size[1] = this->ClassNamesLength[k];
+          for (i = 0; i < loop_ub; i++) {
+            labels[0].f1.data[i] = this->ClassNames[k + (i << 1)];
+          }
+
           if (!y) {
-            if ((-f < f) || (rtIsNaN(-f) && (!b_tmp))) {
+            if ((scores[0] < scores[1]) || (rtIsNaN(scores[0]) && (!b_tmp))) {
               k = 1;
             } else {
               k = 0;
             }
 
-            *labels = this->ClassNames[k];
+            loop_ub = this->ClassNamesLength[k];
+            labels[0].f1.size[0] = 1;
+            labels[0].f1.size[1] = this->ClassNamesLength[k];
+            for (i = 0; i < loop_ub; i++) {
+              labels[0].f1.data[i] = this->ClassNames[k + (i << 1)];
+            }
           }
         }
       }

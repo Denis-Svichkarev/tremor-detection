@@ -2,7 +2,7 @@
  * File: _coder_classify_accelerometer_data_api.h
  *
  * MATLAB Coder version            : 5.1
- * C/C++ source code generated on  : 14-Feb-2021 13:23:25
+ * C/C++ source code generated on  : 17-Feb-2021 12:44:00
  */
 
 #ifndef _CODER_CLASSIFY_ACCELEROMETER_DATA_API_H
@@ -52,9 +52,10 @@ extern "C" {
 #endif
 
   /* Function Declarations */
-  void classify_accelerometer_data(real_T X[48], cell_wrap_0 label[1]);
-  void classify_accelerometer_data_api(const mxArray * const prhs[1], const
-    mxArray *plhs[1]);
+  void classify_accelerometer_data(real_T X[48], cell_wrap_0 label[1], real_T p
+    [2]);
+  void classify_accelerometer_data_api(const mxArray * const prhs[1], int32_T
+    nlhs, const mxArray *plhs[2]);
   void classify_accelerometer_data_atexit(void);
   void classify_accelerometer_data_initialize(void);
   void classify_accelerometer_data_terminate(void);

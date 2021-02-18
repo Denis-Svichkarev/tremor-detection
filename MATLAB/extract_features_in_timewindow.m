@@ -1,5 +1,5 @@
 % Extract features in timewindow
-function [data_features] = extract_features_in_timewindow(data, timewindow_size_milisec)
+function data_features = extract_features_in_timewindow(data, timewindow_size_milisec)
     data_features = cell(length(data));
     index = 1;
 

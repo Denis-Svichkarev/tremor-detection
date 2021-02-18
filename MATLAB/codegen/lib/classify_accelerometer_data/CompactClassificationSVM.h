@@ -2,7 +2,7 @@
 // File: CompactClassificationSVM.h
 //
 // MATLAB Coder version            : 5.1
-// C/C++ source code generated on  : 14-Feb-2021 13:23:25
+// C/C++ source code generated on  : 17-Feb-2021 12:44:00
 //
 #ifndef COMPACTCLASSIFICATIONSVM_H
 #define COMPACTCLASSIFICATIONSVM_H
@@ -11,6 +11,9 @@
 #include "rtwtypes.h"
 #include <cstddef>
 #include <cstdlib>
+
+// Type Declarations
+struct cell_wrap_0;
 
 // Type Definitions
 namespace coder
@@ -21,18 +24,16 @@ namespace coder
     {
       namespace coderutils
       {
-        enum Transform
+        namespace svm
         {
-          Logit = 0,                   // Default value
-          Doublelogit,
-          Invlogit,
-          Ismax,
-          Sign,
-          Symmetric,
-          Symmetricismax,
-          Symmetriclogit,
-          Identity
-        };
+          enum KernelFunction
+          {
+            linear = 1,                // Default value
+            gaussian = 2,
+            rbf = 2,
+            polynomial = 3
+          };
+        }
       }
 
       namespace classif
@@ -40,17 +41,20 @@ namespace coder
         class CompactClassificationSVM
         {
          public:
-          void predict(const double Xin[48], double *labels, double scores[2])
-            const;
-          double Beta[48];
+          void predict(const double Xin[48], cell_wrap_0 labels[1], double
+                       scores[2]) const;
+          double Alpha[941];
           double Bias;
+          double SupportVectorsT[45168];
           double Scale;
-          double ClassNames[2];
+          double Order;
+          coderutils::svm::KernelFunction b_KernelFunction;
+          char ClassNames[20];
           int ClassNamesLength[2];
-          coderutils::Transform ScoreTransform;
           double Prior[2];
           bool ClassLogicalIndices[2];
           double Cost[4];
+          double ScoreTransformArguments[2];
         };
       }
     }

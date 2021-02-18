@@ -2,7 +2,7 @@
 ## Makefile generated for component 'classify_accelerometer_data'. 
 ## 
 ## Makefile     : classify_accelerometer_data_rtw.mk
-## Generated on : Sat Feb 13 17:46:21 2021
+## Generated on : Wed Feb 17 12:44:17 2021
 ## Final product: ./classify_accelerometer_data.a
 ## Product type : static-library
 ## 
@@ -170,7 +170,7 @@ DEFINES = $(DEFINES_CUSTOM) $(DEFINES_STANDARD)
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = $(START_DIR)/classify_accelerometer_data_data.cpp $(START_DIR)/rt_nonfinite.cpp $(START_DIR)/rtGetNaN.cpp $(START_DIR)/rtGetInf.cpp $(START_DIR)/classify_accelerometer_data_initialize.cpp $(START_DIR)/classify_accelerometer_data_terminate.cpp $(START_DIR)/classify_accelerometer_data.cpp $(START_DIR)/minOrMax.cpp $(START_DIR)/CompactClassificationSVM.cpp $(START_DIR)/CompactClassificationECOC.cpp
+SRCS = $(START_DIR)/classify_accelerometer_data_data.cpp $(START_DIR)/rt_nonfinite.cpp $(START_DIR)/rtGetNaN.cpp $(START_DIR)/rtGetInf.cpp $(START_DIR)/classify_accelerometer_data_initialize.cpp $(START_DIR)/classify_accelerometer_data_terminate.cpp $(START_DIR)/classify_accelerometer_data.cpp $(START_DIR)/Linear.cpp $(START_DIR)/CompactClassificationSVM.cpp
 
 ALL_SRCS = $(SRCS)
 
@@ -178,7 +178,7 @@ ALL_SRCS = $(SRCS)
 ## OBJECTS
 ###########################################################################
 
-OBJS = classify_accelerometer_data_data.o rt_nonfinite.o rtGetNaN.o rtGetInf.o classify_accelerometer_data_initialize.o classify_accelerometer_data_terminate.o classify_accelerometer_data.o minOrMax.o CompactClassificationSVM.o CompactClassificationECOC.o
+OBJS = classify_accelerometer_data_data.o rt_nonfinite.o rtGetNaN.o rtGetInf.o classify_accelerometer_data_initialize.o classify_accelerometer_data_terminate.o classify_accelerometer_data.o Linear.o CompactClassificationSVM.o
 
 ALL_OBJS = $(OBJS)
 
@@ -329,15 +329,11 @@ classify_accelerometer_data.o : $(START_DIR)/classify_accelerometer_data.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-minOrMax.o : $(START_DIR)/minOrMax.cpp
+Linear.o : $(START_DIR)/Linear.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
 CompactClassificationSVM.o : $(START_DIR)/CompactClassificationSVM.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-CompactClassificationECOC.o : $(START_DIR)/CompactClassificationECOC.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 

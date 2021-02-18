@@ -11,24 +11,50 @@
 #import "HTDTremorDetectionSDK.h"
 #import "HTDOffsetGraph.h"
 
-#include "classify_accelerometer_data.h"
+#include "classify_action_terminate.h"
+#include "classify_action_types.h"
+#include "classify_tremor_terminate.h"
+
+#include "rt_nonfinite.h"
+
+#include "classify_action.h"
+#include "classify_tremor.h"
 #include "extract_features_from_raw_data.h"
 
 static NSString * classify(coder::array<double, 2U> features) {
-    cell_wrap_0 label;
+    double input_features[48];
+    std::copy(std::begin(features), std::end(features), std::begin(input_features));
+
+    // Action / Motionless
+
+    double action_prob[2];
+    cell_wrap_0 action_label;
+    
+    classify_action(input_features, &action_label, action_prob);
+
+    // Tremor / Movement
+    
+    double tremor_prob[2];
+    cell_wrap_0 tremor_label;
+    
+    classify_tremor(input_features, &tremor_label, tremor_prob);
+    
+    // Prediction
+    
+    std::string predictedClassLabel;
+    
+    if (action_prob[0] >= action_prob[1]) {
+        for (int i = 0; i < tremor_label.f1.size[1]; i++) {
+            predictedClassLabel += tremor_label.f1.data[i];
+        }
         
-    double result[48];
-    std::copy(std::begin(features), std::end(features), std::begin(result));
-
-    classify_accelerometer_data(result, &label);
-
-    std::string str;
-
-    for (int i = 0; i < label.f1.size[1]; i++) {
-        str += label.f1.data[i];
+    } else {
+        for (int i = 0; i < action_label.f1.size[1]; i++) {
+            predictedClassLabel += action_label.f1.data[i];
+        }
     }
     
-    return [NSString stringWithFormat:@"%s", str.c_str()];
+    return [NSString stringWithFormat:@"%s [%.2f / %.2f / %.2f]", predictedClassLabel.c_str(), tremor_prob[0] * action_prob[0], tremor_prob[1] * action_prob[0], action_prob[1]];
 }
 
 // -------------------------------------------- //

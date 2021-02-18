@@ -1,5 +1,4 @@
-function label = classify_accelerometer_data(X)
-    model = loadLearnerForCoder('SVM_Accelerometer_Model');
-    [label,score,node,cnum] = predict(model,X);
-    [label,NegLoss,PBScore] = predict(___)
+function label = classify_accelerometer_data(X, name)
+    model = loadLearnerForCoder(name);
+    label = predict(model,X);
 end
