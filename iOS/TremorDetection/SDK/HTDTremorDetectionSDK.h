@@ -24,9 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)configureMode:(HTDTremorDetectionSDKMode)mode;
 - (void)configureUserID:(NSString *)userID;
 - (void)configureWithDelegate:(id)delegate;
-- (void)configureAxisXGraph:(CGRect)frame;
-- (void)configureAxisYGraph:(CGRect)frame;
-- (void)configureAxisZGraph:(CGRect)frame;
+- (void)configureAxisXGraph:(CGRect)frame LineColor:(UIColor *)lineColor BackgroundColor:(UIColor *)backgroundColor;
+- (void)configureAxisYGraph:(CGRect)frame LineColor:(UIColor *)lineColor BackgroundColor:(UIColor *)backgroundColor;
+- (void)configureAxisZGraph:(CGRect)frame LineColor:(UIColor *)lineColor BackgroundColor:(UIColor *)backgroundColor;
 
 - (NSInteger)getMeasurementTime;
 

@@ -8,7 +8,7 @@
 #define CLASSIFY_TREMOR_H
 
 // Include Files
-#include "classify_action_types.h"
+#include "data_types.h"
 #include "rtwtypes.h"
 #include <cstddef>
 #include <cstdlib>

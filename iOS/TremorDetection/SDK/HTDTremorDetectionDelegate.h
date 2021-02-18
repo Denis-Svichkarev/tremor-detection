@@ -11,6 +11,7 @@
 #import "HTDTremorResult.h"
 #import "HTDTremorStatus.h"
 #import "HTDTremorWarning.h"
+#import "HTDClassificationResult.h"
 
 @protocol HTDTremorDetectionDelegate <NSObject>
 
@@ -27,6 +28,8 @@
 - (void)onAxisYOffsetGraphImageUpdated:(UIImage *)image;
 
 - (void)onAxisZOffsetGraphImageUpdated:(UIImage *)image;
+
+- (void)onClassificationResultUpdated:(HTDClassificationResult *)result;
 
 @end
 

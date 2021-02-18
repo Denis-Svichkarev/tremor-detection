@@ -8,7 +8,7 @@
 // Include Files
 #include "classify_tremor.h"
 #include "CompactClassificationSVM.h"
-#include "classify_action_types.h"
+#include "data_types.h"
 #include "rt_nonfinite.h"
 #include <cstring>
 

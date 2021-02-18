@@ -11,17 +11,16 @@
 #import "HTDTremorDetectionSDK.h"
 #import "HTDOffsetGraph.h"
 
-#include "classify_action_terminate.h"
-#include "classify_action_types.h"
-#include "classify_tremor_terminate.h"
-
 #include "rt_nonfinite.h"
+#include "data_types.h"
 
 #include "classify_action.h"
 #include "classify_tremor.h"
+#include "classify_action_terminate.h"
+#include "classify_tremor_terminate.h"
 #include "extract_features_from_raw_data.h"
 
-static NSString * classify(coder::array<double, 2U> features) {
+static HTDClassificationResult * classify(coder::array<double, 2U> features) {
     double input_features[48];
     std::copy(std::begin(features), std::end(features), std::begin(input_features));
 
@@ -54,7 +53,22 @@ static NSString * classify(coder::array<double, 2U> features) {
         }
     }
     
-    return [NSString stringWithFormat:@"%s [%.2f / %.2f / %.2f]", predictedClassLabel.c_str(), tremor_prob[0] * action_prob[0], tremor_prob[1] * action_prob[0], action_prob[1]];
+    NSString *predictedClassString = [NSString stringWithFormat:@"%s", predictedClassLabel.c_str()];
+    
+    HTDClassificationType type = HTDClassificationTypeMotionless;
+    
+    if ([predictedClassString isEqualToString:@"Tremor"]) {
+        type = HTDClassificationTypeTremor;
+    } else if ([predictedClassString isEqualToString:@"Movement"]) {
+        type = HTDClassificationTypeMovement;
+    }
+    
+    HTDClassificationResult *cr = [[HTDClassificationResult alloc] initWithClassificationType:type
+                                                                            TremorProbability:tremor_prob[0] * action_prob[0]
+                                                                          MovementProbability:tremor_prob[1] * action_prob[0]
+                                                                        MotionlessProbability:action_prob[1]];
+    
+    return cr;
 }
 
 // -------------------------------------------- //
@@ -135,26 +149,26 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
     self.delegate = delegate;
 }
 
-- (void)configureAxisXGraph:(CGRect)frame {
+- (void)configureAxisXGraph:(CGRect)frame LineColor:(UIColor *)lineColor BackgroundColor:(UIColor *)backgroundColor {
     self.axisXOffsetGraph = [HTDOffsetGraph new];
-    self.axisXOffsetGraph.graphColor = UIColor.blackColor;
-    self.axisXOffsetGraph.backgroundColor = UIColor.clearColor;
+    self.axisXOffsetGraph.graphColor = lineColor;
+    self.axisXOffsetGraph.backgroundColor = backgroundColor;
     self.axisXOffsetGraph.graphLineWidth = 1;
     self.axisXOffsetGraph.frame = frame;
 }
 
-- (void)configureAxisYGraph:(CGRect)frame {
+- (void)configureAxisYGraph:(CGRect)frame LineColor:(UIColor *)lineColor BackgroundColor:(UIColor *)backgroundColor {
     self.axisYOffsetGraph = [HTDOffsetGraph new];
-    self.axisYOffsetGraph.graphColor = UIColor.blackColor;
-    self.axisYOffsetGraph.backgroundColor = UIColor.clearColor;
+    self.axisYOffsetGraph.graphColor = lineColor;
+    self.axisYOffsetGraph.backgroundColor = backgroundColor;
     self.axisYOffsetGraph.graphLineWidth = 1;
     self.axisYOffsetGraph.frame = frame;
 }
 
-- (void)configureAxisZGraph:(CGRect)frame {
+- (void)configureAxisZGraph:(CGRect)frame LineColor:(UIColor *)lineColor BackgroundColor:(UIColor *)backgroundColor {
     self.axisZOffsetGraph = [HTDOffsetGraph new];
-    self.axisZOffsetGraph.graphColor = UIColor.blackColor;
-    self.axisZOffsetGraph.backgroundColor = UIColor.clearColor;
+    self.axisZOffsetGraph.graphColor = lineColor;
+    self.axisZOffsetGraph.backgroundColor = backgroundColor;
     self.axisZOffsetGraph.graphLineWidth = 1;
     self.axisZOffsetGraph.frame = frame;
 }
@@ -205,20 +219,25 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
             for (int i = 2 * timewindow; i < 2 * timewindow + self.accumulatedZDataArray.count; i++) {
                 data[i] = [self.accumulatedZDataArray[i - (2 * timewindow)] doubleValue];
             }
+        
+            /* CLASSIFICATION */
             
             coder::array<double, 2U> data_features;
             extract_features_from_raw_data(data, timewindow, data_features);
 
-            NSString *predictionString = classify(data_features);
-            NSLog(@"%@", predictionString);
+            HTDClassificationResult *classResult = classify(data_features);
             
-            if ([predictionString isEqualToString:@"Movement"]) {
-                [self.delegate onWarningReceived:HTDTremorWarningMovementDetected];
-            } else if ([predictionString isEqualToString:@"Tremor"]) {
+            if (classResult.classificationType == HTDClassificationTypeTremor) {
                 [self.delegate onWarningReceived:HTDTremorWarningTremorDetected];
+                
+            } else if (classResult.classificationType == HTDClassificationTypeMovement) {
+                [self.delegate onWarningReceived:HTDTremorWarningMovementDetected];
+                
             } else {
                 [self.delegate onWarningReceived:HTDTremorWarningNoWarning];
             }
+            
+            [self.delegate onClassificationResultUpdated:classResult];
             
             [self.accumulatedXDataArray removeAllObjects];
             [self.accumulatedYDataArray removeAllObjects];

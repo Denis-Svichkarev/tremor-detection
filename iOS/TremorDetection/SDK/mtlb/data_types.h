@@ -1,11 +1,11 @@
 //
-// File: classify_action_types.h
+// File: data_types.h
 //
 // MATLAB Coder version            : 5.1
 // C/C++ source code generated on  : 18-Feb-2021 10:56:29
 //
-#ifndef CLASSIFY_ACTION_TYPES_H
-#define CLASSIFY_ACTION_TYPES_H
+#ifndef DATA_TYPES_H
+#define DATA_TYPES_H
 
 // Include Files
 #include "rtwtypes.h"
@@ -20,7 +20,7 @@ struct cell_wrap_0
 #endif
 
 //
-// File trailer for classify_action_types.h
+// File trailer for data_types.h
 //
 // [EOF]
 //

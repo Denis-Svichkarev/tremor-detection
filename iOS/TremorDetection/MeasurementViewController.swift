@@ -25,6 +25,10 @@ class MeasurementViewController: UIViewController {
     @IBOutlet weak var axisYScrollView: UIScrollView!
     @IBOutlet weak var axisZScrollView: UIScrollView!
     
+    @IBOutlet weak var tremorProbabilityLabel: UILabel!
+    @IBOutlet weak var movementProbabilityLabel: UILabel!
+    @IBOutlet weak var motionlessProbabilityLabel: UILabel!
+    
     var axisXOffest: Float = 0
     var axisYOffest: Float = 0
     var axisZOffest: Float = 0
@@ -47,9 +51,9 @@ class MeasurementViewController: UIViewController {
         }
         
         MeasurementService.shared.tremorDetectionSDK.configure(withDelegate: self)
-        MeasurementService.shared.tremorDetectionSDK.configureAxisXGraph(axisXImageView.bounds)
-        MeasurementService.shared.tremorDetectionSDK.configureAxisYGraph(axisYImageView.bounds)
-        MeasurementService.shared.tremorDetectionSDK.configureAxisZGraph(axisZImageView.bounds)
+        MeasurementService.shared.tremorDetectionSDK.configureAxisXGraph(axisXImageView.bounds, lineColor: .red, backgroundColor: .clear)
+        MeasurementService.shared.tremorDetectionSDK.configureAxisYGraph(axisYImageView.bounds, lineColor: .green, backgroundColor: .clear)
+        MeasurementService.shared.tremorDetectionSDK.configureAxisZGraph(axisZImageView.bounds, lineColor: .blue, backgroundColor: .clear)
         MeasurementService.shared.tremorDetectionSDK.startMeasurement()
     }
     
@@ -151,5 +155,15 @@ extension MeasurementViewController: HTDTremorDetectionDelegate {
         if axisZScrollView.contentOffset.x + axisZScrollView.frame.size.width == axisZScrollView.contentSize.width || axisZScrollView.contentSize.width < axisZScrollView.frame.size.width {
             axisZScrollView.setContentOffset(CGPoint(x: image.size.width, y: 0), animated: false)
         }
+    }
+    
+    func onClassificationResultUpdated(_ result: HTDClassificationResult!) {
+        let tremorStr = String(format: "%.f", result.tremorProbability * 100)
+        let movementStr = String(format: "%.f", result.movementProbability * 100)
+        let motionlessStr = String(format: "%.f", result.motionlessProbability * 100)
+        
+        tremorProbabilityLabel.text = "Tremor probability: \(tremorStr)%"
+        movementProbabilityLabel.text = "Movement probability: \(movementStr)%"
+        motionlessProbabilityLabel.text = "Motionless probability: \(motionlessStr)%"
     }
 }

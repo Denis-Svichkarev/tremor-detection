@@ -8,7 +8,7 @@
 // Include Files
 #include "CompactClassificationSVM.h"
 #include "Linear.h"
-#include "classify_action_types.h"
+#include "data_types.h"
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include "rt_nonfinite.h"
