@@ -193,7 +193,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		251D086025DE67E600006741 /* extract_features_from_raw_data */ = {
+		251D086025DE67E600006741 /* features */ = {
 			isa = PBXGroup;
 			children = (
 				251D086E25DE67E600006741 /* extract_features_from_raw_data_data.cpp */,
@@ -213,7 +213,7 @@
 				251D086F25DE67E600006741 /* get_frequencies_spectrum.cpp */,
 				251D086C25DE67E600006741 /* get_frequencies_spectrum.h */,
 			);
-			path = extract_features_from_raw_data;
+			path = features;
 			sourceTree = "<group>";
 		};
 		251D087125DE67E600006741 /* classify_tremor */ = {
@@ -352,7 +352,7 @@
 			children = (
 				251D08AA25DE67E600006741 /* classify_action */,
 				251D087125DE67E600006741 /* classify_tremor */,
-				251D086025DE67E600006741 /* extract_features_from_raw_data */,
+				251D086025DE67E600006741 /* features */,
 				251D087A25DE67E600006741 /* mtlb */,
 				258187A6256E68F500B18951 /* HTDTremorDetectionSDK.h */,
 				258187A7256E68F500B18951 /* HTDTremorDetectionSDK.mm */,

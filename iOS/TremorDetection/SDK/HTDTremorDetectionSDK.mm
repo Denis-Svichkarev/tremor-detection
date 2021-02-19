@@ -129,7 +129,7 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
 #pragma mark - Configurations
 
 - (HTDTremorDetectionSDKError)configureMeasurementTime:(NSInteger)measurementTime {
-    if (measurementTime < 20 || measurementTime > 120) {
+    if (measurementTime < 20 || measurementTime > 300) {
         return HTDTremorDetectionSDKErrorInvalidTime;
     }
     

@@ -69,7 +69,7 @@ class SettingsViewController: UIViewController {
                 navigationController?.pushViewController(vc, animated: true)
                 
             case .invalidTime:
-                popupAlert(title: "Invalid time. It should be in the range (20-120 seconds)", message: nil, actionTitles: ["Close"], actions: [{ action in }])
+                popupAlert(title: "Invalid time. It should be in the range (20-300 seconds)", message: nil, actionTitles: ["Close"], actions: [{ action in }])
             default: break
             }
         }

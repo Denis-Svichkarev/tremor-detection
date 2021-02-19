@@ -1,6 +1,0 @@
-%% Data for classificator with three classes
-
-accelerometer_data = readtable('accelerometer_data_three_classes.csv');
-save('accelerometer_data_three_classes.mat');
-
-%% Data for classificator with two classes: Tremor/Movement and Motionless

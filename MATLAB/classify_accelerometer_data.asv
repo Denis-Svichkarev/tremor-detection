@@ -1,4 +1,0 @@
-function label = classify_accelerometer_data(X, name)
-    model = loadLearnerForCoder(name);
-    label = predict(model,X);
-end
