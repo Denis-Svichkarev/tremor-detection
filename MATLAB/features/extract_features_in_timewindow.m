@@ -1,13 +1,20 @@
 % Extract features in timewindow
-function data_features = extract_features_in_timewindow(data, timewindow_size_milisec)
+function data_features = extract_features_in_timewindow(data, timewindow_size_milisec, isTraining)
     data_features = cell(length(data));
     index = 1;
 
-    for i = 1:length(data)    
-        measurement_time = length(data{i}.x);
-
+    for i = 1:length(data)
+        startIndex = 0;
+        
+        if isTraining == true
+            measurement_time = length(data{i}.x) * 0.8; %% Using only first 80% of data for training
+        else
+            startIndex = ceil(length(data{i}.x) * 0.8); %% Using last 20% of data for testing
+            measurement_time = length(data{i}.x);
+        end
+        
         if measurement_time > 0
-            for j = 0:timewindow_size_milisec:measurement_time
+            for j = startIndex:timewindow_size_milisec:measurement_time
                 if j + timewindow_size_milisec <= measurement_time
                     
                     [amplitudes_X, frequencies_X] = get_frequencies_spectrum(data{i}.x(j+1:j + timewindow_size_milisec));

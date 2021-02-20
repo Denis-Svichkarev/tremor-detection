@@ -1,59 +1,97 @@
 %% SVM model
 
-load accelerometer_data
-
-X = accelerometer_data{:, 1:end-1};
-Y = accelerometer_data{:, end}; 
-
-model = fitcecoc(X,Y);
-saveLearnerForCoder(model,'SVM_Accelerometer_Model');
+% load accelerometer_data
+% 
+% X = accelerometer_data{:, 1:end-1};
+% Y = accelerometer_data{:, end}; 
+% 
+% model = fitcecoc(X,Y);
+% saveLearnerForCoder(model,'SVM_Accelerometer_Model');
 
 %% SVM model with probability
 
-load accelerometer_data
-
-X = accelerometer_data{:, 1:end-1};
-Y = accelerometer_data{:, end}; 
-
-classNames = {'Tremor','Movement','Motionless'};
-t = templateSVM('Standardize',true,'KernelFunction','gaussian');
-
-model = fitcecoc(X,Y,'Learners',t,'FitPosterior',true, ...
-     'ClassNames', classNames, ...
-      'Verbose', 2);
-
-%[label,~,~,Posterior] = resubPredict(model,'Verbose',1);
-
-save('SVM_Accelerometer_Score_Model.mat','model');
+% load accelerometer_data
+% 
+% X = accelerometer_data{:, 1:end-1};
+% Y = accelerometer_data{:, end}; 
+% 
+% classNames = {'Tremor','Movement','Motionless'};
+% t = templateSVM('Standardize',true,'KernelFunction','gaussian');
+% 
+% model = fitcecoc(X,Y,'Learners',t,'FitPosterior',true, ...
+%      'ClassNames', classNames, ...
+%       'Verbose', 2);
+% 
+% save('SVM_Accelerometer_Score_Model.mat','model');
 
 %% SVM model with probability (Action and Motionless)
 
 close all
 clear all
 
-acc_data_ACT_MOT = load('models/acc_data_ACT_MOT.mat').accelerometer_data_ACT_MOT;
+trainData = load('models/train_acc_data_ACT_MOT.mat').train_accelerometer_data_ACT_MOT;
+testData = load('models/test_acc_data_ACT_MOT.mat').test_accelerometer_data_ACT_MOT;
 
-X = acc_data_ACT_MOT{:, 1:end-1};
-Y = acc_data_ACT_MOT{:, end}; 
+XTrain = trainData{:, 1:end-1};
+YTrain = trainData{:, end}; 
+
+XTest = testData(:,1:end-1);
+YTest = testData(:,end);
 
 classNames = {'Action','Motionless'};
 
-classificationSVM = fitcsvm(X, Y, 'Verbose', 1, ... 
-    'OptimizeHyperparameters', 'auto', ...
+% ------ Training ------
+
+classificationSVM = fitcsvm(XTrain, YTrain, 'Verbose', 1, ... 'OptimizeHyperparameters', 'auto', ...
     'ScoreTransform', 'logit', 'ClassNames', classNames);
 
-%classificationSVM = fitcsvm(X,Y,'KernelScale','auto','Standardize',true,...
-%    'OutlierFraction', 0.05);
+% ------ Calculate model performance ------
 
-[model, score] = fitSVMPosterior(classificationSVM);
-%[prediction, posterior] = predict(model, X);
+% CompactSVMModel = classificationSVM.Trained{1}; % Extract the trained, compact classifier
+% testInds = test(classificationSVM.Partition);   % Extract the test indices
+% XTest = X(testInds,:);
+% YTest = Y(testInds,:);
+% L = loss(CompactSVMModel, XTest, YTest);
 
-saveLearnerForCoder(model, 'models/SVM_Acc_ACT_MOT_Model');
 
-test_accelerometer_data = readtable('csv_data/test_acc_data.csv');
-[label1, p1] = predict(model, table2array(test_accelerometer_data(1,:)));
-[label2, p2] = predict(model, table2array(test_accelerometer_data(2,:)));
-[label3, p3] = predict(model, table2array(test_accelerometer_data(3,:)));
+[model, ~] = fitSVMPosterior(classificationSVM);
+% RL = resubLoss(model);
+
+% ------ ROC ------
+
+%resp = strcmp(table2cell(YTest(:,:)),'Action');
+%pred = XTest;
+
+resp = strcmp(YTrain(:,:),'Action');
+
+%mdlSVM = fitcsvm(pred, resp, 'Standardize', true);
+%mdlSVM = fitPosterior(mdlSVM);
+
+%[mdl, scores] = predict(model, XTest);
+[~, score_svm] = resubPredict(model);
+
+[Xsvm, Ysvm, Tsvm, AUCsvm] = perfcurve(resp, score_svm(:, logical([1, 0])), 'true');
+
+figure(1)
+hold off;
+plot(Xsvm, Ysvm);
+
+legend('Support Vector Machines')
+xlabel('False positive rate'); ylabel('True positive rate');
+title(['ROC Curves for SVM classification. AUC: ' num2str(AUCsvm)])
+
+% ------ Confusion matrix ------
+
+figure(2)
+% testLabels = predict(model, XTrain);
+% confusionMatrix = confusionchart(YTrain, testLabels);
+
+testLabels = predict(model, table2array(XTest));
+confusionMatrix = confusionchart(table2array(YTest), testLabels);
+
+% ------ Save model ------
+
+%saveLearnerForCoder(model, 'models/SVM_Acc_ACT_MOT_Model');
 
 %% SVM model with probability (Tremor and Movement)
 
@@ -75,7 +113,6 @@ classificationSVM = fitcsvm(X, Y, 'Verbose', 1, ...
 %    'OutlierFraction', 0.05);
 
 [model, score] = fitSVMPosterior(classificationSVM);
-%[prediction, posterior] = predict(model, X);
 
 saveLearnerForCoder(model, 'models/SVM_Acc_TRE_MOV_Model');
 
