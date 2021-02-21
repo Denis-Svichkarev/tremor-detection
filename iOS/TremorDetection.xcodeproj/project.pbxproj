@@ -14,10 +14,6 @@
 		251D08B725DE67E600006741 /* extract_features_from_raw_data_terminate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D086D25DE67E600006741 /* extract_features_from_raw_data_terminate.cpp */; };
 		251D08B825DE67E600006741 /* extract_features_from_raw_data_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D086E25DE67E600006741 /* extract_features_from_raw_data_data.cpp */; };
 		251D08B925DE67E600006741 /* get_frequencies_spectrum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D086F25DE67E600006741 /* get_frequencies_spectrum.cpp */; };
-		251D08BA25DE67E600006741 /* classify_tremor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D087225DE67E600006741 /* classify_tremor.cpp */; };
-		251D08BB25DE67E600006741 /* classify_tremor_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D087625DE67E600006741 /* classify_tremor_data.cpp */; };
-		251D08BC25DE67E600006741 /* classify_tremor_initialize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D087725DE67E600006741 /* classify_tremor_initialize.cpp */; };
-		251D08BD25DE67E600006741 /* classify_tremor_terminate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D087825DE67E600006741 /* classify_tremor_terminate.cpp */; };
 		251D08BE25DE67E600006741 /* rtGetNaN.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D087B25DE67E600006741 /* rtGetNaN.cpp */; };
 		251D08BF25DE67E600006741 /* sortIdx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D087C25DE67E600006741 /* sortIdx.cpp */; };
 		251D08C025DE67E600006741 /* Linear.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D087E25DE67E600006741 /* Linear.cpp */; };
@@ -40,10 +36,6 @@
 		251D08D125DE67E600006741 /* std.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D08A425DE67E600006741 /* std.cpp */; };
 		251D08D225DE67E600006741 /* nanmean.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D08A525DE67E600006741 /* nanmean.cpp */; };
 		251D08D325DE67E600006741 /* diff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D08A725DE67E600006741 /* diff.cpp */; };
-		251D08D425DE67E600006741 /* classify_action_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D08AB25DE67E600006741 /* classify_action_data.cpp */; };
-		251D08D525DE67E600006741 /* classify_action_terminate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D08AE25DE67E600006741 /* classify_action_terminate.cpp */; };
-		251D08D625DE67E600006741 /* classify_action_initialize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D08B025DE67E600006741 /* classify_action_initialize.cpp */; };
-		251D08D725DE67E600006741 /* classify_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D08B125DE67E600006741 /* classify_action.cpp */; };
 		251D08DB25DE682300006741 /* HTDClassificationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 251D08DA25DE682300006741 /* HTDClassificationResult.m */; };
 		2571A27C256E61CE006A2F29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571A27B256E61CE006A2F29 /* AppDelegate.swift */; };
 		2571A283256E61CE006A2F29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2571A281256E61CE006A2F29 /* Main.storyboard */; };
@@ -61,6 +53,10 @@
 		2589F3E2257B73FF00E93649 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2589F3DD257B73FF00E93649 /* UIDevice.swift */; };
 		2589F3E6257B7D6100E93649 /* CompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2589F3E5257B7D6100E93649 /* CompletedViewController.swift */; };
 		2589F3EA257B845300E93649 /* HTDOffsetGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 2589F3E9257B845300E93649 /* HTDOffsetGraph.m */; };
+		25E9242D25E276F3004B1838 /* classify_accelerometer_initialize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25E9242625E276F2004B1838 /* classify_accelerometer_initialize.cpp */; };
+		25E9242E25E276F3004B1838 /* classify_accelerometer_terminate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25E9242A25E276F2004B1838 /* classify_accelerometer_terminate.cpp */; };
+		25E9242F25E276F3004B1838 /* classify_accelerometer_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25E9242B25E276F2004B1838 /* classify_accelerometer_data.cpp */; };
+		25E9243025E276F3004B1838 /* classify_accelerometer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25E9242C25E276F2004B1838 /* classify_accelerometer.cpp */; };
 		25F94075258678170016079E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25F94074258678170016079E /* GoogleService-Info.plist */; };
 		25F940782586785C0016079E /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F940772586785C0016079E /* FirebaseService.swift */; };
 /* End PBXBuildFile section */
@@ -82,14 +78,6 @@
 		251D086E25DE67E600006741 /* extract_features_from_raw_data_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = extract_features_from_raw_data_data.cpp; sourceTree = "<group>"; };
 		251D086F25DE67E600006741 /* get_frequencies_spectrum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = get_frequencies_spectrum.cpp; sourceTree = "<group>"; };
 		251D087025DE67E600006741 /* extract_features_from_raw_data_terminate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = extract_features_from_raw_data_terminate.h; sourceTree = "<group>"; };
-		251D087225DE67E600006741 /* classify_tremor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = classify_tremor.cpp; sourceTree = "<group>"; };
-		251D087325DE67E600006741 /* classify_tremor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = classify_tremor.h; sourceTree = "<group>"; };
-		251D087425DE67E600006741 /* classify_tremor_terminate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = classify_tremor_terminate.h; sourceTree = "<group>"; };
-		251D087525DE67E600006741 /* classify_tremor_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = classify_tremor_data.h; sourceTree = "<group>"; };
-		251D087625DE67E600006741 /* classify_tremor_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = classify_tremor_data.cpp; sourceTree = "<group>"; };
-		251D087725DE67E600006741 /* classify_tremor_initialize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = classify_tremor_initialize.cpp; sourceTree = "<group>"; };
-		251D087825DE67E600006741 /* classify_tremor_terminate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = classify_tremor_terminate.cpp; sourceTree = "<group>"; };
-		251D087925DE67E600006741 /* classify_tremor_initialize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = classify_tremor_initialize.h; sourceTree = "<group>"; };
 		251D087B25DE67E600006741 /* rtGetNaN.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rtGetNaN.cpp; sourceTree = "<group>"; };
 		251D087C25DE67E600006741 /* sortIdx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sortIdx.cpp; sourceTree = "<group>"; };
 		251D087D25DE67E600006741 /* welchparse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = welchparse.h; sourceTree = "<group>"; };
@@ -104,7 +92,6 @@
 		251D088625DE67E600006741 /* FFTImplementationCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FFTImplementationCallback.cpp; sourceTree = "<group>"; };
 		251D088725DE67E600006741 /* psdfreqvec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = psdfreqvec.cpp; sourceTree = "<group>"; };
 		251D088825DE67E600006741 /* computepsd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = computepsd.h; sourceTree = "<group>"; };
-		251D088925DE67E600006741 /* data_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = data_types.h; sourceTree = "<group>"; };
 		251D088A25DE67E600006741 /* Linear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Linear.h; sourceTree = "<group>"; };
 		251D088B25DE67E600006741 /* coder_array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = coder_array.h; sourceTree = "<group>"; };
 		251D088C25DE67E600006741 /* rtGetInf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rtGetInf.cpp; sourceTree = "<group>"; };
@@ -137,14 +124,6 @@
 		251D08A725DE67E600006741 /* diff.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = diff.cpp; sourceTree = "<group>"; };
 		251D08A825DE67E600006741 /* std.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = std.h; sourceTree = "<group>"; };
 		251D08A925DE67E600006741 /* CompactClassificationSVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompactClassificationSVM.h; sourceTree = "<group>"; };
-		251D08AB25DE67E600006741 /* classify_action_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = classify_action_data.cpp; sourceTree = "<group>"; };
-		251D08AC25DE67E600006741 /* classify_action_initialize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = classify_action_initialize.h; sourceTree = "<group>"; };
-		251D08AD25DE67E600006741 /* classify_action_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = classify_action_data.h; sourceTree = "<group>"; };
-		251D08AE25DE67E600006741 /* classify_action_terminate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = classify_action_terminate.cpp; sourceTree = "<group>"; };
-		251D08AF25DE67E600006741 /* classify_action_terminate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = classify_action_terminate.h; sourceTree = "<group>"; };
-		251D08B025DE67E600006741 /* classify_action_initialize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = classify_action_initialize.cpp; sourceTree = "<group>"; };
-		251D08B125DE67E600006741 /* classify_action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = classify_action.cpp; sourceTree = "<group>"; };
-		251D08B225DE67E600006741 /* classify_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = classify_action.h; sourceTree = "<group>"; };
 		251D08D925DE682300006741 /* HTDClassificationResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTDClassificationResult.h; sourceTree = "<group>"; };
 		251D08DA25DE682300006741 /* HTDClassificationResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTDClassificationResult.m; sourceTree = "<group>"; };
 		251D08DE25DE69AA00006741 /* HTDClassificationType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTDClassificationType.h; sourceTree = "<group>"; };
@@ -174,6 +153,15 @@
 		2589F3E8257B845300E93649 /* HTDOffsetGraph.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTDOffsetGraph.h; sourceTree = "<group>"; };
 		2589F3E9257B845300E93649 /* HTDOffsetGraph.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTDOffsetGraph.m; sourceTree = "<group>"; };
 		259BA726256FFC9100DC747B /* HTDTremorDetectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTDTremorDetectionDelegate.h; sourceTree = "<group>"; };
+		25E9242425E276F2004B1838 /* classify_accelerometer_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = classify_accelerometer_types.h; sourceTree = "<group>"; };
+		25E9242525E276F2004B1838 /* classify_accelerometer_initialize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = classify_accelerometer_initialize.h; sourceTree = "<group>"; };
+		25E9242625E276F2004B1838 /* classify_accelerometer_initialize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = classify_accelerometer_initialize.cpp; sourceTree = "<group>"; };
+		25E9242725E276F2004B1838 /* classify_accelerometer_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = classify_accelerometer_data.h; sourceTree = "<group>"; };
+		25E9242825E276F2004B1838 /* classify_accelerometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = classify_accelerometer.h; sourceTree = "<group>"; };
+		25E9242925E276F2004B1838 /* classify_accelerometer_terminate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = classify_accelerometer_terminate.h; sourceTree = "<group>"; };
+		25E9242A25E276F2004B1838 /* classify_accelerometer_terminate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = classify_accelerometer_terminate.cpp; sourceTree = "<group>"; };
+		25E9242B25E276F2004B1838 /* classify_accelerometer_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = classify_accelerometer_data.cpp; sourceTree = "<group>"; };
+		25E9242C25E276F2004B1838 /* classify_accelerometer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = classify_accelerometer.cpp; sourceTree = "<group>"; };
 		25F94074258678170016079E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		25F940772586785C0016079E /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		25F9407B258692AA0016079E /* HTDTremorDetectionSDKMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTDTremorDetectionSDKMode.h; sourceTree = "<group>"; };
@@ -216,21 +204,6 @@
 			path = features;
 			sourceTree = "<group>";
 		};
-		251D087125DE67E600006741 /* classify_tremor */ = {
-			isa = PBXGroup;
-			children = (
-				251D087225DE67E600006741 /* classify_tremor.cpp */,
-				251D087325DE67E600006741 /* classify_tremor.h */,
-				251D087425DE67E600006741 /* classify_tremor_terminate.h */,
-				251D087525DE67E600006741 /* classify_tremor_data.h */,
-				251D087625DE67E600006741 /* classify_tremor_data.cpp */,
-				251D087725DE67E600006741 /* classify_tremor_initialize.cpp */,
-				251D087825DE67E600006741 /* classify_tremor_terminate.cpp */,
-				251D087925DE67E600006741 /* classify_tremor_initialize.h */,
-			);
-			path = classify_tremor;
-			sourceTree = "<group>";
-		};
 		251D087A25DE67E600006741 /* mtlb */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,7 +212,6 @@
 				251D08A925DE67E600006741 /* CompactClassificationSVM.h */,
 				251D088025DE67E600006741 /* computepsd.cpp */,
 				251D088825DE67E600006741 /* computepsd.h */,
-				251D088925DE67E600006741 /* data_types.h */,
 				251D08A725DE67E600006741 /* diff.cpp */,
 				251D089825DE67E600006741 /* diff.h */,
 				251D089425DE67E600006741 /* ecdf.cpp */,
@@ -283,21 +255,6 @@
 				251D087D25DE67E600006741 /* welchparse.h */,
 			);
 			path = mtlb;
-			sourceTree = "<group>";
-		};
-		251D08AA25DE67E600006741 /* classify_action */ = {
-			isa = PBXGroup;
-			children = (
-				251D08AB25DE67E600006741 /* classify_action_data.cpp */,
-				251D08AC25DE67E600006741 /* classify_action_initialize.h */,
-				251D08AD25DE67E600006741 /* classify_action_data.h */,
-				251D08AE25DE67E600006741 /* classify_action_terminate.cpp */,
-				251D08AF25DE67E600006741 /* classify_action_terminate.h */,
-				251D08B025DE67E600006741 /* classify_action_initialize.cpp */,
-				251D08B125DE67E600006741 /* classify_action.cpp */,
-				251D08B225DE67E600006741 /* classify_action.h */,
-			);
-			path = classify_action;
 			sourceTree = "<group>";
 		};
 		2571A26F256E61CE006A2F29 = {
@@ -350,8 +307,7 @@
 		258187A5256E68AA00B18951 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				251D08AA25DE67E600006741 /* classify_action */,
-				251D087125DE67E600006741 /* classify_tremor */,
+				25E9242325E276F2004B1838 /* classify_accelerometer */,
 				251D086025DE67E600006741 /* features */,
 				251D087A25DE67E600006741 /* mtlb */,
 				258187A6256E68F500B18951 /* HTDTremorDetectionSDK.h */,
@@ -390,6 +346,22 @@
 				2589F3DA257B73FF00E93649 /* UIViewControllerExtensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		25E9242325E276F2004B1838 /* classify_accelerometer */ = {
+			isa = PBXGroup;
+			children = (
+				25E9242425E276F2004B1838 /* classify_accelerometer_types.h */,
+				25E9242525E276F2004B1838 /* classify_accelerometer_initialize.h */,
+				25E9242625E276F2004B1838 /* classify_accelerometer_initialize.cpp */,
+				25E9242725E276F2004B1838 /* classify_accelerometer_data.h */,
+				25E9242825E276F2004B1838 /* classify_accelerometer.h */,
+				25E9242925E276F2004B1838 /* classify_accelerometer_terminate.h */,
+				25E9242A25E276F2004B1838 /* classify_accelerometer_terminate.cpp */,
+				25E9242B25E276F2004B1838 /* classify_accelerometer_data.cpp */,
+				25E9242C25E276F2004B1838 /* classify_accelerometer.cpp */,
+			);
+			path = classify_accelerometer;
 			sourceTree = "<group>";
 		};
 		70C2D4AD6DAD8866086EE70E /* Frameworks */ = {
@@ -526,40 +498,36 @@
 			files = (
 				2589F3E6257B7D6100E93649 /* CompletedViewController.swift in Sources */,
 				251D08C425DE67E600006741 /* FFTImplementationCallback.cpp in Sources */,
-				251D08BB25DE67E600006741 /* classify_tremor_data.cpp in Sources */,
 				2571A27C256E61CE006A2F29 /* AppDelegate.swift in Sources */,
+				25E9243025E276F3004B1838 /* classify_accelerometer.cpp in Sources */,
 				2589F3E0257B73FF00E93649 /* DoubleExtensions.swift in Sources */,
 				258187A8256E68F500B18951 /* HTDTremorDetectionSDK.mm in Sources */,
 				25F940782586785C0016079E /* FirebaseService.swift in Sources */,
 				251D08B625DE67E600006741 /* extract_features_from_raw_data.cpp in Sources */,
-				251D08BA25DE67E600006741 /* classify_tremor.cpp in Sources */,
 				258187B0256E6C5500B18951 /* StoryboardService.swift in Sources */,
 				251D08D325DE67E600006741 /* diff.cpp in Sources */,
 				251D08B825DE67E600006741 /* extract_features_from_raw_data_data.cpp in Sources */,
 				251D08CB25DE67E600006741 /* welchparse.cpp in Sources */,
-				251D08D425DE67E600006741 /* classify_action_data.cpp in Sources */,
 				251D08C125DE67E600006741 /* nan_sum_or_mean.cpp in Sources */,
-				251D08D525DE67E600006741 /* classify_action_terminate.cpp in Sources */,
 				251D08B925DE67E600006741 /* get_frequencies_spectrum.cpp in Sources */,
 				251D08D025DE67E600006741 /* CompactClassificationSVM.cpp in Sources */,
 				2589F3EA257B845300E93649 /* HTDOffsetGraph.m in Sources */,
 				251D08CD25DE67E600006741 /* minOrMax.cpp in Sources */,
 				2589F3E1257B73FF00E93649 /* DateExtensions.swift in Sources */,
-				251D08D625DE67E600006741 /* classify_action_initialize.cpp in Sources */,
 				251D08CA25DE67E600006741 /* median.cpp in Sources */,
 				2589F3DF257B73FF00E93649 /* UIViewControllerExtensions.swift in Sources */,
-				251D08BC25DE67E600006741 /* classify_tremor_initialize.cpp in Sources */,
 				251D08B325DE67E600006741 /* get_features.cpp in Sources */,
 				251D08CF25DE67E600006741 /* nullAssignment.cpp in Sources */,
 				251D08C625DE67E600006741 /* rtGetInf.cpp in Sources */,
 				2589F3E2257B73FF00E93649 /* UIDevice.swift in Sources */,
-				251D08D725DE67E600006741 /* classify_action.cpp in Sources */,
 				251D08B525DE67E600006741 /* extract_features_from_raw_data_rtwutil.cpp in Sources */,
 				251D08B725DE67E600006741 /* extract_features_from_raw_data_terminate.cpp in Sources */,
 				251D08CC25DE67E600006741 /* rt_nonfinite.cpp in Sources */,
 				251D08C325DE67E600006741 /* iqr.cpp in Sources */,
 				251D08C725DE67E600006741 /* sort.cpp in Sources */,
 				2581878A256E652E00B18951 /* SettingsViewController.swift in Sources */,
+				25E9242E25E276F3004B1838 /* classify_accelerometer_terminate.cpp in Sources */,
+				25E9242F25E276F3004B1838 /* classify_accelerometer_data.cpp in Sources */,
 				2589F3D5257B6EE100E93649 /* Constants.swift in Sources */,
 				251D08B425DE67E600006741 /* extract_features_from_raw_data_initialize.cpp in Sources */,
 				251D08D125DE67E600006741 /* std.cpp in Sources */,
@@ -570,8 +538,8 @@
 				251D08DB25DE682300006741 /* HTDClassificationResult.m in Sources */,
 				2581878E256E654100B18951 /* MeasurementViewController.swift in Sources */,
 				251D08CE25DE67E600006741 /* trapz.cpp in Sources */,
-				251D08BD25DE67E600006741 /* classify_tremor_terminate.cpp in Sources */,
 				251D08C225DE67E600006741 /* computepsd.cpp in Sources */,
+				25E9242D25E276F3004B1838 /* classify_accelerometer_initialize.cpp in Sources */,
 				251D08C525DE67E600006741 /* psdfreqvec.cpp in Sources */,
 				251D08BE25DE67E600006741 /* rtGetNaN.cpp in Sources */,
 				258187AB256E69F400B18951 /* MeasurementService.swift in Sources */,

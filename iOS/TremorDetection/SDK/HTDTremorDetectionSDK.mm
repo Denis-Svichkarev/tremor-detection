@@ -12,45 +12,32 @@
 #import "HTDOffsetGraph.h"
 
 #include "rt_nonfinite.h"
-#include "data_types.h"
 
-#include "classify_action.h"
-#include "classify_tremor.h"
-#include "classify_action_terminate.h"
-#include "classify_tremor_terminate.h"
+#include "classify_accelerometer_types.h"
+#include "classify_accelerometer.h"
+#include "classify_accelerometer_terminate.h"
 #include "extract_features_from_raw_data.h"
 
 static HTDClassificationResult * classify(coder::array<double, 2U> features) {
     double input_features[48];
     std::copy(std::begin(features), std::end(features), std::begin(input_features));
 
-    // Action / Motionless
+    // Tremor / Movement / Motionless
 
-    double action_prob[2];
-    cell_wrap_0 action_label;
+    cell_wrap_0 predicted_label;
     
-    classify_action(input_features, &action_label, action_prob);
-
-    // Tremor / Movement
+    double tremor_prob[1];
+    double movement_prob[1];
+    double motionless_prob[1];
     
-    double tremor_prob[2];
-    cell_wrap_0 tremor_label;
-    
-    classify_tremor(input_features, &tremor_label, tremor_prob);
+    classify_accelerometer(input_features, &predicted_label, tremor_prob, movement_prob, motionless_prob);
     
     // Prediction
     
     std::string predictedClassLabel;
     
-    if (action_prob[0] >= action_prob[1]) {
-        for (int i = 0; i < tremor_label.f1.size[1]; i++) {
-            predictedClassLabel += tremor_label.f1.data[i];
-        }
-        
-    } else {
-        for (int i = 0; i < action_label.f1.size[1]; i++) {
-            predictedClassLabel += action_label.f1.data[i];
-        }
+    for (int i = 0; i < predicted_label.f1.size[1]; i++) {
+        predictedClassLabel += predicted_label.f1.data[i];
     }
     
     NSString *predictedClassString = [NSString stringWithFormat:@"%s", predictedClassLabel.c_str()];
@@ -64,9 +51,9 @@ static HTDClassificationResult * classify(coder::array<double, 2U> features) {
     }
     
     HTDClassificationResult *cr = [[HTDClassificationResult alloc] initWithClassificationType:type
-                                                                            TremorProbability:tremor_prob[0] * action_prob[0]
-                                                                          MovementProbability:tremor_prob[1] * action_prob[0]
-                                                                        MotionlessProbability:action_prob[1]];
+                                                                            TremorProbability:tremor_prob[0]
+                                                                          MovementProbability:movement_prob[0]
+                                                                        MotionlessProbability:motionless_prob[0]];
     
     return cr;
 }

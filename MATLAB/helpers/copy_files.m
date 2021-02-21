@@ -1,7 +1,7 @@
 %% Copy .h and .cpp from function folder to copy_files folder
 
-function_name = "classify_tremor";
-ignored_names = ["action_types", "tremor_types"];
+function_name = "classify_accelerometer";
+ignored_names = [];
 
 %% Delete all files
 
@@ -29,7 +29,7 @@ for i = 1:length(filenames)
         end
     end
     
-    if ~ignore && contains(name, function_name) && (ext == ".h" || ext == ".cpp")
+    if ~ignore && (ext == ".h" || ext == ".cpp") % && contains(name, function_name)
         copyfile(filenames(i).name, '/Users/denissvichkarev/Projects/TremorDetection/MATLAB/copy_files/')
     end
 end
