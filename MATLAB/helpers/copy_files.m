@@ -1,6 +1,6 @@
 %% Copy .h and .cpp from function folder to copy_files folder
 
-function_name = "classify_action";
+function_name = "classify_tremor";
 ignored_names = ["action_types", "tremor_types"];
 
 %% Delete all files
