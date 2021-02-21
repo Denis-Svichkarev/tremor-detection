@@ -44,38 +44,6 @@ all_features = {data1_features, data2_features, data3_features, data4_features, 
     data6_features, data7_features, data8_features, data9_features, data10_features, data11_features ...
     data12_features, data13_features, data14_features, data15_features, data16_features};
 
-%% Train data for classificator with three classes: Tremor, Movement, Motionless
-
-% class1 = 'Tremor';
-% class2 = 'Movement';
-% class3 = 'Motionless';
-% 
-% table = [];
-% 
-% for i = 1:size(all_features, 2)
-%     class = '';
-%     
-%     if (i >= 1 && i <= 12)
-%         class = class1;
-%         T = fill_table_with_features(all_features{i}, class);
-%         table = [table; T];
-%     end
-%     
-%     if (i >= 13 && i <= 15)
-%         class = class2;
-%         T = fill_table_with_features(all_features{i}, class);
-%         table = [table; T];
-%     end
-%     
-%     if (i == 16)
-%         class = class3;
-%         T = fill_table_with_features(all_features{i}, class);
-%         table = [table; T];
-%     end
-% end
-% 
-% writetable(table, '/csv_data/train_acc_data_TRE_MOV_MOT.csv');
-
 %% Train data for classificator with two classes: Action and Motionless
 
 class1 = 'Action';

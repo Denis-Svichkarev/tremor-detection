@@ -3,8 +3,13 @@
 close all
 clear all
 
-data16 = get_tremor_data("All");
-sample = data16{6};
+is_Matlab=true;
+
+%data = get_tremor_data("All");
+%sample = data{6};
+
+data = get_tremor_data("Simulation/data1");
+sample = data{1};
 
 chunk = [];
 offset = 0;
@@ -21,8 +26,12 @@ for i = 1:floor(size(sample, 1) / timewindow)
     end
     
     [data_features] = extract_features_from_raw_data(chunk, timewindow);
-    [label, p] = classify_action(data_features);
-    a = [a p];
+    if is_Matlab
+        [label, p] = mtlb_classify_action(data_features);
+    else
+        [label, p] = classify_action(data_features);  
+    end
+    a = [a p(1,1)];
 end
 
 plot(a, 'r'); hold on;
