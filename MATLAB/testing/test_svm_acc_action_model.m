@@ -3,7 +3,7 @@
 close all
 clear all
 
-is_Matlab=true;
+is_Matlab=false;
 
 %data = get_tremor_data("All");
 %sample = data{6};
