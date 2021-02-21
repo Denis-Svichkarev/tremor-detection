@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)startMeasurement;
 - (void)stopMeasurement;
+- (void)abortMeasurement;
 
 - (NSData *)exportData;
 - (NSString *)exportFileName;

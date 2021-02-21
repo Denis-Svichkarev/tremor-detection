@@ -258,6 +258,12 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
     [self.delegate onStatusReceived:HTDTremorStatusStopped];
 }
 
+- (void)abortMeasurement {
+    [self.timer invalidate];
+    [self.motionManager stopAccelerometerUpdates];
+    [self.delegate onStatusReceived:HTDTremorStatusAborted];
+}
+
 - (void)onTimerFinished:(id)sender {
     self.currentTime += 1;
     NSInteger progress = ((CGFloat)self.currentTime / (CGFloat)[self getMeasurementTime]) * 100;

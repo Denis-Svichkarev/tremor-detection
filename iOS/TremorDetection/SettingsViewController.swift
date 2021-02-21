@@ -49,6 +49,8 @@ class SettingsViewController: UIViewController {
         }
         
         exerciseModeView.isHidden = !exerciseSwitch.isOn
+        
+        startButton.layer.cornerRadius = 10
     }
     
     // MARK: - IB Actions

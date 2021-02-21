@@ -9,8 +9,9 @@
 #define HTDTremorStatus_h
 
 typedef NS_ENUM(NSUInteger, HTDTremorStatus) {
+    HTDTremorStatusStarted,
     HTDTremorStatusStopped,
-    HTDTremorStatusStarted
+    HTDTremorStatusAborted,
 };
 
 #endif /* HTDTremorStatus_h */

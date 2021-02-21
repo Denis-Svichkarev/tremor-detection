@@ -11,7 +11,6 @@ class MeasurementViewController: UIViewController {
 
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var warningLabel: UILabel!
     
     @IBOutlet weak var axisXImageView: UIImageView!
     @IBOutlet weak var axisYImageView: UIImageView!
@@ -28,6 +27,9 @@ class MeasurementViewController: UIViewController {
     @IBOutlet weak var tremorProbabilityLabel: UILabel!
     @IBOutlet weak var movementProbabilityLabel: UILabel!
     @IBOutlet weak var motionlessProbabilityLabel: UILabel!
+    
+    @IBOutlet weak var stopButton: UIButton!
+    @IBOutlet weak var abortButton: UIButton!
     
     var axisXOffest: Float = 0
     var axisYOffest: Float = 0
@@ -52,7 +54,7 @@ class MeasurementViewController: UIViewController {
         
         MeasurementService.shared.tremorDetectionSDK.configure(withDelegate: self)
         MeasurementService.shared.tremorDetectionSDK.configureAxisXGraph(axisXImageView.bounds, lineColor: .red, backgroundColor: .clear)
-        MeasurementService.shared.tremorDetectionSDK.configureAxisYGraph(axisYImageView.bounds, lineColor: .green, backgroundColor: .clear)
+        MeasurementService.shared.tremorDetectionSDK.configureAxisYGraph(axisYImageView.bounds, lineColor: .systemGreen, backgroundColor: .clear)
         MeasurementService.shared.tremorDetectionSDK.configureAxisZGraph(axisZImageView.bounds, lineColor: .blue, backgroundColor: .clear)
         MeasurementService.shared.tremorDetectionSDK.startMeasurement()
     }
@@ -70,6 +72,21 @@ class MeasurementViewController: UIViewController {
     func configureUI() {
         navigationItem.title = "Measurement"
         navigationItem.setHidesBackButton(true, animated: false)
+        
+        axisXScrollView.layer.borderWidth = 1
+        axisXScrollView.layer.borderColor = UIColor.black.cgColor
+        axisXScrollView.layer.backgroundColor = UIColor.magenta.withAlphaComponent(0.2).cgColor
+        
+        axisYScrollView.layer.borderWidth = 1
+        axisYScrollView.layer.borderColor = UIColor.black.cgColor
+        axisYScrollView.layer.backgroundColor = UIColor.magenta.withAlphaComponent(0.2).cgColor
+        
+        axisZScrollView.layer.borderWidth = 1
+        axisZScrollView.layer.borderColor = UIColor.black.cgColor
+        axisZScrollView.layer.backgroundColor = UIColor.magenta.withAlphaComponent(0.2).cgColor
+        
+        abortButton.layer.cornerRadius = 10
+        stopButton.layer.cornerRadius = 10
     }
     
     // MARK: - IB Actions
@@ -78,12 +95,17 @@ class MeasurementViewController: UIViewController {
         MeasurementService.shared.tremorDetectionSDK.stopMeasurement()
     }
     
+    @IBAction func onAbortButtonPressed(_ sender: Any) {
+        MeasurementService.shared.tremorDetectionSDK.abortMeasurement()
+    }
+    
     // MARK: - Helpers
     
     func getStatusString(status: HTDTremorStatus) -> String {
         switch status {
         case .started: return "Started"
         case .stopped: return "Stopped"
+        case .aborted: return "Aborted"
         @unknown default: fatalError()
         }
     }
@@ -112,19 +134,21 @@ extension MeasurementViewController: HTDTremorDetectionDelegate {
     }
     
     func onStatusReceived(_ status: HTDTremorStatus) {
-        statusLabel.text = "Status: \(getStatusString(status: status))"
+        if status == .aborted {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     func onWarningReceived(_ warning: HTDTremorWarning) {
         if warning == .tremorDetected {
-            warningLabel.textColor = .red
+            statusLabel.textColor = .red
         } else if warning == .movementDetected {
-            warningLabel.textColor = .orange
+            statusLabel.textColor = .orange
         } else if warning == .noWarning {
-            warningLabel.textColor = .black
+            statusLabel.textColor = .black
         }
         
-        warningLabel.text = "Warning: \(getWarningString(warning: warning))"
+        statusLabel.text = "Status: \(getWarningString(warning: warning))"
     }
     
     func onAxisXOffsetGraphImageUpdated(_ image: UIImage!) {
