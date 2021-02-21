@@ -34,8 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stopMeasurement;
 - (void)abortMeasurement;
 
+- (NSString *)exportFileNameAudio:(BOOL)audio;
 - (NSData *)exportData;
-- (NSString *)exportFileName;
+- (NSData *)recordedAudio;
 
 @end
 

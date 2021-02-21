@@ -10,6 +10,7 @@
 
 #import "HTDTremorDetectionSDK.h"
 #import "HTDOffsetGraph.h"
+#import "HTDAudioPlayer.h"
 
 #include "rt_nonfinite.h"
 
@@ -163,6 +164,7 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
 #pragma mark - Lyfe Cycle
 
 - (void)startMeasurement {
+    [[HTDAudioPlayer shared] play];
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(onTimerFinished:) userInfo:nil repeats:YES];
     
@@ -252,6 +254,7 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
 }
 
 - (void)stopMeasurement {
+    [[HTDAudioPlayer shared] stop];
     [self.timer invalidate];
     [self.motionManager stopAccelerometerUpdates];
     [self.delegate onMeasurementCompleted:HTDTremorResultUndetermined Confidence:0];
@@ -259,6 +262,7 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
 }
 
 - (void)abortMeasurement {
+    [[HTDAudioPlayer shared] stop];
     [self.timer invalidate];
     [self.motionManager stopAccelerometerUpdates];
     [self.delegate onStatusReceived:HTDTremorStatusAborted];
@@ -298,8 +302,8 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
 
 #pragma mark - Export
 
-- (NSString *)exportFileName {
-    return [self getRawDataFileNameWithVersion:@"1.0"];
+- (NSString *)exportFileNameAudio:(BOOL)audio {
+    return [self getRawDataFileNameWithVersion:@"1.0" Audio:audio];
 }
 
 - (NSData *)exportData {
@@ -307,7 +311,11 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
     return [self.exportDataString dataUsingEncoding:NSUTF8StringEncoding];;
 }
 
-- (NSString *)getRawDataFileNameWithVersion:(NSString *)version {
+- (NSData *)recordedAudio {
+    return [[HTDAudioPlayer shared] getLastRecord];
+}
+
+- (NSString *)getRawDataFileNameWithVersion:(NSString *)version Audio:(BOOL)audio {
     NSDate *currentDate = [NSDate date];
     [self generateMeasurementID];
     
@@ -316,7 +324,7 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
     [formatter setDateFormat:@"YYYY_MM_dd_HH_mm_ss"];
     
     NSString *prefix = self.mode == HTDTremorDetectionSDKModeSimulation ? @"S" : @"";
-    NSString *fileFormat = @"csv";
+    NSString *fileFormat = audio ? @"m4a" : @"csv";
     NSString *fileString = [NSString stringWithFormat:@"%@%@-%@-%@-%@-Apple-%@-%@-%@.%@",
                             prefix,
                             @"T",

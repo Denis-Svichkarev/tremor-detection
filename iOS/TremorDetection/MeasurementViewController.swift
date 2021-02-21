@@ -129,7 +129,9 @@ extension MeasurementViewController: HTDTremorDetectionDelegate {
     func onMeasurementCompleted(_ tremorResult: HTDTremorResult, confidence: CGFloat) {
         let vc = StoryboardService.shared.getCompletedViewController()
         vc.tremorData = MeasurementService.shared.tremorDetectionSDK.exportData()
-        vc.tremorDataString = MeasurementService.shared.tremorDetectionSDK.exportFileName()
+        vc.tremorDataString = MeasurementService.shared.tremorDetectionSDK.exportFileNameAudio(false)
+        vc.tremorAudioData = MeasurementService.shared.tremorDetectionSDK.recordedAudio()
+        vc.tremorAudioDataString = MeasurementService.shared.tremorDetectionSDK.exportFileNameAudio(true)
         navigationController?.pushViewController(vc, animated: true)
     }
     

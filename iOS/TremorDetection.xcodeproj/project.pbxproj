@@ -57,6 +57,8 @@
 		25E9242E25E276F3004B1838 /* classify_accelerometer_terminate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25E9242A25E276F2004B1838 /* classify_accelerometer_terminate.cpp */; };
 		25E9242F25E276F3004B1838 /* classify_accelerometer_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25E9242B25E276F2004B1838 /* classify_accelerometer_data.cpp */; };
 		25E9243025E276F3004B1838 /* classify_accelerometer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25E9242C25E276F2004B1838 /* classify_accelerometer.cpp */; };
+		25E9243425E29021004B1838 /* 440hz_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 25E9243325E29021004B1838 /* 440hz_sound.mp3 */; };
+		25E9243825E29079004B1838 /* HTDAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 25E9243725E29079004B1838 /* HTDAudioPlayer.m */; };
 		25F94075258678170016079E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25F94074258678170016079E /* GoogleService-Info.plist */; };
 		25F940782586785C0016079E /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F940772586785C0016079E /* FirebaseService.swift */; };
 /* End PBXBuildFile section */
@@ -162,6 +164,9 @@
 		25E9242A25E276F2004B1838 /* classify_accelerometer_terminate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = classify_accelerometer_terminate.cpp; sourceTree = "<group>"; };
 		25E9242B25E276F2004B1838 /* classify_accelerometer_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = classify_accelerometer_data.cpp; sourceTree = "<group>"; };
 		25E9242C25E276F2004B1838 /* classify_accelerometer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = classify_accelerometer.cpp; sourceTree = "<group>"; };
+		25E9243325E29021004B1838 /* 440hz_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 440hz_sound.mp3; sourceTree = "<group>"; };
+		25E9243625E29079004B1838 /* HTDAudioPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTDAudioPlayer.h; sourceTree = "<group>"; };
+		25E9243725E29079004B1838 /* HTDAudioPlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTDAudioPlayer.m; sourceTree = "<group>"; };
 		25F94074258678170016079E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		25F940772586785C0016079E /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		25F9407B258692AA0016079E /* HTDTremorDetectionSDKMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTDTremorDetectionSDKMode.h; sourceTree = "<group>"; };
@@ -300,6 +305,7 @@
 				25F94074258678170016079E /* GoogleService-Info.plist */,
 				25818784256E64A100B18951 /* TremorDetection-Bridging-Header.h */,
 				2589F3D4257B6EE100E93649 /* Constants.swift */,
+				25E9243325E29021004B1838 /* 440hz_sound.mp3 */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -323,6 +329,8 @@
 				251D08DE25DE69AA00006741 /* HTDClassificationType.h */,
 				251D08D925DE682300006741 /* HTDClassificationResult.h */,
 				251D08DA25DE682300006741 /* HTDClassificationResult.m */,
+				25E9243625E29079004B1838 /* HTDAudioPlayer.h */,
+				25E9243725E29079004B1838 /* HTDAudioPlayer.m */,
 			);
 			path = SDK;
 			sourceTree = "<group>";
@@ -441,6 +449,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2571A288256E61D3006A2F29 /* LaunchScreen.storyboard in Resources */,
+				25E9243425E29021004B1838 /* 440hz_sound.mp3 in Resources */,
 				25F94075258678170016079E /* GoogleService-Info.plist in Resources */,
 				2571A285256E61D3006A2F29 /* Assets.xcassets in Resources */,
 				2571A283256E61CE006A2F29 /* Main.storyboard in Resources */,
@@ -519,6 +528,7 @@
 				251D08B325DE67E600006741 /* get_features.cpp in Sources */,
 				251D08CF25DE67E600006741 /* nullAssignment.cpp in Sources */,
 				251D08C625DE67E600006741 /* rtGetInf.cpp in Sources */,
+				25E9243825E29079004B1838 /* HTDAudioPlayer.m in Sources */,
 				2589F3E2257B73FF00E93649 /* UIDevice.swift in Sources */,
 				251D08B525DE67E600006741 /* extract_features_from_raw_data_rtwutil.cpp in Sources */,
 				251D08B725DE67E600006741 /* extract_features_from_raw_data_terminate.cpp in Sources */,

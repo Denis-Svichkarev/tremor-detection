@@ -15,6 +15,9 @@ class CompletedViewController: UIViewController {
     var tremorData: Data?
     var tremorDataString: String?
     
+    var tremorAudioData: Data?
+    var tremorAudioDataString: String?
+    
     var isUploaded: Bool = false
     
     // MARK: - Controller Life Cycle
@@ -22,12 +25,7 @@ class CompletedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let tremorData = tremorData, let tremorDataString = tremorDataString {
-            FirebaseService.shared.sendData(data: tremorData, fileName:tremorDataString) { success in
-                self.isUploaded = true
-                self.configureUI()
-            }
-        }
+        uploadAccelerometerData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,6 +43,27 @@ class CompletedViewController: UIViewController {
             navigationItem.rightBarButtonItem?.isEnabled = true
         } else {
             navigationItem.rightBarButtonItem?.isEnabled = false
+        }
+    }
+    
+    // MARK: - Uploading
+    
+    func uploadAccelerometerData() {
+        if let tremorData = tremorData, let tremorDataString = tremorDataString {
+            FirebaseService.shared.sendData(data: tremorData, fileName:tremorDataString) { success in
+                self.isUploaded = true
+                self.configureUI()
+                self.uploadAudioData()
+            }
+        }
+    }
+    
+    func uploadAudioData() {
+        if let tremorData = tremorAudioData, let tremorAudioDataString = tremorAudioDataString {
+            FirebaseService.shared.sendData(data: tremorData, fileName:tremorAudioDataString) { success in
+                self.isUploaded = true
+                self.configureUI()
+            }
         }
     }
     
