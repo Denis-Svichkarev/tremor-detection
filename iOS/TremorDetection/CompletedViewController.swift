@@ -12,11 +12,14 @@ class CompletedViewController: UIViewController {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var classificationLabel: UILabel!
     
-    var tremorData: Data?
-    var tremorDataString: String?
+    var accelerometerData: Data?
+    var accelerometerDataString: String?
     
-    var tremorAudioData: Data?
-    var tremorAudioDataString: String?
+    var audioData: Data?
+    var audioDataString: String?
+    
+    var cameraData: Data?
+    var cameraDataString: String?
     
     var isUploaded: Bool = false
     
@@ -49,18 +52,24 @@ class CompletedViewController: UIViewController {
     // MARK: - Uploading
     
     func uploadAccelerometerData() {
-        if let tremorData = tremorData, let tremorDataString = tremorDataString {
-            FirebaseService.shared.sendData(data: tremorData, fileName:tremorDataString) { success in
-                self.isUploaded = true
-                self.configureUI()
+        if let accelerometerData = accelerometerData, let accelerometerDataString = accelerometerDataString {
+            FirebaseService.shared.sendData(data: accelerometerData, fileName:accelerometerDataString) { success in
                 self.uploadAudioData()
             }
         }
     }
     
     func uploadAudioData() {
-        if let tremorData = tremorAudioData, let tremorAudioDataString = tremorAudioDataString {
-            FirebaseService.shared.sendData(data: tremorData, fileName:tremorAudioDataString) { success in
+        if let audioData = audioData, let audioDataString = audioDataString {
+            FirebaseService.shared.sendData(data: audioData, fileName:audioDataString) { success in
+                self.uploadCameraData()
+            }
+        }
+    }
+    
+    func uploadCameraData() {
+        if let cameraData = cameraData, let cameraDataString = cameraDataString {
+            FirebaseService.shared.sendData(data: cameraData, fileName:cameraDataString) { success in
                 self.isUploaded = true
                 self.configureUI()
             }

@@ -17,7 +17,7 @@
 
 @implementation HTDAudioPlayer
 
-+ (HTDAudioPlayer *)shared{
++ (HTDAudioPlayer *)shared {
     static HTDAudioPlayer *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once (&onceToken, ^{

@@ -11,6 +11,7 @@
 #import "HTDTremorDetectionSDKError.h"
 #import "HTDTremorDetectionDelegate.h"
 #import "HTDTremorDetectionSDKMode.h"
+#import "HTDDataType.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) id<HTDTremorDetectionDelegate> delegate;
 
-- (HTDTremorDetectionSDKMode)getMode;
+- (void)askCameraAccess;
 
 - (HTDTremorDetectionSDKError)configureMeasurementTime:(NSInteger)measurementTime;
 - (void)configureMode:(HTDTremorDetectionSDKMode)mode;
@@ -29,14 +30,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)configureAxisZGraph:(CGRect)frame LineColor:(UIColor *)lineColor BackgroundColor:(UIColor *)backgroundColor;
 
 - (NSInteger)getMeasurementTime;
+- (HTDTremorDetectionSDKMode)getMode;
 
 - (void)startMeasurement;
 - (void)stopMeasurement;
 - (void)abortMeasurement;
 
-- (NSString *)exportFileNameAudio:(BOOL)audio;
-- (NSData *)exportData;
-- (NSData *)recordedAudio;
+- (NSString *)exportFileName:(HTDDataType)dataType;
+- (NSData *)accelerometerData;
+- (NSData *)audioData;
+- (nullable NSData *)cameraData;
 
 @end
 

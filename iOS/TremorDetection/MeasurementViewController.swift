@@ -36,6 +36,11 @@ class MeasurementViewController: UIViewController {
     var axisZOffest: Float = 0
     
     var isSimulationMode = false
+    var timer: Timer?
+    
+    let sdk: HTDTremorDetectionSDK = {
+        return MeasurementService.shared.tremorDetectionSDK
+    }()
     
     // MARK: - Controller Life Cycle
     
@@ -43,20 +48,20 @@ class MeasurementViewController: UIViewController {
         super.viewDidLoad()
         
         if isSimulationMode {
-            MeasurementService.shared.tremorDetectionSDK.configureMode(.simulation)
+            sdk.configureMode(.simulation)
         } else {
-            MeasurementService.shared.tremorDetectionSDK.configureMode(.normal)
+            sdk.configureMode(.normal)
         }
         
         if let userID = MeasurementService.shared.userID {
-            MeasurementService.shared.tremorDetectionSDK.configureUserID(userID)
+            sdk.configureUserID(userID)
         }
         
-        MeasurementService.shared.tremorDetectionSDK.configure(withDelegate: self)
-        MeasurementService.shared.tremorDetectionSDK.configureAxisXGraph(axisXImageView.bounds, lineColor: .red, backgroundColor: .clear)
-        MeasurementService.shared.tremorDetectionSDK.configureAxisYGraph(axisYImageView.bounds, lineColor: .systemGreen, backgroundColor: .clear)
-        MeasurementService.shared.tremorDetectionSDK.configureAxisZGraph(axisZImageView.bounds, lineColor: .blue, backgroundColor: .clear)
-        MeasurementService.shared.tremorDetectionSDK.startMeasurement()
+        sdk.configure(withDelegate: self)
+        sdk.configureAxisXGraph(axisXImageView.bounds, lineColor: .red, backgroundColor: .clear)
+        sdk.configureAxisYGraph(axisYImageView.bounds, lineColor: .systemGreen, backgroundColor: .clear)
+        sdk.configureAxisZGraph(axisZImageView.bounds, lineColor: .blue, backgroundColor: .clear)
+        sdk.startMeasurement()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,11 +97,11 @@ class MeasurementViewController: UIViewController {
     // MARK: - IB Actions
     
     @IBAction func onStopButtonPressed(_ sender: Any) {
-        MeasurementService.shared.tremorDetectionSDK.stopMeasurement()
+        sdk.stopMeasurement()
     }
     
     @IBAction func onAbortButtonPressed(_ sender: Any) {
-        MeasurementService.shared.tremorDetectionSDK.abortMeasurement()
+        sdk.abortMeasurement()
     }
     
     // MARK: - Helpers
@@ -127,12 +132,30 @@ extension MeasurementViewController: HTDTremorDetectionDelegate {
     }
     
     func onMeasurementCompleted(_ tremorResult: HTDTremorResult, confidence: CGFloat) {
-        let vc = StoryboardService.shared.getCompletedViewController()
-        vc.tremorData = MeasurementService.shared.tremorDetectionSDK.exportData()
-        vc.tremorDataString = MeasurementService.shared.tremorDetectionSDK.exportFileNameAudio(false)
-        vc.tremorAudioData = MeasurementService.shared.tremorDetectionSDK.recordedAudio()
-        vc.tremorAudioDataString = MeasurementService.shared.tremorDetectionSDK.exportFileNameAudio(true)
-        navigationController?.pushViewController(vc, animated: true)
+        showSpinner(onView: self.view)
+        
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(videoTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc func videoTimer() {
+        if let cameraData = sdk.cameraData() {
+            timer?.invalidate()
+            timer = nil
+            removeSpinner()
+            
+            let vc = StoryboardService.shared.getCompletedViewController()
+            
+            vc.accelerometerData = sdk.accelerometerData()
+            vc.accelerometerDataString = sdk.exportFileName(.accelerometer)
+            
+            vc.audioData = sdk.audioData()
+            vc.audioDataString = sdk.exportFileName(.audio)
+            
+            vc.cameraData = cameraData
+            vc.cameraDataString = sdk.exportFileName(.camera)
+            
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func onStatusReceived(_ status: HTDTremorStatus) {

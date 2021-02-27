@@ -59,6 +59,8 @@
 		25E9243025E276F3004B1838 /* classify_accelerometer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 25E9242C25E276F2004B1838 /* classify_accelerometer.cpp */; };
 		25E9243425E29021004B1838 /* 440hz_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 25E9243325E29021004B1838 /* 440hz_sound.mp3 */; };
 		25E9243825E29079004B1838 /* HTDAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 25E9243725E29079004B1838 /* HTDAudioPlayer.m */; };
+		25F4376825E982B500269820 /* HTDCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F4376725E982B500269820 /* HTDCamera.m */; };
+		25F4376C25E9856500269820 /* HTDVideoRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F4376B25E9856500269820 /* HTDVideoRecording.m */; };
 		25F94075258678170016079E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25F94074258678170016079E /* GoogleService-Info.plist */; };
 		25F940782586785C0016079E /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F940772586785C0016079E /* FirebaseService.swift */; };
 /* End PBXBuildFile section */
@@ -167,6 +169,11 @@
 		25E9243325E29021004B1838 /* 440hz_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 440hz_sound.mp3; sourceTree = "<group>"; };
 		25E9243625E29079004B1838 /* HTDAudioPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTDAudioPlayer.h; sourceTree = "<group>"; };
 		25E9243725E29079004B1838 /* HTDAudioPlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTDAudioPlayer.m; sourceTree = "<group>"; };
+		25F4376625E982B500269820 /* HTDCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTDCamera.h; sourceTree = "<group>"; };
+		25F4376725E982B500269820 /* HTDCamera.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTDCamera.m; sourceTree = "<group>"; };
+		25F4376A25E9856500269820 /* HTDVideoRecording.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTDVideoRecording.h; sourceTree = "<group>"; };
+		25F4376B25E9856500269820 /* HTDVideoRecording.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTDVideoRecording.m; sourceTree = "<group>"; };
+		25F6551B25EA4D0600991177 /* HTDDataType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTDDataType.h; sourceTree = "<group>"; };
 		25F94074258678170016079E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		25F940772586785C0016079E /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		25F9407B258692AA0016079E /* HTDTremorDetectionSDKMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTDTremorDetectionSDKMode.h; sourceTree = "<group>"; };
@@ -331,6 +338,11 @@
 				251D08DA25DE682300006741 /* HTDClassificationResult.m */,
 				25E9243625E29079004B1838 /* HTDAudioPlayer.h */,
 				25E9243725E29079004B1838 /* HTDAudioPlayer.m */,
+				25F4376625E982B500269820 /* HTDCamera.h */,
+				25F4376725E982B500269820 /* HTDCamera.m */,
+				25F4376A25E9856500269820 /* HTDVideoRecording.h */,
+				25F4376B25E9856500269820 /* HTDVideoRecording.m */,
+				25F6551B25EA4D0600991177 /* HTDDataType.h */,
 			);
 			path = SDK;
 			sourceTree = "<group>";
@@ -506,9 +518,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2589F3E6257B7D6100E93649 /* CompletedViewController.swift in Sources */,
+				25F4376825E982B500269820 /* HTDCamera.m in Sources */,
 				251D08C425DE67E600006741 /* FFTImplementationCallback.cpp in Sources */,
 				2571A27C256E61CE006A2F29 /* AppDelegate.swift in Sources */,
 				25E9243025E276F3004B1838 /* classify_accelerometer.cpp in Sources */,
+				25F4376C25E9856500269820 /* HTDVideoRecording.m in Sources */,
 				2589F3E0257B73FF00E93649 /* DoubleExtensions.swift in Sources */,
 				258187A8256E68F500B18951 /* HTDTremorDetectionSDK.mm in Sources */,
 				25F940782586785C0016079E /* FirebaseService.swift in Sources */,
@@ -704,7 +718,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GJYUL598A7;
 				INFOPLIST_FILE = "TremorDetection/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -726,7 +740,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GJYUL598A7;
 				INFOPLIST_FILE = "TremorDetection/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

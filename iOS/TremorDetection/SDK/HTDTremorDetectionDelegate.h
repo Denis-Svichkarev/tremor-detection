@@ -16,17 +16,12 @@
 @protocol HTDTremorDetectionDelegate <NSObject>
 
 - (void)onProgressUpdated:(NSInteger)percentCompleted;
-
 - (void)onMeasurementCompleted:(HTDTremorResult)tremorResult Confidence:(CGFloat)confidence;
-
 - (void)onStatusReceived:(HTDTremorStatus)status;
-
 - (void)onWarningReceived:(HTDTremorWarning)warning;
 
 - (void)onAxisXOffsetGraphImageUpdated:(UIImage *)image;
-
 - (void)onAxisYOffsetGraphImageUpdated:(UIImage *)image;
-
 - (void)onAxisZOffsetGraphImageUpdated:(UIImage *)image;
 
 - (void)onClassificationResultUpdated:(HTDClassificationResult *)result;

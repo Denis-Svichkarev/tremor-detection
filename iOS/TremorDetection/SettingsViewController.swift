@@ -28,6 +28,8 @@ class SettingsViewController: UIViewController {
         userIdTextField.addTarget(self, action: #selector(SettingsViewController.textFieldDidChange(_:)), for: .editingChanged)
         measurementTimeTextField.addTarget(self, action: #selector(SettingsViewController.textFieldDidChange(_:)), for: .editingChanged)
         exerciseNumberTextField.addTarget(self, action: #selector(SettingsViewController.textFieldDidChange(_:)), for: .editingChanged)
+        
+        MeasurementService.shared.tremorDetectionSDK.askCameraAccess()
     }
 
     override func viewWillAppear(_ animated: Bool) {

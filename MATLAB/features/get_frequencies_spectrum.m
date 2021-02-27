@@ -1,10 +1,12 @@
 % FFT spectrum from signal
-function [amplitudes, frequencies] = get_frequencies_spectrum(signal) 
+function [amplitudes, frequencies, phase] = get_frequencies_spectrum(signal) 
     timewindow = signal;
     Fs = 100; % sampling frequency
 
     L = length(timewindow);
     Y = fft(timewindow);
+    
+    phase = angle(Y);
 
     P2 = abs(Y / L);
     P1 = P2(1:floor(L/2)+1);

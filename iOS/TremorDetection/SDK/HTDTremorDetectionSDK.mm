@@ -11,6 +11,7 @@
 #import "HTDTremorDetectionSDK.h"
 #import "HTDOffsetGraph.h"
 #import "HTDAudioPlayer.h"
+#import "HTDCamera.h"
 
 #include "rt_nonfinite.h"
 
@@ -165,6 +166,7 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
 
 - (void)startMeasurement {
     [[HTDAudioPlayer shared] play];
+    [[HTDCamera shared] startMeasuring];
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(onTimerFinished:) userInfo:nil repeats:YES];
     
@@ -255,6 +257,8 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
 
 - (void)stopMeasurement {
     [[HTDAudioPlayer shared] stop];
+    [[HTDCamera shared] stopMeasuring];
+    
     [self.timer invalidate];
     [self.motionManager stopAccelerometerUpdates];
     [self.delegate onMeasurementCompleted:HTDTremorResultUndetermined Confidence:0];
@@ -263,6 +267,8 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
 
 - (void)abortMeasurement {
     [[HTDAudioPlayer shared] stop];
+    [[HTDCamera shared] stopMeasuring];
+    
     [self.timer invalidate];
     [self.motionManager stopAccelerometerUpdates];
     [self.delegate onStatusReceived:HTDTremorStatusAborted];
@@ -300,22 +306,30 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
     }
 }
 
-#pragma mark - Export
-
-- (NSString *)exportFileNameAudio:(BOOL)audio {
-    return [self getRawDataFileNameWithVersion:@"1.0" Audio:audio];
+- (void)askCameraAccess {
+    [[HTDCamera shared] askCameraAccess];
 }
 
-- (NSData *)exportData {
+#pragma mark - Export
+
+- (NSString *)exportFileName:(HTDDataType)dataType {
+    return [self getRawDataFileNameWithVersion:@"1.0" DataType:dataType];
+}
+
+- (NSData *)accelerometerData {
     if (!self.exportDataString) return nil;
     return [self.exportDataString dataUsingEncoding:NSUTF8StringEncoding];;
 }
 
-- (NSData *)recordedAudio {
+- (NSData *)audioData {
     return [[HTDAudioPlayer shared] getLastRecord];
 }
 
-- (NSString *)getRawDataFileNameWithVersion:(NSString *)version Audio:(BOOL)audio {
+- (nullable NSData *)cameraData {
+    return [[HTDCamera shared] videoData];
+}
+
+- (NSString *)getRawDataFileNameWithVersion:(NSString *)version DataType:(HTDDataType)dataType {
     NSDate *currentDate = [NSDate date];
     [self generateMeasurementID];
     
@@ -324,7 +338,14 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
     [formatter setDateFormat:@"YYYY_MM_dd_HH_mm_ss"];
     
     NSString *prefix = self.mode == HTDTremorDetectionSDKModeSimulation ? @"S" : @"";
-    NSString *fileFormat = audio ? @"m4a" : @"csv";
+    NSString *fileFormat;
+    
+    switch (dataType) {
+        case HTDDataTypeAccelerometer: fileFormat = @"csv"; break;
+        case HTDDataTypeAudio: fileFormat = @"m4a"; break;
+        case HTDDataTypeCamera: fileFormat = @"mp4"; break;
+    }
+
     NSString *fileString = [NSString stringWithFormat:@"%@%@-%@-%@-%@-Apple-%@-%@-%@.%@",
                             prefix,
                             @"T",
