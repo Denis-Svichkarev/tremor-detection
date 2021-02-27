@@ -5,10 +5,10 @@ clear all
 
 is_Matlab=false;
 
-%data = get_tremor_data("All");
+%data = get_acc_data("All");
 %sample = data{6};
 
-data = get_tremor_data("Simulation/data15");
+data = get_acc_data("Simulation/data15");
 sample = data{1};
 
 chunk = [];

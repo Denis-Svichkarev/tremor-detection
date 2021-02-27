@@ -31,6 +31,8 @@ class MeasurementViewController: UIViewController {
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var abortButton: UIButton!
     
+    @IBOutlet weak var camerPreview: UIView!
+    
     var axisXOffest: Float = 0
     var axisYOffest: Float = 0
     var axisZOffest: Float = 0
@@ -56,6 +58,8 @@ class MeasurementViewController: UIViewController {
         if let userID = MeasurementService.shared.userID {
             sdk.configureUserID(userID)
         }
+        
+        camerPreview.layer.addSublayer(sdk.preview(camerPreview.frame))
         
         sdk.configure(withDelegate: self)
         sdk.configureAxisXGraph(axisXImageView.bounds, lineColor: .red, backgroundColor: .clear)

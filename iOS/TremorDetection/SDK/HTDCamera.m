@@ -101,6 +101,12 @@
     
     [self.session startRunning];
     
+    [self.currentDevice lockForConfiguration:nil];
+    [self.session beginConfiguration];
+    [self.currentDevice setTorchMode:AVCaptureTorchModeOn];
+    [self.session commitConfiguration];
+    [self.currentDevice unlockForConfiguration];
+    
     dispatch_async(dispatch_get_main_queue(), ^{;
         [UIApplication sharedApplication].idleTimerDisabled = YES;
     });

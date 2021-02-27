@@ -3,8 +3,8 @@
 close all
 clear all
 
-movementData = get_tremor_data("Movement");
-simulationData = get_tremor_data("Simulation");
+movementData = get_acc_data("Movement");
+simulationData = get_acc_data("Simulation");
 
 timewindow_1 = movementData{2}.x;
 timewindow_2 = simulationData{2}.x(1:end);

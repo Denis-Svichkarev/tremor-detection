@@ -7,6 +7,8 @@
 
 #import <CoreMotion/CoreMotion.h>
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
+
 #import "HTDTremorResult.h"
 #import "HTDTremorDetectionSDKError.h"
 #import "HTDTremorDetectionDelegate.h"
@@ -19,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) id<HTDTremorDetectionDelegate> delegate;
 
+- (AVCaptureVideoPreviewLayer *)preview:(CGRect)frame;
 - (void)askCameraAccess;
 
 - (HTDTremorDetectionSDKError)configureMeasurementTime:(NSInteger)measurementTime;

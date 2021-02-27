@@ -20,7 +20,7 @@
         size_t width = CVPixelBufferGetWidth(imageBuffer);
         size_t height = CVPixelBufferGetHeight(imageBuffer);
         
-        CVPixelBufferUnlockBaseAddress(imageBuffer,0);
+        CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
         
         CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
         CGContextRef newContext = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);

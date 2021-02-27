@@ -1,5 +1,5 @@
 %% Get tremor data from folder
-function x = get_tremor_data(folderName) 
+function x = get_acc_data(folderName) 
     dataPath = insertAfter('../web/iOS//', "iOS/", folderName);
     files = dir(strcat(dataPath, '*.csv'));
 

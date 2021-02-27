@@ -1,7 +1,7 @@
 close all
 clear all
 
-data1 = get_tremor_data("Simulation/data15");
+data1 = get_acc_data("Simulation/data15");
 x_data = data1{1}.x(201:400);
 y_data = data1{1}.y(201:400);
 z_data = data1{1}.z(201:400);

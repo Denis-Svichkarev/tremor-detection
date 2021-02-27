@@ -3,22 +3,22 @@
 close all
 clear all
 
-data1 = get_tremor_data("Simulation/data1");
-data2 = get_tremor_data("Simulation/data2");
-data3 = get_tremor_data("Simulation/data3");
-data4 = get_tremor_data("Simulation/data4");
-data5 = get_tremor_data("Simulation/data5");
-data6 = get_tremor_data("Simulation/data6");
-data7 = get_tremor_data("Simulation/data7");
-data8 = get_tremor_data("Simulation/data8");
-data9 = get_tremor_data("Simulation/data9");
-data10 = get_tremor_data("Simulation/data10");
-data11 = get_tremor_data("Simulation/data11");
-data12 = get_tremor_data("Simulation/data12");
-data13 = get_tremor_data("Simulation/data13");
-data14 = get_tremor_data("Simulation/data14");
-data15 = get_tremor_data("Simulation/data15");
-data16 = get_tremor_data("Simulation/data16");
+data1 = get_acc_data("Simulation/data1");
+data2 = get_acc_data("Simulation/data2");
+data3 = get_acc_data("Simulation/data3");
+data4 = get_acc_data("Simulation/data4");
+data5 = get_acc_data("Simulation/data5");
+data6 = get_acc_data("Simulation/data6");
+data7 = get_acc_data("Simulation/data7");
+data8 = get_acc_data("Simulation/data8");
+data9 = get_acc_data("Simulation/data9");
+data10 = get_acc_data("Simulation/data10");
+data11 = get_acc_data("Simulation/data11");
+data12 = get_acc_data("Simulation/data12");
+data13 = get_acc_data("Simulation/data13");
+data14 = get_acc_data("Simulation/data14");
+data15 = get_acc_data("Simulation/data15");
+data16 = get_acc_data("Simulation/data16");
 
 timewindow_size_milisec = 200;
 isTraining = false;

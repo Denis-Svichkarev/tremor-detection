@@ -310,6 +310,10 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
     [[HTDCamera shared] askCameraAccess];
 }
 
+- (AVCaptureVideoPreviewLayer *)preview:(CGRect)frame {
+    return [[HTDCamera shared] preview:frame];
+}
+
 #pragma mark - Export
 
 - (NSString *)exportFileName:(HTDDataType)dataType {
