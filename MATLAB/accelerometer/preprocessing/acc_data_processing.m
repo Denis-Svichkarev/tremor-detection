@@ -4,6 +4,7 @@ close all
 clear all
 
 data = get_acc_data("All");
+%data = get_acc_data("Simulation/data15");
 sample = data{6};
 
 %% Plot axis data 
@@ -13,21 +14,21 @@ xlabel('x');
 ylabel('y');
 sgtitle('File example: 40 seconds measurement');
 
-subplot(6, 1, 1);
+subplot(4, 1, 1);
 plot(sample.timestamp, sample.x, 'r');
 title('X-axis, accelerometer data.');
 
-subplot(6, 1, 2);
+subplot(4, 1, 2);
 plot(sample.timestamp, sample.y, 'g');
 title('Y-axis, accelerometer data.');
 
-subplot(6, 1, 3);
+subplot(4, 1, 3);
 plot(sample.timestamp, sample.z, 'b');
 title('Z-axis, accelerometer data.');
 
 %% Plot FFT data
 
-subplot(6, 1, 4);
+subplot(4, 1, 4);
 hold on;
 title('X, Y, Z axis, FFT');
 
