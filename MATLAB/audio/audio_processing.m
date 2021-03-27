@@ -3,9 +3,12 @@
 clear all
 close all
 
+minLimit = 430;
+maxLimit = 450;
+
 files = get_audio_data("All"); 
 
-i = 2;
+i = 6;
 
 y = files(i,1).y{1};
 fs = files(i,2).fs{1};
@@ -14,10 +17,12 @@ filename = files(i,3).filename{1};
 N = length(y);
         
 time = (1:length(y)) / fs;
-[amp, freq, phase] = get_frequencies_spectrum(y); 
+[amp, freq] = get_audio_spectrum(y); 
+[cut_amp, cut_freq] = extractFreqRange(amp, freq, minLimit, maxLimit);
 
 hold on;
-plot(freq, amp, 'b');
+%plot(freq, amp, 'b');
+plot(cut_freq, cut_amp, 'r');
 xlabel('Time');
 ylabel('Amplitude');
 
@@ -26,22 +31,27 @@ fprintf('Duration= %g seconds\n', length(y)/fs);
 fprintf('Number of samples %g:\n', N);
 fprintf('Sampling rate = %g samples/second\n', fs);
 
+% Plot template sound
+
 base_audio = '440hz_sound.mp3';
 [base_y, base_fs] = audioread(base_audio);
 base_y = base_y(:, 1);
 
 base_time = (1:length(base_y)) / base_fs;
-[base_amp, base_freq, phase] = get_frequencies_spectrum(base_y); 
-plot(base_freq, base_amp, 'r');
+[base_amp, base_freq] = get_audio_spectrum(base_y); 
+[cut_base_amp, cut_base_freq] = extractFreqRange(base_amp, base_freq, minLimit, maxLimit);
+
+%figure(2);
+plot(cut_base_freq, cut_base_amp, 'b');
 
 % TODO: expand base audio instead of this:
-y(size(base_y, 1)+1:end,:) = [];
+%y(size(base_y, 1)+1:end,:) = [];
 
-[theta, thetadeg, phi] = find_audio_phase(y, base_y, time);
+%[theta, thetadeg, phi] = find_audio_phase(y, base_y, time);
 
-theta
-thetadeg
-phi
+%theta
+%thetadeg
+%phi
 
 %% Finding the phase
 
