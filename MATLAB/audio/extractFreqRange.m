@@ -2,7 +2,7 @@ function [amp, freq] = extractFreqRange(amplitudes, frequencies, minFreq, maxFre
     freq = [];
     amp = [];
 
-    maxAmp = 0.001;
+    maxAmp = 0.00002;
     
     for i = 1:length(frequencies)
         if frequencies(i) >= minFreq && frequencies(i) <= maxFreq 

@@ -42,7 +42,7 @@
     
     // Player
     
-    NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:@"440hz_sound" ofType:@"mp3"];
+    NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:@"16kHz_sound" ofType:@"mp3"];
     
     if (soundFilePath != nil) {
         NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
@@ -80,7 +80,7 @@
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/440hz_record.m4a", documentsDirectory]];
+    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/16kHz_record.m4a", documentsDirectory]];
 
     NSError *error = nil;
     self.audioRecorder = [[AVAudioRecorder alloc] initWithURL:url settings:recordSettings error:&error];
@@ -104,15 +104,17 @@
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
     NSArray *filePathsArray = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:documentsDirectory error:nil];
-    if (filePathsArray.count > 0) {
-        NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[filePathsArray objectAtIndex:0]];
-        NSData *data = [[NSFileManager defaultManager] contentsAtPath:filePath];
-        return data;
-        
-    } else {
-        NSLog(@"Saved audio data does not exist");
-        return nil;
+    
+    for (int i = 0; i < filePathsArray.count; i++) {
+        if ([filePathsArray[i] isEqualToString:@"16kHz_record.m4a"]) {
+            NSString *filePath = [documentsDirectory stringByAppendingPathComponent:filePathsArray[i]];
+            NSData *data = [[NSFileManager defaultManager] contentsAtPath:filePath];
+            return data;
+        }
     }
+    
+    NSLog(@"Saved audio data does not exist");
+    return nil;
 }
 
 @end

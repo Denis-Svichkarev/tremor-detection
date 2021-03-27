@@ -37,6 +37,7 @@
 		251D08D225DE67E600006741 /* nanmean.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D08A525DE67E600006741 /* nanmean.cpp */; };
 		251D08D325DE67E600006741 /* diff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D08A725DE67E600006741 /* diff.cpp */; };
 		251D08DB25DE682300006741 /* HTDClassificationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 251D08DA25DE682300006741 /* HTDClassificationResult.m */; };
+		25316340260F796A00D4ED00 /* 16kHz_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2531633F260F796A00D4ED00 /* 16kHz_sound.mp3 */; };
 		2571A27C256E61CE006A2F29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571A27B256E61CE006A2F29 /* AppDelegate.swift */; };
 		2571A283256E61CE006A2F29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2571A281256E61CE006A2F29 /* Main.storyboard */; };
 		2571A285256E61D3006A2F29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2571A284256E61D3006A2F29 /* Assets.xcassets */; };
@@ -131,6 +132,7 @@
 		251D08D925DE682300006741 /* HTDClassificationResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTDClassificationResult.h; sourceTree = "<group>"; };
 		251D08DA25DE682300006741 /* HTDClassificationResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTDClassificationResult.m; sourceTree = "<group>"; };
 		251D08DE25DE69AA00006741 /* HTDClassificationType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTDClassificationType.h; sourceTree = "<group>"; };
+		2531633F260F796A00D4ED00 /* 16kHz_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 16kHz_sound.mp3; sourceTree = "<group>"; };
 		2571A278256E61CE006A2F29 /* TremorDetection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TremorDetection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2571A27B256E61CE006A2F29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2571A282256E61CE006A2F29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 				25818784256E64A100B18951 /* TremorDetection-Bridging-Header.h */,
 				2589F3D4257B6EE100E93649 /* Constants.swift */,
 				25E9243325E29021004B1838 /* 440hz_sound.mp3 */,
+				2531633F260F796A00D4ED00 /* 16kHz_sound.mp3 */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2571A288256E61D3006A2F29 /* LaunchScreen.storyboard in Resources */,
+				25316340260F796A00D4ED00 /* 16kHz_sound.mp3 in Resources */,
 				25E9243425E29021004B1838 /* 440hz_sound.mp3 in Resources */,
 				25F94075258678170016079E /* GoogleService-Info.plist in Resources */,
 				2571A285256E61D3006A2F29 /* Assets.xcassets in Resources */,
