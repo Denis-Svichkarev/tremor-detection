@@ -1,6 +1,6 @@
 %% Get audio data from folder
 function x = get_audio_data(folderName) 
-    dataPath = insertAfter('../web/iOS//', "iOS/", folderName);
+    dataPath = insertAfter('TremorDetection/web/iOS//', "iOS/", folderName);
     files = dir(strcat(dataPath, '*.m4a'));
 
     N = length(files);
