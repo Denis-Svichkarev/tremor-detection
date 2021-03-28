@@ -11,7 +11,7 @@
 
 @implementation HTDVideoRecording
 
-+ (void)addBufferImages:(CMSampleBufferRef)sampleBuffer toArray:(NSMutableArray *)bufferImagesArray {
++ (UIImage *)addBufferImages:(CMSampleBufferRef)sampleBuffer toArray:(NSMutableArray *)bufferImagesArray {
     if (@available(iOS 10.0, *)) {
         CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
         CVPixelBufferLockBaseAddress(imageBuffer,0);
@@ -32,7 +32,11 @@
         
         [bufferImagesArray addObject:image];
         CGImageRelease(newImage);
+        
+        return image;
     }
+    
+    return nil;
 }
 
 + (void)writeImageAsMovie:(NSArray *)array size:(CGSize)size CompletionHandler:(void(^)(BOOL success, NSData *data, NSURL *path))completion {

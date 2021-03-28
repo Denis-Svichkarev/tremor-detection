@@ -1,4 +1,4 @@
-% Extract 3-9 Hz frequencies and basic characteristics
+% Extract audio frequencies and basic characteristics
 function [freq, amp, M, S, M2, maxValue, minValue, ecdf_f, ecdf_x, I, Q, SK, K, W, M_T, S_T, M2_T, maxValue_T, minValue_T, ecdf_f_T, ecdf_x_T, I_T, Q_T] = get_audio_features(amplitudes, frequencies)
     min_tremor_freq = 15900;
     max_tremor_freq = 16100;

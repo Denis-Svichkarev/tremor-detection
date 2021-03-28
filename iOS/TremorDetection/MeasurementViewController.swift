@@ -32,6 +32,7 @@ class MeasurementViewController: UIViewController {
     @IBOutlet weak var abortButton: UIButton!
     
     @IBOutlet weak var camerPreview: UIView!
+    @IBOutlet weak var cameraProcessedPreview: UIImageView!
     
     var axisXOffest: Float = 0
     var axisYOffest: Float = 0
@@ -218,5 +219,11 @@ extension MeasurementViewController: HTDTremorDetectionDelegate {
         tremorProbabilityLabel.text = "Tremor probability: \(tremorStr)%"
         movementProbabilityLabel.text = "Movement probability: \(movementStr)%"
         motionlessProbabilityLabel.text = "Motionless probability: \(motionlessStr)%"
+    }
+    
+    func onImage(withRectReceived image: UIImage!) {
+        DispatchQueue.main.async {
+            self.cameraProcessedPreview.image = image
+        }
     }
 }

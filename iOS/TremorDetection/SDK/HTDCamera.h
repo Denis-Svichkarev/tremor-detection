@@ -11,8 +11,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol HTDCameraDelegate <NSObject>
+
+- (void)onImageWithRectReceived:(UIImage *)image;
+
+@end
+
+
 @interface HTDCamera : NSObject <AVCaptureVideoDataOutputSampleBufferDelegate>
 
+@property (weak, nonatomic) id<HTDCameraDelegate> delegate;
 @property (strong, nonatomic) NSData *videoData;
 
 + (HTDCamera *)shared;

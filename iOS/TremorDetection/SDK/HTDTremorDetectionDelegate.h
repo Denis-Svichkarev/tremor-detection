@@ -26,5 +26,9 @@
 
 - (void)onClassificationResultUpdated:(HTDClassificationResult *)result;
 
+@optional
+
+- (void)onImageWithRectReceived:(UIImage *)image;
+
 @end
 

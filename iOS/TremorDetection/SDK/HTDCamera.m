@@ -7,6 +7,7 @@
 
 #import "HTDCamera.h"
 #import "HTDVideoRecording.h"
+#import "HTDSquareDetection.h"
 
 @interface HTDCamera()
 
@@ -14,6 +15,8 @@
 @property (strong, nonatomic) AVCaptureSession *session;
 @property (strong, nonatomic) AVCaptureDevice *currentDevice;
 @property (strong, nonatomic) NSMutableArray *bufferImagesArray;
+
+@property (strong, nonatomic) HTDSquareDetection *squareDetection;
 
 @end
 
@@ -26,6 +29,7 @@
     static dispatch_once_t onceToken;
     dispatch_once (&onceToken, ^{
         sharedInstance = [[HTDCamera alloc] init];
+        sharedInstance.squareDetection = [[HTDSquareDetection alloc] init];
     });
     return sharedInstance;
 }
@@ -129,7 +133,12 @@
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
-    [HTDVideoRecording addBufferImages:sampleBuffer toArray:self.bufferImagesArray];
+    UIImage *image = [HTDVideoRecording addBufferImages:sampleBuffer toArray:self.bufferImagesArray];
+    UIImage *imageWithRect = [self.squareDetection detectRect:image];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onImageWithRectReceived:)]) {
+        [self.delegate onImageWithRectReceived:imageWithRect];
+    }
 }
 
 #pragma mark - Configurations

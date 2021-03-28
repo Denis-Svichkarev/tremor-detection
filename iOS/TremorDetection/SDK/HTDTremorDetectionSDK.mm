@@ -64,7 +64,7 @@ static HTDClassificationResult * classify(coder::array<double, 2U> features) {
 
 NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-@interface HTDTremorDetectionSDK()
+@interface HTDTremorDetectionSDK() <HTDCameraDelegate>
 
 @property (nonatomic, assign) NSInteger measurementTime;
 @property (nonatomic, assign) NSInteger currentTime;
@@ -166,6 +166,8 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
 
 - (void)startMeasurement {
     [[HTDAudioPlayer shared] play];
+    
+    [HTDCamera shared].delegate = self;
     [[HTDCamera shared] startMeasuring];
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(onTimerFinished:) userInfo:nil repeats:YES];
@@ -389,6 +391,14 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
     }
 
     return randomString;
+}
+
+#pragma mark - HTDCameraDelegate
+
+- (void)onImageWithRectReceived:(UIImage *)image {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onImageWithRectReceived:)]) {
+        [self.delegate onImageWithRectReceived:image];
+    }
 }
 
 @end

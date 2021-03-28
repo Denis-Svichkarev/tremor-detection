@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HTDVideoRecording : NSObject
 
-+ (void)addBufferImages:(CMSampleBufferRef)sampleBuffer toArray:(NSMutableArray *)bufferImagesArray;
++ (UIImage *)addBufferImages:(CMSampleBufferRef)sampleBuffer toArray:(NSMutableArray *)bufferImagesArray;
 
 + (void)writeImageAsMovie:(NSArray *)array size:(CGSize)size CompletionHandler:(void(^)(BOOL success, NSData *data, NSURL *path))completion;
 

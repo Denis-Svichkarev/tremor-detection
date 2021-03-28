@@ -38,6 +38,8 @@
 		251D08D325DE67E600006741 /* diff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D08A725DE67E600006741 /* diff.cpp */; };
 		251D08DB25DE682300006741 /* HTDClassificationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 251D08DA25DE682300006741 /* HTDClassificationResult.m */; };
 		25316340260F796A00D4ED00 /* 16kHz_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2531633F260F796A00D4ED00 /* 16kHz_sound.mp3 */; };
+		2531634426107C7E00D4ED00 /* HTDSquareDetection.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2531634326107C7E00D4ED00 /* HTDSquareDetection.mm */; };
+		2531634826108B9B00D4ED00 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2531634726108B9B00D4ED00 /* opencv2.framework */; };
 		2571A27C256E61CE006A2F29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571A27B256E61CE006A2F29 /* AppDelegate.swift */; };
 		2571A283256E61CE006A2F29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2571A281256E61CE006A2F29 /* Main.storyboard */; };
 		2571A285256E61D3006A2F29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2571A284256E61D3006A2F29 /* Assets.xcassets */; };
@@ -133,6 +135,9 @@
 		251D08DA25DE682300006741 /* HTDClassificationResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTDClassificationResult.m; sourceTree = "<group>"; };
 		251D08DE25DE69AA00006741 /* HTDClassificationType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTDClassificationType.h; sourceTree = "<group>"; };
 		2531633F260F796A00D4ED00 /* 16kHz_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 16kHz_sound.mp3; sourceTree = "<group>"; };
+		2531634226107C7E00D4ED00 /* HTDSquareDetection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTDSquareDetection.h; sourceTree = "<group>"; };
+		2531634326107C7E00D4ED00 /* HTDSquareDetection.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = HTDSquareDetection.mm; sourceTree = "<group>"; };
+		2531634726108B9B00D4ED00 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		2571A278256E61CE006A2F29 /* TremorDetection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TremorDetection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2571A27B256E61CE006A2F29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2571A282256E61CE006A2F29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -189,6 +194,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2531634826108B9B00D4ED00 /* opencv2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,6 +315,7 @@
 		25818785256E64A900B18951 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2531634726108B9B00D4ED00 /* opencv2.framework */,
 				2571A284256E61D3006A2F29 /* Assets.xcassets */,
 				2571A289256E61D3006A2F29 /* Info.plist */,
 				25F94074258678170016079E /* GoogleService-Info.plist */,
@@ -346,6 +353,8 @@
 				25F4376A25E9856500269820 /* HTDVideoRecording.h */,
 				25F4376B25E9856500269820 /* HTDVideoRecording.m */,
 				25F6551B25EA4D0600991177 /* HTDDataType.h */,
+				2531634226107C7E00D4ED00 /* HTDSquareDetection.h */,
+				2531634326107C7E00D4ED00 /* HTDSquareDetection.mm */,
 			);
 			path = SDK;
 			sourceTree = "<group>";
@@ -528,6 +537,7 @@
 				25E9243025E276F3004B1838 /* classify_accelerometer.cpp in Sources */,
 				25F4376C25E9856500269820 /* HTDVideoRecording.m in Sources */,
 				2589F3E0257B73FF00E93649 /* DoubleExtensions.swift in Sources */,
+				2531634426107C7E00D4ED00 /* HTDSquareDetection.mm in Sources */,
 				258187A8256E68F500B18951 /* HTDTremorDetectionSDK.mm in Sources */,
 				25F940782586785C0016079E /* FirebaseService.swift in Sources */,
 				251D08B625DE67E600006741 /* extract_features_from_raw_data.cpp in Sources */,
@@ -721,6 +731,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GJYUL598A7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TremorDetection/Supporting\\ Files",
+				);
 				INFOPLIST_FILE = "TremorDetection/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -743,6 +757,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GJYUL598A7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TremorDetection/Supporting\\ Files",
+				);
 				INFOPLIST_FILE = "TremorDetection/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
