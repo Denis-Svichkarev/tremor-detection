@@ -19,20 +19,21 @@ using namespace std;
 
 class SquareDetector {
 public:
-    /*void find_squares(cv::Mat& image, vector<vector<cv::Point>>& squares)
+    void find_squares(cv::Mat& image, vector<vector<cv::Point>>& squares)
     {
-        vector<vector<cv::Point>> contours;
+        cv::Mat bwImage;
+        cv::cvtColor(image, bwImage, CV_RGB2GRAY);
+        vector< vector<cv::Point> > contours;
+        cv::findContours(bwImage, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
         
-                // Find contours and store them in a list
         
         cv::Mat gray;
-        
-        Canny(image, gray, 10, 20, 3);
+        Canny(bwImage, gray, 10, 20, 3);
 
         // Dilate helps to remove potential holes between edge segments
         
         cv::Point a(-1, -1);
-        cv::dilate(image, gray, cv::Mat(), a);
+        cv::dilate(bwImage, gray, cv::Mat(), a);
         
         findContours(gray, contours, RETR_LIST, CHAIN_APPROX_SIMPLE);
 
@@ -61,7 +62,51 @@ public:
                                     squares.push_back(approx);
                         }
                 }
-    }*/
+    }
+     
+   /*  void find_squares(cv::Mat& image, vector<vector<cv::Point>>& squares)
+     {
+         cv::Mat bwImage;
+         cv::cvtColor(image, bwImage, CV_RGB2GRAY);
+         vector< vector<cv::Point> > contours;
+         cv::findContours(bwImage, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
+         
+//         cv::Mat kernel = getStructuringElement(MORPH_ELLIPSE, cv::Size(11, 11));
+//         cv::Mat morph;
+//         morphologyEx(image, morph, CV_MOP_CLOSE, kernel);
+//
+         int rectIdx = 0;
+//         vector<vector<cv::Point>> contours;
+//         vector<cv::Vec4i> hierarchy;
+//         findContours(morph, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
+         
+         vector<cv::RotatedRect> rect( contours.size() );
+
+         for (int i = 0; i < contours.size(); i++)
+         {
+             rect[i] = cv::minAreaRect( contours[i] );
+             
+             double areaRatio = abs(cv::contourArea(contours[i])) / (rect[i].size.width * rect[i].size.height);
+             if (areaRatio > .95)
+             {
+                 rectIdx = i;
+                 break;
+             }
+         }
+         // get the convexhull of the contour
+         vector<cv::Point> hull;
+         cv::convexHull(contours[rectIdx], hull, false, true);
+
+         // visualization
+         cv::Mat rgb;
+         cvtColor(image, rgb, CV_GRAY2BGR);
+         drawContours(rgb, contours, rectIdx, cv::Scalar(0, 0, 255), 2);
+         
+         for(size_t i = 0; i < hull.size(); i++)
+         {
+             cv::line(rgb, hull[i], hull[(i + 1)%hull.size()], cv::Scalar(0, 255, 0), 2);
+         }
+     }
     
     void find_squares(cv::Mat& image, vector<vector<cv::Point>>& squares)
     {
@@ -128,16 +173,21 @@ public:
                 }
             }
         }
-    }
+    }*/
     
     // the function draws all the squares in the image
-    void drawSquares(cv::Mat& image, const vector<vector<cv::Point> >& squares )
+    void drawSquares(cv::Mat& image, const vector<vector<cv::Point> >& squares)
     {
         for( size_t i = 0; i < squares.size(); i++ )
         {
-            const cv::Point* p = &squares[i][0];
-            int n = (int)squares[i].size();
-            polylines(image, &p, &n, 1, true, cv::Scalar(0,255,0), 3, CV_AA);
+            cv::Scalar color(27, 56, 0);
+            
+            //cv::Mat rgb;
+            //cvtCoflor(image, rgb, CV_GRAY2BGRA);
+      
+            line(image, cv::Point(squares[i][0].x, squares[i][0].y), cv::Point(squares[i][1].x, squares[i][1].y), cv::Scalar(100,100,0), 1,8,0);
+            
+            //polylines(rgb, &p, &n, 1, true, color, 3, CV_AA);
         }
     }
     
@@ -172,8 +222,23 @@ private:
     UIImageToMat(image, matImage); //[HTDSquareDetection cvMatWithImage:image];
     
     vector<vector<cv::Point>> squares;
-    squareDetector->find_squares(matImage, squares);
+    
+    vector<cv::Point> square1;
+    square1.push_back(cv::Point(50,0));
+    square1.push_back(cv::Point(50,100));
+    square1.push_back(cv::Point(100,100));
+    square1.push_back(cv::Point(100,0));
+    
+    squares.push_back(square1);
+    
+    //squareDetector->find_squares(matImage, squares);
+    
     squareDetector->drawSquares(matImage, squares);
+    
+//    for (size_t i = 0; i < squares.size(); i++) {
+//        cout << squares[i] << endl;
+//        cout << "__________";
+//    }
     
     return MatToUIImage(matImage);
 }
