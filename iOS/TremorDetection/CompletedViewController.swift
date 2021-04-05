@@ -52,27 +52,40 @@ class CompletedViewController: UIViewController {
     // MARK: - Uploading
     
     func uploadAccelerometerData() {
-        if let accelerometerData = accelerometerData, let accelerometerDataString = accelerometerDataString {
-            FirebaseService.shared.sendData(data: accelerometerData, fileName:accelerometerDataString) { success in
-                self.uploadAudioData()
+        if isAccelerometerUploadingEnabled {
+            if let accelerometerData = accelerometerData, let accelerometerDataString = accelerometerDataString {
+                FirebaseService.shared.sendData(data: accelerometerData, fileName:accelerometerDataString) { success in
+                    self.uploadAudioData()
+                }
             }
+        } else {
+            self.uploadAudioData()
         }
     }
     
     func uploadAudioData() {
-        if let audioData = audioData, let audioDataString = audioDataString {
-            FirebaseService.shared.sendData(data: audioData, fileName:audioDataString) { success in
-                self.uploadCameraData()
+        if isAudioUploadingEnabled {
+            if let audioData = audioData, let audioDataString = audioDataString {
+                FirebaseService.shared.sendData(data: audioData, fileName:audioDataString) { success in
+                    self.uploadCameraData()
+                }
             }
+        } else {
+            self.uploadCameraData()
         }
     }
     
     func uploadCameraData() {
-        if let cameraData = cameraData, let cameraDataString = cameraDataString {
-            FirebaseService.shared.sendData(data: cameraData, fileName:cameraDataString) { success in
-                self.isUploaded = true
-                self.configureUI()
+        if isVideoUploadingEnabled {
+            if let cameraData = cameraData, let cameraDataString = cameraDataString {
+                FirebaseService.shared.sendData(data: cameraData, fileName:cameraDataString) { success in
+                    self.isUploaded = true
+                    self.configureUI()
+                }
             }
+        } else {
+            self.isUploaded = true
+            self.configureUI()
         }
     }
     

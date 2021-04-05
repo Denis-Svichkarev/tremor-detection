@@ -178,16 +178,36 @@ public:
     // the function draws all the squares in the image
     void drawSquares(cv::Mat& image, const vector<vector<cv::Point> >& squares)
     {
-        for( size_t i = 0; i < squares.size(); i++ )
+        // blur will enhance edge detection
+        cv::Mat blurred(image);
+        medianBlur(image, blurred, 9);
+
+        cv::Mat gray0(blurred.size(), CV_8U), gray;
+        vector<vector<cv::Point> > contours;
+        
+        // find squares in every color plane of the image
+        for (int c = 0; c < 3; c++)
         {
-            cv::Scalar color(27, 56, 0);
+            int ch[] = {c, 0};
+            mixChannels(&blurred, 1, &gray0, 1, ch, 1);
+        }
+        
+        if (squares.size() > 0) {
+            cv::Mat rgb;
+            cvtColor(gray0, rgb, CV_GRAY2BGR);
+            cv::Scalar color(255, 0, 0);
             
-            //cv::Mat rgb;
-            //cvtCoflor(image, rgb, CV_GRAY2BGRA);
-      
-            line(image, cv::Point(squares[i][0].x, squares[i][0].y), cv::Point(squares[i][1].x, squares[i][1].y), cv::Scalar(100,100,0), 1,8,0);
+            cv::Point p1(squares[0][0].x, squares[0][0].y);
+            cv::Point p2(squares[0][1].x, squares[0][1].y);
+            cv::Point p3(squares[0][2].x, squares[0][2].y);
+            cv::Point p4(squares[0][3].x, squares[0][3].y);
             
-            //polylines(rgb, &p, &n, 1, true, color, 3, CV_AA);
+            line(rgb, p1, p2, color, 2, LINE_8);
+            line(rgb, p2, p3, color, 2, LINE_8);
+            line(rgb, p3, p4, color, 2, LINE_8);
+            line(rgb, p4, p1, color, 2, LINE_8);
+            
+            image = rgb;
         }
     }
     
@@ -219,7 +239,7 @@ private:
 
 - (UIImage *)detectRect:(UIImage *)image {
     cv::Mat matImage;
-    UIImageToMat(image, matImage); //[HTDSquareDetection cvMatWithImage:image];
+    UIImageToMat(image, matImage, true); //[HTDSquareDetection cvMatWithImage:image];
     
     vector<vector<cv::Point>> squares;
     
@@ -228,7 +248,6 @@ private:
     square1.push_back(cv::Point(50,100));
     square1.push_back(cv::Point(100,100));
     square1.push_back(cv::Point(100,0));
-    
     squares.push_back(square1);
     
     //squareDetector->find_squares(matImage, squares);
@@ -242,6 +261,8 @@ private:
     
     return MatToUIImage(matImage);
 }
+
+#pragma mark - Helpers
 
 + (cv::Mat)cvMatWithImage:(UIImage *)image {
     CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);

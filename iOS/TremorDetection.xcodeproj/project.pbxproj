@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2518696B2619F69D00FB67B2 /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2518696A2619F69D00FB67B2 /* Configs.swift */; };
 		251D08B325DE67E600006741 /* get_features.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D086125DE67E600006741 /* get_features.cpp */; };
 		251D08B425DE67E600006741 /* extract_features_from_raw_data_initialize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D086325DE67E600006741 /* extract_features_from_raw_data_initialize.cpp */; };
 		251D08B525DE67E600006741 /* extract_features_from_raw_data_rtwutil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 251D086625DE67E600006741 /* extract_features_from_raw_data_rtwutil.cpp */; };
@@ -69,6 +70,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2518696A2619F69D00FB67B2 /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
 		251D086125DE67E600006741 /* get_features.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = get_features.cpp; sourceTree = "<group>"; };
 		251D086225DE67E600006741 /* extract_features_from_raw_data_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = extract_features_from_raw_data_data.h; sourceTree = "<group>"; };
 		251D086325DE67E600006741 /* extract_features_from_raw_data_initialize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = extract_features_from_raw_data_initialize.cpp; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 				2589F3E5257B7D6100E93649 /* CompletedViewController.swift */,
 				2571A281256E61CE006A2F29 /* Main.storyboard */,
 				2571A286256E61D3006A2F29 /* LaunchScreen.storyboard */,
+				2518696A2619F69D00FB67B2 /* Configs.swift */,
 				2589F3D8257B73BD00E93649 /* Extensions */,
 				258187AE256E6C4300B18951 /* Services */,
 				258187A5256E68AA00B18951 /* SDK */,
@@ -563,6 +566,7 @@
 				251D08CC25DE67E600006741 /* rt_nonfinite.cpp in Sources */,
 				251D08C325DE67E600006741 /* iqr.cpp in Sources */,
 				251D08C725DE67E600006741 /* sort.cpp in Sources */,
+				2518696B2619F69D00FB67B2 /* Configs.swift in Sources */,
 				2581878A256E652E00B18951 /* SettingsViewController.swift in Sources */,
 				25E9242E25E276F3004B1838 /* classify_accelerometer_terminate.cpp in Sources */,
 				25E9242F25E276F3004B1838 /* classify_accelerometer_data.cpp in Sources */,
