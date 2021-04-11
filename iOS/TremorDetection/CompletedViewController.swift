@@ -21,6 +21,9 @@ class CompletedViewController: UIViewController {
     var cameraData: Data?
     var cameraDataString: String?
     
+    var cameraRawDataString: Data?
+    var cameraRawDataFilename: String?
+    
     var isUploaded: Bool = false
     
     // MARK: - Controller Life Cycle
@@ -78,6 +81,18 @@ class CompletedViewController: UIViewController {
     func uploadCameraData() {
         if isVideoUploadingEnabled {
             if let cameraData = cameraData, let cameraDataString = cameraDataString {
+                FirebaseService.shared.sendData(data: cameraData, fileName:cameraDataString) { success in
+                    self.uploadRawCameraData()
+                }
+            }
+        } else {
+            self.uploadRawCameraData()
+        }
+    }
+    
+    func uploadRawCameraData() {
+        if isRawCameraUploadingEnabled {
+            if let cameraData = cameraRawDataString, let cameraDataString = cameraRawDataFilename {
                 FirebaseService.shared.sendData(data: cameraData, fileName:cameraDataString) { success in
                     self.isUploaded = true
                     self.configureUI()

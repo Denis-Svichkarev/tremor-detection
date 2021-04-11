@@ -159,6 +159,9 @@ extension MeasurementViewController: HTDTremorDetectionDelegate {
             vc.cameraData = cameraData
             vc.cameraDataString = sdk.exportFileName(.camera)
             
+            vc.cameraRawDataString = sdk.cameraRawData()
+            vc.cameraRawDataFilename = sdk.exportFileName(.rawCamera)
+            
             navigationController?.pushViewController(vc, animated: true)
         }
     }

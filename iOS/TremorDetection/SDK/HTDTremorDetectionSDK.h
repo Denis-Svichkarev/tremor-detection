@@ -43,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSData *)accelerometerData;
 - (NSData *)audioData;
 - (nullable NSData *)cameraData;
+- (NSData *)cameraRawData;
 
 @end
 

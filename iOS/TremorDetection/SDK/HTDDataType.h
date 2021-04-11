@@ -13,6 +13,7 @@ typedef NS_ENUM(NSUInteger, HTDDataType) {
     HTDDataTypeAccelerometer,
     HTDDataTypeAudio,
     HTDDataTypeCamera,
+    HTDDataTypeRawCamera,
 };
 
 NS_ASSUME_NONNULL_END

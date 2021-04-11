@@ -1,4 +1,6 @@
 %% Get audio data from folder
+% This command: cd denissvichkarev/Projects/
+% set the current dir and then you can use this method
 function x = get_audio_data(folderName) 
     dataPath = insertAfter('TremorDetection/web/iOS//', "iOS/", folderName);
     files = dir(strcat(dataPath, '*.m4a'));

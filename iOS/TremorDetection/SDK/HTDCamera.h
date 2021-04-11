@@ -9,11 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
+#import "HTDCameraData.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol HTDCameraDelegate <NSObject>
 
 - (void)onImageWithRectReceived:(UIImage *)image;
+- (void)onCameraDataReceived:(HTDCameraData *)data;
 
 @end
 

@@ -19,182 +19,81 @@ using namespace std;
 
 class SquareDetector {
 public:
-    void find_squares(cv::Mat& image, vector<vector<cv::Point>>& squares)
-    {
-        cv::Mat bwImage;
-        cv::cvtColor(image, bwImage, CV_RGB2GRAY);
-        vector< vector<cv::Point> > contours;
-        cv::findContours(bwImage, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
-        
-        
-        cv::Mat gray;
-        Canny(bwImage, gray, 10, 20, 3);
-
-        // Dilate helps to remove potential holes between edge segments
-        
-        cv::Point a(-1, -1);
-        cv::dilate(bwImage, gray, cv::Mat(), a);
-        
-        findContours(gray, contours, RETR_LIST, CHAIN_APPROX_SIMPLE);
-
-                // Test contours
-                vector<cv::Point> approx;
-                for (size_t i = 0; i < contours.size(); i++)
-                {
-                        // approximate contour with accuracy proportional
-                        // to the contour perimeter
-                        approxPolyDP(cv::Mat(contours[i]), approx, arcLength(cv::Mat(contours[i]), true)*0.02, true);
-
-                        // Note: absolute value of an area is used because
-                        // area may be positive or negative - in accordance with the
-                        // contour orientation
-                        if (approx.size() == 4 && fabs(contourArea(cv::Mat(approx))) > 1000 && isContourConvex(cv::Mat(approx)))
-                        {
-                                double maxCosine = 0;
-
-                                for (int j = 2; j < 5; j++)
-                                {
-                                    double cosine = fabs(angle(approx[j%4], approx[j-2], approx[j-1]));
-                                    maxCosine = MAX(maxCosine, cosine);
-                                }
-
-                                if (maxCosine < 0.3)
-                                    squares.push_back(approx);
-                        }
-                }
-    }
-     
-   /*  void find_squares(cv::Mat& image, vector<vector<cv::Point>>& squares)
-     {
-         cv::Mat bwImage;
-         cv::cvtColor(image, bwImage, CV_RGB2GRAY);
-         vector< vector<cv::Point> > contours;
-         cv::findContours(bwImage, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
-         
-//         cv::Mat kernel = getStructuringElement(MORPH_ELLIPSE, cv::Size(11, 11));
-//         cv::Mat morph;
-//         morphologyEx(image, morph, CV_MOP_CLOSE, kernel);
-//
-         int rectIdx = 0;
-//         vector<vector<cv::Point>> contours;
-//         vector<cv::Vec4i> hierarchy;
-//         findContours(morph, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
-         
-         vector<cv::RotatedRect> rect( contours.size() );
-
-         for (int i = 0; i < contours.size(); i++)
-         {
-             rect[i] = cv::minAreaRect( contours[i] );
-             
-             double areaRatio = abs(cv::contourArea(contours[i])) / (rect[i].size.width * rect[i].size.height);
-             if (areaRatio > .95)
-             {
-                 rectIdx = i;
-                 break;
-             }
-         }
-         // get the convexhull of the contour
-         vector<cv::Point> hull;
-         cv::convexHull(contours[rectIdx], hull, false, true);
-
-         // visualization
-         cv::Mat rgb;
-         cvtColor(image, rgb, CV_GRAY2BGR);
-         drawContours(rgb, contours, rectIdx, cv::Scalar(0, 0, 255), 2);
-         
-         for(size_t i = 0; i < hull.size(); i++)
-         {
-             cv::line(rgb, hull[i], hull[(i + 1)%hull.size()], cv::Scalar(0, 255, 0), 2);
-         }
-     }
-    
-    void find_squares(cv::Mat& image, vector<vector<cv::Point>>& squares)
-    {
-        // blur will enhance edge detection
-        cv::Mat blurred(image);
-        medianBlur(image, blurred, 9);
-
-        cv::Mat gray0(blurred.size(), CV_8U), gray;
+    void find_squares(cv::Mat& image, vector<vector<cv::Point>>& squares) {
+        cv::Mat canny_output;
+        Canny(image, canny_output, 100, 100*2 );
         vector<vector<cv::Point> > contours;
+        vector<cv::Vec4i> hierarchy;
         
-        // find squares in every color plane of the image
-        for (int c = 0; c < 3; c++)
-        {
-            int ch[] = {c, 0};
-            mixChannels(&blurred, 1, &gray0, 1, ch, 1);
+        findContours( canny_output, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE );
+        cv::Mat drawing = cv::Mat::zeros( canny_output.size(), CV_8UC3 );
+        
+        vector<cv::Point> approx;
+        
+        for (size_t i = 0; i <contours.size(); i++ ) {
+            //cv::Scalar color(0, 255, 0);
+            //drawContours(drawing, contours, (int)i, color, 2, LINE_8, hierarchy, 0 );
+            
+            // approximate contour with accuracy proportional
+            // to the contour perimeter
+            approxPolyDP(cv::Mat(contours[i]), approx, arcLength(cv::Mat(contours[i]), true) * 0.02, true);
+            
+            // Note: absolute value of an area is used because
+            // area may be positive or negative - in accordance with the
+            // contour orientation
+            if (approx.size() == 4 && fabs(contourArea(cv::Mat(approx))) > 1000 && isContourConvex(cv::Mat(approx))) {
+                double maxCosine = 0;
 
-            // try several threshold levels
-            const int threshold_level = 2;
-            for (int l = 0; l < threshold_level; l++)
-            {
-                // Use Canny instead of zero threshold level!
-                // Canny helps to catch squares with gradient shading
-                if (l == 0)
-                {
-                    Canny(gray0, gray, 10, 20, 3); //
-
-                    // Dilate helps to remove potential holes between edge segments
-                    
-                    cv::Point a(-1, -1);
-                    cv::dilate(gray, gray, cv::Mat(), a);
-                }
-                else
-                {
-                        gray = gray0 >= (l+1) * 255 / threshold_level;
+                for (int j = 2; j < 5; j++) {
+                    double cosine = fabs(angle(approx[j%4], approx[j-2], approx[j-1]));
+                    maxCosine = MAX(maxCosine, cosine);
                 }
 
-                // Find contours and store them in a list
-                findContours(gray, contours, RETR_LIST, CHAIN_APPROX_SIMPLE);
-
-                // Test contours
-                vector<cv::Point> approx;
-                for (size_t i = 0; i < contours.size(); i++)
-                {
-                        // approximate contour with accuracy proportional
-                        // to the contour perimeter
-                        approxPolyDP(cv::Mat(contours[i]), approx, arcLength(cv::Mat(contours[i]), true)*0.02, true);
-
-                        // Note: absolute value of an area is used because
-                        // area may be positive or negative - in accordance with the
-                        // contour orientation
-                        if (approx.size() == 4 && fabs(contourArea(cv::Mat(approx))) > 1000 && isContourConvex(cv::Mat(approx)))
-                        {
-                                double maxCosine = 0;
-
-                                for (int j = 2; j < 5; j++)
-                                {
-                                    double cosine = fabs(angle(approx[j%4], approx[j-2], approx[j-1]));
-                                    maxCosine = MAX(maxCosine, cosine);
-                                }
-
-                                if (maxCosine < 0.3)
-                                    squares.push_back(approx);
-                        }
-                }
+                if (maxCosine < 0.3)
+                    squares.push_back(approx);
             }
         }
-    }*/
+        
+        image = drawing;
+    }
     
-    // the function draws all the squares in the image
-    void drawSquares(cv::Mat& image, const vector<vector<cv::Point> >& squares)
-    {
-        // blur will enhance edge detection
-        cv::Mat blurred(image);
-        medianBlur(image, blurred, 9);
-
-        cv::Mat gray0(blurred.size(), CV_8U), gray;
-        vector<vector<cv::Point> > contours;
+    void drawSquares(cv::Mat& image, const vector<vector<cv::Point> >& squares, vector<cv::Point> &maxRect, double &maxArea) {
+        cv::Mat gray0(image.size(), CV_8U), gray;
+        vector<vector<cv::Point>> contours;
         
         // find squares in every color plane of the image
         for (int c = 0; c < 3; c++)
         {
             int ch[] = {c, 0};
-            mixChannels(&blurred, 1, &gray0, 1, ch, 1);
+            mixChannels(&image, 1, &gray0, 1, ch, 1);
         }
         
         if (squares.size() > 0) {
+            maxRect = squares[0];
+        }
+        
+        for (int i = 0; i < squares.size(); i++) {
+            vector<double> x;
+            vector<double> y;
+            
+            for (int j = 0; j < squares[i].size(); j++) {
+                x.push_back(squares[i].at(j).x);
+                y.push_back(squares[i].at(j).y);
+            }
+            
+            double area = polygonArea(x, y, (int)x.size());
+            if (area >= maxArea) {
+                maxArea = area;
+                maxRect = squares[i];
+            }
+        }
+        
+        //cout << maxArea << endl;
+        
+        if (squares.size() > 1) {
             cv::Mat rgb;
             cvtColor(gray0, rgb, CV_GRAY2BGR);
+            
             cv::Scalar color(255, 0, 0);
             
             cv::Point p1(squares[0][0].x, squares[0][0].y);
@@ -209,6 +108,24 @@ public:
             
             image = rgb;
         }
+    }
+    
+    // (X[i], Y[i]) are coordinates of i'th point.
+    double polygonArea(vector<double> X, vector<double> Y, int n)
+    {
+        // Initialze area
+        double area = 0.0;
+     
+        // Calculate value of shoelace formula
+        int j = n - 1;
+        for (int i = 0; i < n; i++)
+        {
+            area += (X[j] + X[i]) * (Y[j] - Y[i]);
+            j = i;  // j is previous vertex to i
+        }
+     
+        // Return absolute value
+        return abs(area / 2.0);
     }
     
     // helper function:
@@ -237,60 +154,75 @@ private:
 
 @implementation HTDSquareDetection
 
+- (void)reset {
+    self.cameraData = [[HTDCameraData alloc] init];
+    
+    self.cameraData.areaArray = [NSMutableArray array];
+    self.cameraData.px1 = [NSMutableArray array];
+    self.cameraData.py1 = [NSMutableArray array];
+    self.cameraData.px2 = [NSMutableArray array];
+    self.cameraData.py2 = [NSMutableArray array];
+    self.cameraData.px3 = [NSMutableArray array];
+    self.cameraData.py3 = [NSMutableArray array];
+    self.cameraData.px4 = [NSMutableArray array];
+    self.cameraData.py4 = [NSMutableArray array];
+}
+
 - (UIImage *)detectRect:(UIImage *)image {
     cv::Mat matImage;
-    UIImageToMat(image, matImage, true); //[HTDSquareDetection cvMatWithImage:image];
+    UIImageToMat(image, matImage, true);
     
     vector<vector<cv::Point>> squares;
+    vector<cv::Point> maxRect;
+    double maxArea = 0;
     
-    vector<cv::Point> square1;
-    square1.push_back(cv::Point(50,0));
-    square1.push_back(cv::Point(50,100));
-    square1.push_back(cv::Point(100,100));
-    square1.push_back(cv::Point(100,0));
-    squares.push_back(square1);
+    squareDetector->find_squares(matImage, squares);
+    squareDetector->drawSquares(matImage, squares, maxRect, maxArea);
     
-    //squareDetector->find_squares(matImage, squares);
+    [self.cameraData.areaArray addObject:@(maxArea)];
     
-    squareDetector->drawSquares(matImage, squares);
+    if (maxRect.size() == 0) {
+        maxRect.push_back(cv::Point(0, 0));
+        maxRect.push_back(cv::Point(0, 0));
+        maxRect.push_back(cv::Point(0, 0));
+        maxRect.push_back(cv::Point(0, 0));
+    }
     
-//    for (size_t i = 0; i < squares.size(); i++) {
-//        cout << squares[i] << endl;
-//        cout << "__________";
+    [self.cameraData.px1 addObject:@(maxRect[0].x)];
+    [self.cameraData.py1 addObject:@(maxRect[0].y)];
+    
+    [self.cameraData.px2 addObject:@(maxRect[1].x)];
+    [self.cameraData.py2 addObject:@(maxRect[1].y)];
+    
+    [self.cameraData.px3 addObject:@(maxRect[2].x)];
+    [self.cameraData.py3 addObject:@(maxRect[2].y)];
+    
+    [self.cameraData.px4 addObject:@(maxRect[3].x)];
+    [self.cameraData.py4 addObject:@(maxRect[3].y)];
+    
+//    cout << "Area: " << maxArea << endl;
+//
+//    if (maxRect.size() > 0) {
+//        cout << "AB: " << sqrt(pow(maxRect[1].x - maxRect[0].x, 2) + pow(maxRect[1].y - maxRect[0].y, 2)) << endl;
+//        cout << "BC: " << sqrt(pow(maxRect[2].x - maxRect[1].x, 2) + pow(maxRect[2].y - maxRect[1].y, 2)) << endl;
+//        cout << "CD: " << sqrt(pow(maxRect[3].x - maxRect[2].x, 2) + pow(maxRect[3].y - maxRect[2].y, 2)) << endl;
+//        cout << "DA: " << sqrt(pow(maxRect[0].x - maxRect[3].x, 2) + pow(maxRect[0].y - maxRect[3].y, 2)) << endl;
 //    }
-    
-    return MatToUIImage(matImage);
+//
+//    cout << "=============" << endl << endl;
+
+    return [self rotateUIImage:MatToUIImage(matImage) clockwise:YES];
 }
 
 #pragma mark - Helpers
 
-+ (cv::Mat)cvMatWithImage:(UIImage *)image {
-    CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
-    size_t numberOfComponents = CGColorSpaceGetNumberOfComponents(colorSpace);
-    CGFloat cols = image.size.width;
-    CGFloat rows = image.size.height;
-
-    cv::Mat cvMat(rows, cols, CV_8UC4); // 8 bits per component, 4 channels
-    CGBitmapInfo bitmapInfo = kCGImageAlphaNoneSkipLast | kCGBitmapByteOrderDefault;
-
-    // check whether the UIImage is greyscale already
-    if (numberOfComponents == 1){
-        cvMat = cv::Mat(rows, cols, CV_8UC1); // 8 bits per component, 1 channels
-        bitmapInfo = kCGImageAlphaNone | kCGBitmapByteOrderDefault;
-    }
-
-    CGContextRef contextRef = CGBitmapContextCreate(cvMat.data,             // Pointer to backing data
-                                                cols,                       // Width of bitmap
-                                                rows,                       // Height of bitmap
-                                                8,                          // Bits per component
-                                                cvMat.step[0],              // Bytes per row
-                                                colorSpace,                 // Colorspace
-                                                bitmapInfo);              // Bitmap info flags
-
-    CGContextDrawImage(contextRef, CGRectMake(0, 0, cols, rows), image.CGImage);
-    CGContextRelease(contextRef);
-
-    return cvMat;
+- (UIImage *)rotateUIImage:(UIImage*)sourceImage clockwise:(BOOL)clockwise {
+    CGSize size = sourceImage.size;
+    UIGraphicsBeginImageContext(CGSizeMake(size.height, size.width));
+    [[UIImage imageWithCGImage:[sourceImage CGImage] scale:1.0 orientation:clockwise ? UIImageOrientationRight : UIImageOrientationLeft] drawInRect:CGRectMake(0, 0, size.height, size.width)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 @end

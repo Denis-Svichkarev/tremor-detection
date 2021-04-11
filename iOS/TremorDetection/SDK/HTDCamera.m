@@ -92,6 +92,7 @@
 #pragma mark - Measurement
 
 - (void)startMeasuring {
+    [self.squareDetection reset];
     self.bufferImagesArray = [NSMutableArray array];
     
     [self.currentDevice lockForConfiguration:nil];
@@ -119,7 +120,11 @@
 - (void)stopMeasuring {
     if (self.session.isRunning) {
         [self.session stopRunning];
-       
+               
+        if (self.delegate && [self.delegate respondsToSelector:@selector(onCameraDataReceived:)]) {
+            [self.delegate onCameraDataReceived:self.squareDetection.cameraData];
+        }
+        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [HTDVideoRecording writeImageAsMovie:self.bufferImagesArray size:CGSizeMake([self getFrameResolution].width, [self getFrameResolution].height) CompletionHandler:^(BOOL success, NSData *data, NSURL *path) {
                 if (success) {

@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HTDCameraData.h"
 
 #ifdef __cplusplus
 #import <opencv2/opencv2.h>
@@ -15,6 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HTDSquareDetection : NSObject
 
+@property (nonatomic, strong) HTDCameraData *cameraData;
+
+- (void)reset;
 - (UIImage *)detectRect:(UIImage *)image;
 
 @end

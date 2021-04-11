@@ -88,6 +88,8 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
 @property (nonatomic, strong) NSMutableArray *accumulatedYDataArray;
 @property (nonatomic, strong) NSMutableArray *accumulatedZDataArray;
 
+@property (nonatomic, strong) NSMutableString *camearRawDataString;
+
 @end
 
 @implementation HTDTremorDetectionSDK
@@ -335,6 +337,10 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
     return [[HTDCamera shared] videoData];
 }
 
+- (NSData *)cameraRawData {
+    return [self.camearRawDataString dataUsingEncoding:NSUTF8StringEncoding];
+}
+
 - (NSString *)getRawDataFileNameWithVersion:(NSString *)version DataType:(HTDDataType)dataType {
     NSDate *currentDate = [NSDate date];
     [self generateMeasurementID];
@@ -350,8 +356,13 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
         case HTDDataTypeAccelerometer: fileFormat = @"csv"; break;
         case HTDDataTypeAudio: fileFormat = @"m4a"; break;
         case HTDDataTypeCamera: fileFormat = @"mp4"; break;
+        case HTDDataTypeRawCamera: fileFormat = @"csv"; break;
     }
 
+    if (dataType == HTDDataTypeRawCamera) {
+        prefix = [NSString stringWithFormat:@"%@%@", prefix, @"RC"];
+    }
+    
     NSString *fileString = [NSString stringWithFormat:@"%@%@-%@-%@-%@-Apple-%@-%@-%@.%@",
                             prefix,
                             @"T",
@@ -399,6 +410,27 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
     if (self.delegate && [self.delegate respondsToSelector:@selector(onImageWithRectReceived:)]) {
         [self.delegate onImageWithRectReceived:image];
     }
+}
+
+- (void)onCameraDataReceived:(nonnull HTDCameraData *)data {
+    NSMutableString *dataString = [NSMutableString string];
+    [dataString appendString:@"timestamp; area; px1; py1; px2; py2; px3; py3; px4; py4;\n"];
+    
+    for (int i = 0; i < data.areaArray.count; i++) {
+        [dataString appendString:[NSString stringWithFormat:@"%ld; %.2f; %.2f; %.2f; %.2f; %.2f; %.2f; %.2f; %.2f; %.2f;\n",
+                                  (long)i,
+                                  [data.areaArray[i] doubleValue],
+                                  [data.px1[i] doubleValue],
+                                  [data.py1[i] doubleValue],
+                                  [data.px2[i] doubleValue],
+                                  [data.py2[i] doubleValue],
+                                  [data.px3[i] doubleValue],
+                                  [data.py3[i] doubleValue],
+                                  [data.px4[i] doubleValue],
+                                  [data.py4[i] doubleValue]]];
+    }
+    
+    self.camearRawDataString = dataString;
 }
 
 @end
