@@ -16,5 +16,27 @@ hold on;
 xlabel('x');
 ylabel('y');
 title('Camera data one point example');
-plot(sample.timestamp, sample.px1, 'r');
-plot(sample.timestamp, sample.py1, 'b');
+
+processed_px1 = raw_camera_data_proprocessing(sample.px1); 
+processed_py1 = raw_camera_data_proprocessing(sample.py1); 
+
+processed_px2 = raw_camera_data_proprocessing(sample.px2); 
+processed_py2 = raw_camera_data_proprocessing(sample.py2); 
+
+processed_px3 = raw_camera_data_proprocessing(sample.px3); 
+processed_py3 = raw_camera_data_proprocessing(sample.py3); 
+
+processed_px4 = raw_camera_data_proprocessing(sample.px4); 
+processed_py4 = raw_camera_data_proprocessing(sample.py4); 
+
+plot(sample.timestamp, processed_px1, 'b');
+plot(sample.timestamp, processed_py1, 'r');
+
+plot(sample.timestamp, processed_px2, 'b');
+plot(sample.timestamp, processed_py2, 'r');
+
+plot(sample.timestamp, processed_px3, 'b');
+plot(sample.timestamp, processed_py3, 'r');
+
+plot(sample.timestamp, processed_px4, 'b');
+plot(sample.timestamp, processed_py4, 'r');

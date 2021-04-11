@@ -1,0 +1,40 @@
+data = get_raw_camera_data("All");
+
+sample = data{1};
+
+%% Plot area data 
+
+hold on;
+xlabel('x');
+ylabel('y');
+title('Camera data area example');
+plot(sample.timestamp, sample.area, 'r');
+
+%% Plot one point 
+
+hold on;
+xlabel('x');
+ylabel('y');
+title('Camera data one point example');
+
+processed_px1 = [];
+
+px_1_mean = mean(sample.px1);
+
+count_less = 0;
+cou
+
+for i = 1:size(sample.px1)
+    if sample.px1(i) > 100
+        processed_px1 = [processed_px1, sample.px1(i)];
+    else
+        if size(processed_px1) > 0
+            processed_px1 = [processed_px1, processed_px1(end)];
+        else
+            processed_px1 = [processed_px1, 0];
+        end
+    end
+end
+
+plot(sample.timestamp, sample.px1, 'b');
+%plot(sample.timestamp, processed_px1, 'r', 'lineWidth', 1);

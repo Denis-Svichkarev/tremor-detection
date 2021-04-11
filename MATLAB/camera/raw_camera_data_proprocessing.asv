@@ -1,0 +1,45 @@
+function y = raw_camera_data_proprocessing(point_coordinates) 
+    y = [];
+
+    px_1_mean = mean(point_coordinates);
+
+    count_less = 0;
+    count_greater = 0;
+    use_greater = true;
+
+    for i = 1:size(sample.px1)
+        if sample.px1(i) > px_1_mean
+            count_greater = count_greater + 1;
+        else
+            count_less = count_less + 1;
+        end
+    end
+
+    if count_less > count_greater
+       use_greater = false; 
+    end
+
+    for i = 1:size(sample.px1)
+        if use_greater
+            if sample.px1(i) >= px_1_mean
+                processed_px1 = [processed_px1, sample.px1(i)];
+            else
+                if size(processed_px1) > 0
+                    processed_px1 = [processed_px1, processed_px1(end)];
+                else
+                    processed_px1 = [processed_px1, 0];
+                end
+            end
+        else
+            if sample.px1(i) <= px_1_mean
+                processed_px1 = [processed_px1, sample.px1(i)];
+            else
+                if size(processed_px1) > 0
+                    processed_px1 = [processed_px1, processed_px1(end)];
+                else
+                    processed_px1 = [processed_px1, 0];
+                end
+            end
+        end
+    end
+end
