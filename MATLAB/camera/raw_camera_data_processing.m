@@ -12,17 +12,17 @@ plot(sample.timestamp, sample.area, 'r');
 
 %% Process points 
 
-processed_px1 = raw_camera_data_proprocessing(sample.px1); 
-processed_py1 = raw_camera_data_proprocessing(sample.py1); 
+processed_px1 = raw_camera_data_preprocessing(sample.px1); 
+processed_py1 = raw_camera_data_preprocessing(sample.py1); 
 
-processed_px2 = raw_camera_data_proprocessing(sample.px2); 
-processed_py2 = raw_camera_data_proprocessing(sample.py2); 
+processed_px2 = raw_camera_data_preprocessing(sample.px2); 
+processed_py2 = raw_camera_data_preprocessing(sample.py2); 
 
-processed_px3 = raw_camera_data_proprocessing(sample.px3); 
-processed_py3 = raw_camera_data_proprocessing(sample.py3); 
+processed_px3 = raw_camera_data_preprocessing(sample.px3); 
+processed_py3 = raw_camera_data_preprocessing(sample.py3); 
 
-processed_px4 = raw_camera_data_proprocessing(sample.px4); 
-processed_py4 = raw_camera_data_proprocessing(sample.py4); 
+processed_px4 = raw_camera_data_preprocessing(sample.px4); 
+processed_py4 = raw_camera_data_preprocessing(sample.py4); 
 
 %% Plot points 
 

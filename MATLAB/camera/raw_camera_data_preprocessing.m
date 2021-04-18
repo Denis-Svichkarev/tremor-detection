@@ -1,4 +1,4 @@
-function y = raw_camera_data_proprocessing(point_coordinates) 
+function y = raw_camera_data_preprocessing(point_coordinates) 
     y = [];
 
     coordinate_mean = mean(point_coordinates);

@@ -4,7 +4,7 @@ function data_features = extract_camera_features(data, time)
     samples_per_sec = 30;
     timewindow_size = time * samples_per_sec;
 
-    measurement_time = data.timestamp(end); % * samples_per_sec;
+    measurement_time = data.timestamp(end);
     data_features = cell(round(measurement_time), 4);
      
     for j = 0:timewindow_size:measurement_time
