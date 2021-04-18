@@ -2,8 +2,7 @@ function y = raw_camera_data_proprocessing(point_coordinates)
     y = [];
 
     coordinate_mean = mean(point_coordinates);
-    coordinate_mean
-    
+
     count_less = 0;
     count_greater = 0;
     use_greater = true;
@@ -20,8 +19,6 @@ function y = raw_camera_data_proprocessing(point_coordinates)
        use_greater = false; 
     end
 
-    use_greater
-    
     for i = 1:size(point_coordinates)
         if use_greater
             if point_coordinates(i) >= coordinate_mean
