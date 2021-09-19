@@ -43,21 +43,21 @@ t = floor(sample.timestamp(end)); % + 5;
 
 % X axis
 
-fft_X_x = (1:t);
-fft_X_y = (1:t);
+fft_X_x = (1:measurement_time);
+fft_X_y = (1:measurement_time);
 
-for i = 1:size(data_features, 1)
-    amp_max_x = max(data_features{i, 4});
-    j = i * 2;
+for i = 2:measurement_time
+    amp_max_x = max(data_features{floor(i / 2), 4});
+    j = floor(i);
     fft_X_y(j) = amp_max_x;
     fft_X_y(j - 1) = amp_max_x;
 end
 
-if size(data_features, 1) * 2 < t
-    for i = size(data_features, 1) * 2 : t
-        fft_X_y(i) = 0;
-    end
-end
+% % if size(data_features, 1) * 2 < t
+% %     for i = size(data_features, 1) * 2 : t
+% %         fft_X_y(i) = 0;
+% %     end
+% % end
 
 plot(fft_X_x, fft_X_y, 'r');
 

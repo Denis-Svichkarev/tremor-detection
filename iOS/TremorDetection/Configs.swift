@@ -8,6 +8,6 @@
 import Foundation
 
 let isVideoUploadingEnabled          = false
-let isAudioUploadingEnabled          = true
-let isAccelerometerUploadingEnabled  = false
+let isAudioUploadingEnabled          = false
+let isAccelerometerUploadingEnabled  = true
 let isRawCameraUploadingEnabled      = false
