@@ -41,12 +41,14 @@ Thumbs.db
 *.war
 
 # Large media files
-*.mp4
 *.tiff
 *.avi
 *.flv
 *.mov
 *.wmv
+*/*.csv
+*/*.m4a
+*/*.mp4
 
 # iOS
 */Pods/
