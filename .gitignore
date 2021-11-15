@@ -54,3 +54,6 @@ Thumbs.db
 */Pods/
 *xcworkspace/xcuserdata/*
 *.framework/
+*.mp4
+*.csv
+*.m4a
