@@ -3,7 +3,7 @@
 close all
 clear all
 
-data = get_acc_data("All");
+data = get_acc_data("Research");
 %data = get_acc_data("Simulation/data15");
 sample = data{6};
 
@@ -38,65 +38,44 @@ title('X, Y, Z axis, FFT');
 measurement_time = floor(size(sample, 1) / 100);
 timewindow_size = 200; % 2 seconds window
 data_features = extract_acc_features(sample, timewindow_size);
+t = floor(sample.timestamp(end));
 
-t = floor(sample.timestamp(end)); % + 5;
-
-% X axis
-
-fft_X_x = (1:t);
-fft_X_y = (1:t);
-
-for i = 1:size(data_features, 1)
-    amp_max_x = max(data_features{i, 4});
-    j = i * 2;
-    fft_X_y(j) = amp_max_x;
-    fft_X_y(j - 1) = amp_max_x;
-end
-
-if size(data_features, 1) * 2 < t
-    for i = size(data_features, 1) * 2 : t
-        fft_X_y(i) = 0;
-    end
-end
+[fft_X_x, fft_X_y, fft_Y_x, fft_Y_y, fft_Z_x, fft_Z_y] = get_acc_max_fft(data_features, t);
 
 plot(fft_X_x, fft_X_y, 'r');
-
-% Y axis
-
-fft_Y_x = (1:t);
-fft_Y_y = (1:t);
-
-for i = 1:size(data_features, 1)
-    amp_max_y = max(data_features{i, 5});
-    j = i * 2;
-    fft_Y_y(j) = amp_max_y;
-    fft_Y_y(j - 1) = amp_max_y;
-end
-
-if size(data_features, 1) * 2 < t
-    for i = size(data_features, 1) * 2 : t
-        fft_Y_y(i) = 0;
-    end
-end
-
 plot(fft_Y_x, fft_Y_y, 'g');
-
-% Z axis
-
-fft_Z_x = (1:t);
-fft_Z_y = (1:t);
-
-for i = 1:size(data_features, 1)
-    amp_max_z = max(data_features{i, 6});
-    j = i * 2;
-    fft_Z_y(j) = amp_max_z;
-    fft_Z_y(j - 1) = amp_max_z;
-end
-
-if size(data_features, 1) * 2 < t
-    for i = size(data_features, 1) * 2 : t
-        fft_Z_y(i) = 0;
-    end
-end
-
 plot(fft_Z_x, fft_Z_y, 'b');
+
+%% Comparison of Tremor and Static Maximum values of FFT
+
+close all
+clear all
+
+hold on;
+title('Comparison of Tremor and Static Maximum frequency values of FFT');
+xlabel('Time');
+ylabel('Amplitude');
+
+legend();
+
+sample1 = get_acc_data_with_filename("All", "T-1-000C18A0_4C4E_40AF_B8F6_FF6B72C7B61E-iPhone12,1-Apple-b9ZYjX-2021_09_19_08_04_28-1.0.csv");
+sample2 = get_acc_data_with_filename("All", "T-1-000C18A0_4C4E_40AF_B8F6_FF6B72C7B61E-iPhone12,1-Apple-pRtGrV-2021_09_19_08_03_35-1.0.csv");
+
+t1 = floor(sample1.timestamp(end));
+t2 = floor(sample2.timestamp(end));
+
+timewindow_size = 200;
+
+data_features1 = extract_acc_features(sample1, timewindow_size);
+data_features2 = extract_acc_features(sample2, timewindow_size);
+
+[fft_X_x_1, fft_X_y_1, fft_Y_x_1, fft_Y_y_1, fft_Z_x_1, fft_Z_y_1] = get_acc_max_fft(data_features1, t1);
+[fft_X_x_2, fft_X_y_2, fft_Y_x_2, fft_Y_y_2, fft_Z_x_2, fft_Z_y_2] = get_acc_max_fft(data_features2, t2);
+
+plot(fft_X_x_1, fft_X_y_1, 'Color', '#FF0000', 'DisplayName', 'Tremor X-axis');
+plot(fft_Y_x_1, fft_Y_y_1, 'Color', '#FF8700', 'DisplayName', 'Tremor Y-axis');
+plot(fft_Z_x_1, fft_Z_y_1, 'Color', '#FFE400', 'DisplayName', 'Tremor Z-axis');
+
+plot(fft_X_x_2, fft_X_y_2, 'Color', '#55FF00', 'DisplayName', 'Static X-axis');
+plot(fft_Y_x_2, fft_Y_y_2, 'Color', '#00FF78', 'DisplayName', 'Static Y-axis');
+plot(fft_Z_x_2, fft_Z_y_2, 'Color', '#00FFC9', 'DisplayName', 'Static Z-axis');

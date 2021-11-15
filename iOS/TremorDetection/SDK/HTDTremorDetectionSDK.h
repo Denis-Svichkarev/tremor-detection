@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stopMeasurement;
 - (void)abortMeasurement;
 
+- (void)generateMeasurementID;
 - (NSString *)exportFileName:(HTDDataType)dataType;
 - (NSData *)accelerometerData;
 - (NSData *)audioData;

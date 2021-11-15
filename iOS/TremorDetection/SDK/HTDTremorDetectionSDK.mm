@@ -343,7 +343,6 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
 
 - (NSString *)getRawDataFileNameWithVersion:(NSString *)version DataType:(HTDDataType)dataType {
     NSDate *currentDate = [NSDate date];
-    [self generateMeasurementID];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
@@ -358,9 +357,12 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
         case HTDDataTypeCamera: fileFormat = @"mp4"; break;
         case HTDDataTypeRawCamera: fileFormat = @"csv"; break;
     }
-
-    if (dataType == HTDDataTypeRawCamera) {
-        prefix = [NSString stringWithFormat:@"%@%@", prefix, @"RC"];
+    
+    switch (dataType) {
+        case HTDDataTypeAccelerometer: prefix = [NSString stringWithFormat:@"%@%@", prefix, @"AC"]; break;
+        case HTDDataTypeAudio: prefix = [NSString stringWithFormat:@"%@%@", prefix, @"AU"]; break;
+        case HTDDataTypeCamera: prefix = [NSString stringWithFormat:@"%@%@", prefix, @"CA"]; break;
+        case HTDDataTypeRawCamera: prefix = [NSString stringWithFormat:@"%@%@", prefix, @"RC"]; break;
     }
     
     NSString *fileString = [NSString stringWithFormat:@"%@%@-%@-%@-%@-Apple-%@-%@-%@.%@",
@@ -369,7 +371,7 @@ NSString *HRT_LETTERS = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01
                             [self userID],
                             [self getUDID],
                             [self getDeviceModel],
-                            [self measurementID],
+                            _measurementID,
                             [formatter stringFromDate:currentDate],
                             version,
                             fileFormat];

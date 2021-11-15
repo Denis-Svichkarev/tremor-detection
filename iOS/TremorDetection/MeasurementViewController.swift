@@ -150,6 +150,8 @@ extension MeasurementViewController: HTDTremorDetectionDelegate {
             
             let vc = StoryboardService.shared.getCompletedViewController()
             
+            sdk.generateMeasurementID()
+            
             vc.accelerometerData = sdk.accelerometerData()
             vc.accelerometerDataString = sdk.exportFileName(.accelerometer)
             

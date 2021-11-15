@@ -12,7 +12,7 @@ const downloadFiles = async() => {
 			files.forEach(file => {   
 				const srcFilename = file.metadata.name;
 
-				if (srcFilename.includes('.csv') || srcFilename.includes('.m4a')) {
+				if (srcFilename.includes('.csv') || srcFilename.includes('.m4a') || srcFilename.includes('.mp4')) {
 					const options = {
 				 		destination: "./" + srcFilename,
 					};

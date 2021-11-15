@@ -26,7 +26,7 @@ class FirebaseService: NSObject {
         var folder = ""
         
         if MeasurementService.shared.tremorDetectionSDK.getMode() == .normal {
-            folder = "/iOS/All/"
+            folder = "/iOS/Research/"
             
         } else if MeasurementService.shared.tremorDetectionSDK.getMode() == .simulation {
             if let exerciseNumber = MeasurementService.shared.exerciseNumber {
