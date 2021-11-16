@@ -23,9 +23,11 @@ chunk.startTime = 10;
 chunk.finishTime = 15;
 chunk.classificaion = 2; % 1 - PHT, 2 - Mov, 3 - Static
 
-chunk.accData = getAccelerometerDataFromChunk(chunk.startTime, chunk.finishTime, measurement);
-chunk.audioData = getAudioDataFromChunk(chunk.startTime, chunk.finishTime, measurement);
-chunk.cameraData = getCameraDataFromChunk(chunk.startTime, chunk.finishTime, measurement);
+[accData, audioData, cameraData] = getDataFromChunk(chunk.startTime, chunk.finishTime, measurement);
+
+chunk.accData = accData;
+chunk.audioData = audioData;
+chunk.cameraData = cameraData;
 
 chunks{end+1} = chunk;
 
@@ -38,7 +40,7 @@ save('/Users/denissvichkarev/Projects/TremorDetection/MATLAB/measurements.mat', 
     
 %% Get chunk data test
 
-measurement = measurements{1};
+measurement = measurements{2};
 
 chunks = {};
 
@@ -46,15 +48,12 @@ if isfield(measurement, 'chunks')
     chunks = measurement.chunks; 
 end
 
-accData = {};
-audioData = {};
-cameraData = {};
-
 for i = 1:length(chunks)
-   chunks{i}.accData = getAccelerometerDataFromChunk(chunks{i}.startTime, chunks{i}.finishTime, measurement);
-   %chunks{i}.audioData = getAudioDataFromChunk(chunks{i}.startTime, chunks{i}.finishTime, measurement);
-   %chunks{i}.cameraData = getCameraDataFromChunk(chunks{i}.startTime, chunks{i}.finishTime, measurement);
+    [accData, audioData, cameraData] = getDataFromChunk(chunks{i}.startTime, chunks{i}.finishTime, measurement);
+    chunks{i}.accData = accData;
+    chunks{i}.audioData = audioData;
+    chunks{i}.cameraData = cameraData;
+    
+    chunks{i}
 end
-
-chunks{1}.accData
 
