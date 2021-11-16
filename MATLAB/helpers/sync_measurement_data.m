@@ -1,11 +1,12 @@
 %% Sync measurements data
-% Be sure you are in this directory: cd denissvichkarev/Projects/
+% 1. Be sure you are in this directory: cd denissvichkarev/Projects/
+% 2. Add all folders and subfolders of TremorDetection folder
 function data = sync_measurement_data(folderName)
     path = '/Users/denissvichkarev/Projects/TremorDetection/MATLAB/measurements.mat';
-    previousMeasurements = {};
+    measurements = {};
     
     if isfile(path)
-        previousMeasurements = load(path).previousMeasurements;
+        measurements = load(path).measurements;
     end
     
     dataPath = insertAfter('TremorDetection/web/iOS//', "iOS/", folderName);
@@ -18,7 +19,6 @@ function data = sync_measurement_data(folderName)
     videoFiles = filenames(startsWith(filenames, 'CAT-'));
     
     N = length(accFiles);
-    measurements = cell(N);
     
     for i = 1:N
         measurement = struct;
@@ -30,8 +30,8 @@ function data = sync_measurement_data(folderName)
         
         skip = 0;
         
-        for j = 1:length(previousMeasurements)
-            if previousMeasurements{j}.fileName == accStr
+        for j = 1:length(measurements)
+            if measurements{j}.fileName == accStr
                 skip = 1;
                 break; 
             end
@@ -90,9 +90,9 @@ function data = sync_measurement_data(folderName)
         measurement.accData = accData;
         measurement.fileName = accStr;
         measurement.isLabeled = 'false';
-        previousMeasurements{end+1} = measurement;
+        measurements{end+1} = measurement;
     end
     
-    save('/Users/denissvichkarev/Projects/TremorDetection/MATLAB/measurements.mat', 'previousMeasurements');
-    data = previousMeasurements;
+    save('/Users/denissvichkarev/Projects/TremorDetection/MATLAB/measurements.mat', 'measurements');
+    data = measurements;
 end
