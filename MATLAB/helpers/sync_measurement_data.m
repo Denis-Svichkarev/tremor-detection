@@ -27,17 +27,8 @@ function data = sync_measurement_data(folderName)
          
         accStr = erase(accFiles{i}, ".csv");
         accStr = erase(accStr, "ACT-");
-        
-        skip = 0;
-        
-        for j = 1:length(measurements)
-            if measurements{j}.fileName == accStr
-                skip = 1;
-                break; 
-            end
-        end
-        
-        if skip == 1
+
+        if any(strcmp(cellfun(@(m) m.fileName, measurements, 'uni', false), {accStr}) > 0)
             continue;
         end
         
