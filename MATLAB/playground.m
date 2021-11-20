@@ -21,7 +21,7 @@ chunk = struct;
 chunk.fileName = measurement.fileName;
 chunk.startTime = 10;
 chunk.finishTime = 15;
-chunk.classificaion = 2; % 1 - PHT, 2 - Mov, 3 - Static
+chunk.classification = 1; % 1 - PHT, 2 - Mov, 3 - Static
 
 [accData, audioData, cameraData] = getDataFromChunk(chunk.startTime, chunk.finishTime, measurement);
 
