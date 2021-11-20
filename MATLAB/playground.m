@@ -7,7 +7,7 @@ measurements = sync_measurement_data("Research");
 
 %% Label measurement
 
-measurement = measurements{1};
+measurement = measurements{2};
 
 %%% Label all chunks
 
@@ -21,7 +21,7 @@ chunk = struct;
 chunk.fileName = measurement.fileName;
 chunk.startTime = 10;
 chunk.finishTime = 15;
-chunk.classification = 1; % 1 - PHT, 2 - Mov, 3 - Static
+chunk.classification = 3; % 1 - PHT, 2 - Mov, 3 - Static
 
 [accData, audioData, cameraData] = getDataFromChunk(chunk.startTime, chunk.finishTime, measurement);
 
@@ -35,7 +35,7 @@ chunks{end+1} = chunk;
 
 measurement.chunks = chunks;
 measurement.isLabeled = 'true';
-measurements{1} = measurement;
+measurements{2} = measurement;
 save('/Users/denissvichkarev/Projects/TremorDetection/MATLAB/measurements.mat', 'measurements');
     
 %% Get chunk data test

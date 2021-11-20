@@ -3,9 +3,9 @@ function [accData, audioData, cameraData] = getDataFromChunk(startTime, finishTi
 
     accData = measurement.accData(measurement.accData.timestamp >= startTime & measurement.accData.timestamp <= finishTime, :);
     
-    audioStart = startTime * measurement.audioData.fs{1};
-    audioFinish = finishTime * measurement.audioData.fs{1};
-    audioData = measurement.audioData.y{1}(audioStart:audioFinish);
+    audioStart = uint8(startTime * measurement.audioData.fs{1});
+    audioFinish = uint8(finishTime * measurement.audioData.fs{1});
+    audioData = measurement.audioData.y{1}(audioStart + 1:audioFinish + 1);
     
     cameraData = measurement.cameraData(measurement.cameraData.timestamp >= startTime * cameraFPS & measurement.cameraData.timestamp <= finishTime * cameraFPS, :);
 end
