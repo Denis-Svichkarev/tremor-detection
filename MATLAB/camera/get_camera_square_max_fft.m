@@ -10,9 +10,9 @@ function [fft_x, fft_y] = get_camera_square_max_fft(data_features, t)
         fft_y(j - 1) = amp_max_x;
     end
 
-    if size(data_features, 1) * 2 < t
-        for i = size(data_features, 1) * 2 : t
-            fft_y(i) = 0;
-        end
-    end
+     if size(data_features, 2) * 2 < t
+         for i = size(data_features, 2) * 2 : t
+             fft_y(i) = 0;
+         end
+     end
 end
