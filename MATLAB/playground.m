@@ -7,7 +7,7 @@ measurements = sync_measurement_data("Research");
 
 %% Label measurement
 
-measurement = measurements{2};
+measurement = measurements{1};
 
 %%% Label all chunks
 
@@ -35,7 +35,7 @@ chunks{end+1} = chunk;
 
 measurement.chunks = chunks;
 measurement.isLabeled = 'true';
-measurements{2} = measurement;
+measurements{1} = measurement;
 save('/Users/denissvichkarev/Projects/TremorDetection/MATLAB/measurements.mat', 'measurements');
     
 %% Get chunk data test
@@ -56,4 +56,19 @@ for i = 1:length(chunks)
     
     chunks{i}
 end
+
+%% Get features from chunk
+
+% Accelerometer features
+
+
+
+
+% Camera features
+
+
+
+
+% Audio features
+
 
