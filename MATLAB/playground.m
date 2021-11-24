@@ -57,18 +57,48 @@ for i = 1:length(chunks)
     chunks{i}
 end
 
-%% Get features from chunk
+%% Get chunks by classes
 
-% Accelerometer features
+tremorChunks = {};
+movementChunks = {};
+staticChunks = {};
 
+for i = 1:length(measurements)
+    measurement = measurements{i};
+    
+    if isfield(measurement, 'chunks') 
+        for j = 1:length(measurement.chunks)
+            chunk = measurement.chunks{j};
+            
+            if chunk.classification == 1
+            	tremorChunks{end+1} = chunk;
+            elseif chunk.classification == 2
+                movementChunks{end+1} = chunk;
+            else
+                staticChunks{end+1} = chunk; 
+            end
+        end
+    end
+end
 
+%% Get accelerometer Tremor features from chunks
 
+timewindowSizeSec = 2;
+isTraining = false;
+    
+allTremorFeatures = {};
+    
+for i = 1:length(tremorChunks)
+    features = extractAccFeatures(tremorChunks{i}.accData, timewindowSizeSec);
+    allTremorFeatures = [allTremorFeatures; features];
+end
 
-% Camera features
+table = [];
 
+table = createTableFromFeatures(allTremorFeatures, 'Tremor');
+writetable(table, 'TremorDetection/MATLAB/model_data/accFeaturesTremorMovement.csv');
 
+%% Get accelerometer Movement features from chunks
 
-
-% Audio features
 
 
