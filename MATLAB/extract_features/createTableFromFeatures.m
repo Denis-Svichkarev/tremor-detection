@@ -1,8 +1,5 @@
 function table = createTableFromFeatures(dataFeatures, class)
     columns = {
-        'FREQ_X_1', 'FREQ_X_2', 'FREQ_X_3', 'FREQ_X_4', 'FREQ_X_5', 'FREQ_X_6', 'FREQ_X_7', 'FREQ_X_8', 'FREQ_X_9', 'FREQ_X_10', 'FREQ_X_11', 'FREQ_X_12', 'FREQ_X_13', ...
-        'FREQ_Y_1', 'FREQ_Y_2', 'FREQ_Y_3', 'FREQ_Y_4', 'FREQ_Y_5', 'FREQ_Y_6', 'FREQ_Y_7', 'FREQ_Y_8', 'FREQ_Y_9', 'FREQ_Y_10', 'FREQ_Y_11', 'FREQ_Y_12', 'FREQ_Y_13', ...
-        'FREQ_Z_1', 'FREQ_Z_2', 'FREQ_Z_3', 'FREQ_Z_4', 'FREQ_Z_5', 'FREQ_Z_6', 'FREQ_Z_7', 'FREQ_Z_8', 'FREQ_Z_9', 'FREQ_Z_10', 'FREQ_Z_11', 'FREQ_Z_12', 'FREQ_Z_13', ...
         'AMP_X_1', 'AMP_X_2', 'AMP_X_3', 'AMP_X_4', 'AMP_X_5', 'AMP_X_6', 'AMP_X_7', 'AMP_X_8', 'AMP_X_9', 'AMP_X_10', 'AMP_X_11', 'AMP_X_12', 'AMP_X_13', ...
         'AMP_Y_1', 'AMP_Y_2', 'AMP_Y_3', 'AMP_Y_4', 'AMP_Y_5', 'AMP_Y_6', 'AMP_Y_7', 'AMP_Y_8', 'AMP_Y_9', 'AMP_Y_10', 'AMP_Y_11', 'AMP_Y_12', 'AMP_Y_13', ...
         'AMP_Z_1', 'AMP_Z_2', 'AMP_Z_3', 'AMP_Z_4', 'AMP_Z_5', 'AMP_Z_6', 'AMP_Z_7', 'AMP_Z_8', 'AMP_Z_9', 'AMP_Z_10', 'AMP_Z_11', 'AMP_Z_12', 'AMP_Z_13', ...
@@ -20,13 +17,13 @@ function table = createTableFromFeatures(dataFeatures, class)
     for i = 1:size(dataFeatures, 1)
         features = {};
         
-        for j = 1:6
+        for j = 1:3
             for z = 1:13
                 features = [features dataFeatures{i, j}(z)];
             end
         end
         
-        for j = 7:54
+        for j = 4:51
             features = [features dataFeatures{i, j}];
         end
         

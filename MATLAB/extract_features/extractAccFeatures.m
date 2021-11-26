@@ -27,79 +27,75 @@ function data_features = extractAccFeatures(data, timewindow_size)
 
              % Frequency domain features
                     
-             data_features{index, 1} = freq_X;
-             data_features{index, 2} = freq_Y;
-             data_features{index, 3} = freq_Z;
+             data_features{index, 1} = amp_X;
+             data_features{index, 2} = amp_Y;
+             data_features{index, 3} = amp_Z;
                     
-             data_features{index, 4} = amp_X;
-             data_features{index, 5} = amp_Y;
-             data_features{index, 6} = amp_Z;
+             data_features{index, 4} = M_X;
+             data_features{index, 5} = M_Y;
+             data_features{index, 6} = M_Z;
                     
-             data_features{index, 7} = M_X;
-             data_features{index, 8} = M_Y;
-             data_features{index, 9} = M_Z;
+             data_features{index, 7} = S_X;
+             data_features{index, 8} = S_Y;
+             data_features{index, 9} = S_Z;
                     
-             data_features{index, 10} = S_X;
-             data_features{index, 11} = S_Y;
-             data_features{index, 12} = S_Z;
+             data_features{index, 10} = M2_X;
+             data_features{index, 11} = M2_Y;
+             data_features{index, 12} = M2_Z;
                     
-             data_features{index, 13} = M2_X;
-             data_features{index, 14} = M2_Y;
-             data_features{index, 15} = M2_Z;
+             data_features{index, 13} = maxValue_X;
+             data_features{index, 14} = maxValue_Y;
+             data_features{index, 15} = maxValue_Z;
                     
-             data_features{index, 16} = maxValue_X;
-             data_features{index, 17} = maxValue_Y;
-             data_features{index, 18} = maxValue_Z;
-                    
-             data_features{index, 19} = minValue_X;
-             data_features{index, 20} = minValue_Y;
-             data_features{index, 21} = minValue_Z;
+             data_features{index, 16} = minValue_X;
+             data_features{index, 17} = minValue_Y;
+             data_features{index, 18} = minValue_Z;
 
-             data_features{index, 22} = I_X;
-             data_features{index, 23} = I_Y;
-             data_features{index, 24} = I_Z;
+             data_features{index, 19} = I_X;
+             data_features{index, 20} = I_Y;
+             data_features{index, 21} = I_Z;
                     
-             data_features{index, 25} = Q_X;
-             data_features{index, 26} = Q_Y;
-             data_features{index, 27} = Q_Z;
+             data_features{index, 22} = Q_X;
+             data_features{index, 23} = Q_Y;
+             data_features{index, 24} = Q_Z;
                     
-             data_features{index, 28} = SK_X;
-             data_features{index, 29} = SK_Y;
-             data_features{index, 30} = SK_Z;
+             data_features{index, 25} = SK_X;
+             data_features{index, 26} = SK_Y;
+             data_features{index, 27} = SK_Z;
                     
-             data_features{index, 31} = K_X;
-             data_features{index, 32} = K_Y;
-             data_features{index, 33} = K_Z;
+             data_features{index, 28} = K_X;
+             data_features{index, 29} = K_Y;
+             data_features{index, 30} = K_Z;
                     
              % Time domain features
                     
-             data_features{index, 34} = M_T_X;
-             data_features{index, 35} = M_T_Y;
-             data_features{index, 36} = M_T_Z;
+             data_features{index, 31} = M_T_X;
+             data_features{index, 32} = M_T_Y;
+             data_features{index, 33} = M_T_Z;
                     
-             data_features{index, 37} = S_T_X;
-             data_features{index, 38} = S_T_Y;
-             data_features{index, 39} = S_T_Z;
+             data_features{index, 34} = S_T_X;
+             data_features{index, 35} = S_T_Y;
+             data_features{index, 36} = S_T_Z;
                     
-             data_features{index, 40} = M2_T_X;
-             data_features{index, 41} = M2_T_Y;
-             data_features{index, 42} = M2_T_Z;
+             data_features{index, 37} = M2_T_X;
+             data_features{index, 38} = M2_T_Y;
+             data_features{index, 39} = M2_T_Z;
                     
-             data_features{index, 43} = maxValue_T_X;
-             data_features{index, 44} = maxValue_T_Y;
-             data_features{index, 45} = maxValue_T_Z;
+             data_features{index, 40} = maxValue_T_X;
+             data_features{index, 41} = maxValue_T_Y;
+             data_features{index, 42} = maxValue_T_Z;
                     
-             data_features{index, 46} = minValue_T_X;
-             data_features{index, 47} = minValue_T_Y;
-             data_features{index, 48} = minValue_T_Z;
+             data_features{index, 43} = minValue_T_X;
+             data_features{index, 44} = minValue_T_Y;
+             data_features{index, 45} = minValue_T_Z;
                     
-             data_features{index, 49} = I_T_X;
-             data_features{index, 50} = I_T_Y;
-             data_features{index, 51} = I_T_Z;
+             data_features{index, 46} = I_T_X;
+             data_features{index, 47} = I_T_Y;
+             data_features{index, 48} = I_T_Z;
                     
-             data_features{index, 52} = Q_T_X;
-             data_features{index, 53} = Q_T_Y;
-             data_features{index, 54} = Q_T_Z;
+             data_features{index, 49} = Q_T_X;
+             data_features{index, 50} = Q_T_Y;
+             data_features{index, 51} = Q_T_Z;
                     
              index = index + 1;
         end
