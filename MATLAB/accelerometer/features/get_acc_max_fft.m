@@ -6,7 +6,7 @@ function [fft_X_x, fft_X_y, fft_Y_x, fft_Y_y, fft_Z_x, fft_Z_y] = get_acc_max_ff
     fft_X_y = (1:t);
 
     for i = 1:size(data_features, 1)
-        amp_max_x = max(data_features{i, 4});
+        amp_max_x = max(data_features{i, 1});
         j = i * 2;
         fft_X_y(j) = amp_max_x;
         fft_X_y(j - 1) = amp_max_x;
@@ -24,7 +24,7 @@ function [fft_X_x, fft_X_y, fft_Y_x, fft_Y_y, fft_Z_x, fft_Z_y] = get_acc_max_ff
     fft_Y_y = (1:t);
 
     for i = 1:size(data_features, 1)
-        amp_max_y = max(data_features{i, 5});
+        amp_max_y = max(data_features{i, 2});
         j = i * 2;
         fft_Y_y(j) = amp_max_y;
         fft_Y_y(j - 1) = amp_max_y;
@@ -42,7 +42,7 @@ function [fft_X_x, fft_X_y, fft_Y_x, fft_Y_y, fft_Z_x, fft_Z_y] = get_acc_max_ff
     fft_Z_y = (1:t);
 
     for i = 1:size(data_features, 1)
-        amp_max_z = max(data_features{i, 6});
+        amp_max_z = max(data_features{i, 3});
         j = i * 2;
         fft_Z_y(j) = amp_max_z;
         fft_Z_y(j - 1) = amp_max_z;
