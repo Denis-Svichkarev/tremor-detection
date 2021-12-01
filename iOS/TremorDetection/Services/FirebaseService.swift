@@ -47,7 +47,7 @@ class FirebaseService: NSObject {
             self?.uploadTask?.cancel()
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 60, execute: timeoutTask!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 360, execute: timeoutTask!)
 
         uploadTask = csvRef.putData(data, metadata: metadata) { metadata, error in
             self.timeoutTask?.cancel()
