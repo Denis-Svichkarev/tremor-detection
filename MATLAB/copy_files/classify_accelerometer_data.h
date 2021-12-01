@@ -2,7 +2,7 @@
 // File: classify_accelerometer_data.h
 //
 // MATLAB Coder version            : 5.1
-// C/C++ source code generated on  : 21-Feb-2021 14:17:16
+// C/C++ source code generated on  : 01-Dec-2021 19:14:56
 //
 #ifndef CLASSIFY_ACCELEROMETER_DATA_H
 #define CLASSIFY_ACCELEROMETER_DATA_H

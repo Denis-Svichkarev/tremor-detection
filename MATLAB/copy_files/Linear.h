@@ -2,7 +2,7 @@
 // File: Linear.h
 //
 // MATLAB Coder version            : 5.1
-// C/C++ source code generated on  : 21-Feb-2021 14:17:16
+// C/C++ source code generated on  : 01-Dec-2021 19:14:56
 //
 #ifndef LINEAR_H
 #define LINEAR_H
@@ -23,10 +23,10 @@ namespace coder
       {
         namespace kernel
         {
-          void Linear(const double svT[6048], const double x[48], double
-                      kernelProduct[126]);
-          void b_Linear(const double svT[11136], const double x[48], double
-                        kernelProduct[232]);
+          void Linear(const double svT[957], const double x[87], double
+                      kernelProduct[11]);
+          void b_Linear(const double svT[783], const double x[87], double
+                        kernelProduct[9]);
         }
       }
     }

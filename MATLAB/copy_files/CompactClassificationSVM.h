@@ -2,7 +2,7 @@
 // File: CompactClassificationSVM.h
 //
 // MATLAB Coder version            : 5.1
-// C/C++ source code generated on  : 21-Feb-2021 14:17:16
+// C/C++ source code generated on  : 01-Dec-2021 19:14:56
 //
 #ifndef COMPACTCLASSIFICATIONSVM_H
 #define COMPACTCLASSIFICATIONSVM_H
@@ -41,15 +41,15 @@ namespace coder
         class CompactClassificationSVM
         {
          public:
-          void predict(const double Xin[48], cell_wrap_0 labels[1], double
+          void predict(const double Xin[87], cell_wrap_0 labels[1], double
                        scores[2]) const;
-          double Alpha[126];
+          double Alpha[11];
           double Bias;
-          double SupportVectorsT[6048];
+          double SupportVectorsT[957];
           double Scale;
           double Order;
           coderutils::svm::KernelFunction b_KernelFunction;
-          char ClassNames[20];
+          char ClassNames[16];
           int ClassNamesLength[2];
           double Prior[2];
           bool ClassLogicalIndices[2];
@@ -60,11 +60,11 @@ namespace coder
         class b_CompactClassificationSVM
         {
          public:
-          void predict(const double Xin[48], cell_wrap_0 labels[1], double
+          void predict(const double Xin[87], cell_wrap_0 labels[1], double
                        scores[2]) const;
-          double Alpha[232];
+          double Alpha[9];
           double Bias;
-          double SupportVectorsT[11136];
+          double SupportVectorsT[783];
           double Scale;
           double Order;
           coderutils::svm::KernelFunction b_KernelFunction;

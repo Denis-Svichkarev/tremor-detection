@@ -81,24 +81,52 @@ for i = 1:length(measurements)
     end
 end
 
-%% Get accelerometer Tremor features from chunks
+%% Classification Models 
 
 timewindowSizeSec = 2;
-isTraining = false;
-    
-allTremorFeatures = {};
-    
-for i = 1:length(tremorChunks)
-    features = extractAccFeatures(tremorChunks{i}.accData, timewindowSizeSec);
-    allTremorFeatures = [allTremorFeatures; features];
+   
+staticAccFeatures = {};
+tremorAccFeatures = {};
+movementAccFeatures = {};
+
+% 1. Accelerometer based model
+
+for i = 1:length(staticChunks)
+    features = extractAccFeatures(staticChunks{i}.accData, timewindowSizeSec);
+    staticAccFeatures = [staticAccFeatures; features];
 end
 
-table = [];
+for i = 1:length(tremorChunks)
+    features = extractAccFeatures(tremorChunks{i}.accData, timewindowSizeSec);
+    tremorAccFeatures = [tremorAccFeatures; features];
+end
 
-table = createTableFromFeatures(allTremorFeatures, 'Tremor');
-writetable(table, 'TremorDetection/MATLAB/model_data/accFeaturesTremorMovement.csv');
+for i = 1:length(movementChunks)
+    features = extractAccFeatures(movementChunks{i}.accData, timewindowSizeSec);
+    movementAccFeatures = [movementAccFeatures; features];
+end
 
-%% Get accelerometer Movement features from chunks
+table_TRE_ACC = createTableFromFeatures(tremorAccFeatures, 'Tremor');
+table_MOV_ACC = createTableFromFeatures(movementAccFeatures, 'Movement');
+table_STA_ACC = createTableFromFeatures(staticAccFeatures, 'Static');
 
+% 80% TRAIN AND 20% TEST
 
+table_train_TRE_ACC = table_TRE_ACC(1:ceil(0.8 * end),:);
+table_train_MOV_ACC = table_MOV_ACC(1:ceil(0.8 * end),:);
+table_train_STA_ACC = table_STA_ACC(1:ceil(0.8 * end),:);
+table_train_MOV_STA_ACC = [table_train_MOV_ACC; table_train_STA_ACC];
+table_train_TRE_MOV_ACC = [table_train_TRE_ACC; table_train_MOV_ACC];
+
+writetable(table_train_MOV_STA_ACC, 'TremorDetection/MATLAB/model_data/TRAIN_ACC_MOV_STA.csv');
+writetable(table_train_TRE_MOV_ACC, 'TremorDetection/MATLAB/model_data/TRAIN_ACC_TRE_MOV.csv');
+
+table_test_TRE_ACC = table_TRE_ACC(ceil(0.8 * end)+1:end,:);
+table_test_MOV_ACC = table_MOV_ACC(ceil(0.8 * end)+1:end,:);
+table_test_STA_ACC = table_STA_ACC(ceil(0.8 * end)+1:end,:);
+table_test_MOV_STA_ACC = [table_test_MOV_ACC; table_test_STA_ACC];
+table_test_TRE_MOV_ACC = [table_test_TRE_ACC; table_test_MOV_ACC];
+
+writetable(table_test_MOV_STA_ACC, 'TremorDetection/MATLAB/model_data/TEST_ACC_MOV_STA.csv');
+writetable(table_test_TRE_MOV_ACC, 'TremorDetection/MATLAB/model_data/TEST_ACC_TRE_MOV.csv');
 
