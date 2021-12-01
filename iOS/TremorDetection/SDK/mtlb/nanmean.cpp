@@ -2,7 +2,7 @@
 // File: nanmean.cpp
 //
 // MATLAB Coder version            : 5.1
-// C/C++ source code generated on  : 13-Feb-2021 18:42:55
+// C/C++ source code generated on  : 01-Dec-2021 20:21:40
 //
 
 // Include Files
@@ -10,7 +10,6 @@
 #include "rt_nonfinite.h"
 #include "coder_array.h"
 #include "rt_nonfinite.h"
-#include <string.h>
 
 // Function Definitions
 //

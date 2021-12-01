@@ -2,19 +2,16 @@
 // File: get_frequencies_spectrum.cpp
 //
 // MATLAB Coder version            : 5.1
-// C/C++ source code generated on  : 13-Feb-2021 18:42:55
+// C/C++ source code generated on  : 01-Dec-2021 20:21:40
 //
 
 // Include Files
 #include "get_frequencies_spectrum.h"
 #include "FFTImplementationCallback.h"
-#include "extract_features_from_raw_data_data.h"
 #include "rt_nonfinite.h"
-#include "coder_array.h"
 #include "rt_nonfinite.h"
 #include <cmath>
 #include <cstring>
-#include <string.h>
 
 // Function Declarations
 static double rt_hypotd_snf(double u0, double u1);
@@ -59,108 +56,234 @@ void get_frequencies_spectrum(const double signal_data[], const int signal_size
   [2], double amplitudes_data[], int amplitudes_size[2], double
   frequencies_data[], int frequencies_size[2])
 {
-  coder::array<creal_T, 1U> y;
-  coder::array<double, 2U> costab;
-  coder::array<double, 2U> sintab;
-  coder::array<double, 2U> sintabinv;
-  coder::array<double, 1U> b_signal_data;
-  coder::array<double, 1U> c_signal_data;
+  static creal_T y_data[2400];
   creal_T Y_data[600];
+  creal_T yCol_data[600];
+  double costab_data[1201];
+  double sintab_data[1201];
+  double sintabinv_data[1201];
+  double costab1q_data[601];
   double P2_data[600];
-  int N2blue;
-  int i;
-  int i1;
-  int loop_ub;
-  int nRows;
+  double temp_im;
+  double temp_re;
+  int costab_size[2];
+  int b_signal[1];
+  int yCol_size[1];
+  int iDelta2;
+  int iheight;
+  int k;
+  int pmax;
+  int pmin;
+  int pow2p;
+  int y_size_idx_0;
 
   //  FFT spectrum from signal
   //  sampling frequency
   if (signal_size[1] == 0) {
-    nRows = 0;
+    pmax = 0;
   } else {
+    int n;
     bool useRadix2;
     useRadix2 = ((signal_size[1] & (signal_size[1] - 1)) == 0);
-    coder::internal::FFTImplementationCallback::get_algo_sizes((signal_size[1]),
-      (useRadix2), (&N2blue), (&nRows));
-    coder::internal::FFTImplementationCallback::generate_twiddle_tables((nRows),
-      (useRadix2), (costab), (sintab), (sintabinv));
+    iDelta2 = 1;
     if (useRadix2) {
-      c_signal_data.set(((double *)&signal_data[0]), signal_size[1]);
-      coder::internal::FFTImplementationCallback::r2br_r2dit_trig((c_signal_data),
-        (signal_size[1]), (costab), (sintab), (y));
+      pmax = signal_size[1];
     } else {
-      b_signal_data.set(((double *)&signal_data[0]), signal_size[1]);
-      coder::internal::FFTImplementationCallback::dobluesteinfft((b_signal_data),
-        (N2blue), (signal_size[1]), (costab), (sintab), (sintabinv), (y));
+      n = (signal_size[1] + signal_size[1]) - 1;
+      pmax = 31;
+      if (n <= 1) {
+        pmax = 0;
+      } else {
+        bool exitg1;
+        pmin = 0;
+        exitg1 = false;
+        while ((!exitg1) && (pmax - pmin > 1)) {
+          k = (pmin + pmax) >> 1;
+          pow2p = 1 << k;
+          if (pow2p == n) {
+            pmax = k;
+            exitg1 = true;
+          } else if (pow2p > n) {
+            pmax = k;
+          } else {
+            pmin = k;
+          }
+        }
+      }
+
+      iDelta2 = 1 << pmax;
+      pmax = iDelta2;
     }
 
-    nRows = signal_size[1];
-    loop_ub = signal_size[1];
-    for (i = 0; i < loop_ub; i++) {
-      Y_data[i] = y[i];
+    temp_im = 6.2831853071795862 / static_cast<double>(pmax);
+    n = pmax / 2 / 2;
+    pow2p = n + 1;
+    costab1q_data[0] = 1.0;
+    pmax = n / 2 - 1;
+    for (k = 0; k <= pmax; k++) {
+      costab1q_data[k + 1] = std::cos(temp_im * (static_cast<double>(k) + 1.0));
+    }
+
+    y_size_idx_0 = pmax + 2;
+    iheight = n - 1;
+    for (k = y_size_idx_0; k <= iheight; k++) {
+      costab1q_data[k] = std::sin(temp_im * static_cast<double>(n - k));
+    }
+
+    costab1q_data[n] = 0.0;
+    if (!useRadix2) {
+      pmin = n << 1;
+      costab_size[0] = 1;
+      costab_size[1] = static_cast<short>(pmin + 1);
+      costab_data[0] = 1.0;
+      sintab_data[0] = 0.0;
+      for (k = 0; k < n; k++) {
+        sintabinv_data[k + 1] = costab1q_data[(n - k) - 1];
+      }
+
+      for (k = pow2p; k <= pmin; k++) {
+        sintabinv_data[k] = costab1q_data[k - n];
+      }
+
+      for (k = 0; k < n; k++) {
+        costab_data[k + 1] = costab1q_data[k + 1];
+        sintab_data[k + 1] = -costab1q_data[(n - k) - 1];
+      }
+
+      for (k = pow2p; k <= pmin; k++) {
+        costab_data[k] = -costab1q_data[pmin - k];
+        sintab_data[k] = -costab1q_data[k - n];
+      }
+    } else {
+      pmin = n << 1;
+      costab_size[0] = 1;
+      costab_size[1] = static_cast<short>(pmin + 1);
+      costab_data[0] = 1.0;
+      sintab_data[0] = 0.0;
+      for (k = 0; k < n; k++) {
+        costab_data[k + 1] = costab1q_data[k + 1];
+        sintab_data[k + 1] = -costab1q_data[(n - k) - 1];
+      }
+
+      for (k = pow2p; k <= pmin; k++) {
+        costab_data[k] = -costab1q_data[pmin - k];
+        sintab_data[k] = -costab1q_data[k - n];
+      }
+    }
+
+    if (useRadix2) {
+      yCol_size[0] = static_cast<short>(signal_size[1]);
+      if (signal_size[1] != 1) {
+        b_signal[0] = signal_size[1];
+        coder::internal::fft::FFTImplementationCallback::doHalfLengthRadix2
+          ((signal_data), (b_signal), (yCol_data), (yCol_size), (signal_size[1]),
+           (costab_data), (costab_size), (sintab_data));
+      } else {
+        k = 0;
+        yCol_data[0].re = signal_data[0];
+        yCol_data[0].im = 0.0;
+        y_size_idx_0 = static_cast<short>(signal_size[1]);
+        pow2p = static_cast<short>(signal_size[1]);
+        if (0 <= pow2p - 1) {
+          std::memcpy(&y_data[0], &yCol_data[0], pow2p * sizeof(creal_T));
+        }
+
+        pow2p = 2;
+        iDelta2 = 4;
+        iheight = -3;
+        while (k > 0) {
+          for (pmax = 0; pmax < iheight; pmax += iDelta2) {
+            pmin = pmax + pow2p;
+            temp_re = y_data[pmin].re;
+            temp_im = y_data[pmin].im;
+            y_data[pmin].re = y_data[pmax].re - temp_re;
+            y_data[pmin].im = y_data[pmax].im - temp_im;
+            y_data[pmax].re += temp_re;
+            y_data[pmax].im += temp_im;
+          }
+
+          k = 0;
+          pow2p = iDelta2;
+          iDelta2 += iDelta2;
+          iheight -= pow2p;
+        }
+
+        if (0 <= y_size_idx_0 - 1) {
+          std::memcpy(&yCol_data[0], &y_data[0], y_size_idx_0 * sizeof(creal_T));
+        }
+      }
+    } else {
+      b_signal[0] = signal_size[1];
+      coder::internal::fft::FFTImplementationCallback::dobluesteinfft
+        ((signal_data), (b_signal), (iDelta2), (signal_size[1]), (costab_data),
+         (costab_size), (sintab_data), (sintabinv_data), (yCol_data), (yCol_size));
+    }
+
+    pmax = signal_size[1];
+    pow2p = signal_size[1];
+    if (0 <= pow2p - 1) {
+      std::memcpy(&Y_data[0], &yCol_data[0], pow2p * sizeof(creal_T));
     }
   }
 
-  N2blue = signal_size[1];
-  loop_ub = nRows - 1;
-  for (i = 0; i <= loop_ub; i++) {
+  temp_re = signal_size[1];
+  pow2p = pmax - 1;
+  for (y_size_idx_0 = 0; y_size_idx_0 <= pow2p; y_size_idx_0++) {
     double ai;
-    double im;
     double re;
-    im = Y_data[i].re;
-    ai = Y_data[i].im;
+    temp_im = Y_data[y_size_idx_0].re;
+    ai = Y_data[y_size_idx_0].im;
     if (ai == 0.0) {
-      re = im / static_cast<double>(N2blue);
-      im = 0.0;
-    } else if (im == 0.0) {
+      re = temp_im / temp_re;
+      temp_im = 0.0;
+    } else if (temp_im == 0.0) {
       re = 0.0;
-      im = ai / static_cast<double>(N2blue);
+      temp_im = ai / temp_re;
     } else {
-      re = im / static_cast<double>(N2blue);
-      im = ai / static_cast<double>(N2blue);
+      re = temp_im / temp_re;
+      temp_im = ai / temp_re;
     }
 
-    Y_data[i].re = re;
-    Y_data[i].im = im;
+    Y_data[y_size_idx_0].re = re;
+    Y_data[y_size_idx_0].im = temp_im;
   }
 
-  for (N2blue = 0; N2blue < nRows; N2blue++) {
-    P2_data[N2blue] = rt_hypotd_snf(Y_data[N2blue].re, Y_data[N2blue].im);
+  for (k = 0; k < pmax; k++) {
+    P2_data[k] = rt_hypotd_snf(Y_data[k].re, Y_data[k].im);
   }
 
-  nRows = static_cast<int>(std::floor(static_cast<double>(signal_size[1]) / 2.0));
-  N2blue = nRows + 1;
+  pmin = static_cast<int>(std::floor(static_cast<double>(signal_size[1]) / 2.0));
+  pmax = pmin + 1;
   amplitudes_size[0] = 1;
-  amplitudes_size[1] = nRows + 1;
-  if (0 <= N2blue - 1) {
-    std::memcpy(&amplitudes_data[0], &P2_data[0], N2blue * sizeof(double));
+  amplitudes_size[1] = pmin + 1;
+  if (0 <= pmax - 1) {
+    std::memcpy(&amplitudes_data[0], &P2_data[0], pmax * sizeof(double));
   }
 
-  if (2 > static_cast<short>(nRows + 1) - 1) {
-    i = 0;
-    i1 = 1;
-    N2blue = 0;
+  if (2 > static_cast<short>(pmin + 1) - 1) {
+    y_size_idx_0 = 0;
+    iheight = 1;
+    pmax = 0;
   } else {
-    i = 1;
-    i1 = static_cast<short>(nRows + 1);
-    N2blue = 1;
+    y_size_idx_0 = 1;
+    iheight = static_cast<short>(pmin + 1);
+    pmax = 1;
   }
 
-  loop_ub = i1 - i;
-  for (i1 = 0; i1 <= loop_ub - 2; i1++) {
-    amplitudes_data[N2blue + i1] = 2.0 * P2_data[i + i1];
+  pow2p = iheight - y_size_idx_0;
+  for (iheight = 0; iheight <= pow2p - 2; iheight++) {
+    amplitudes_data[pmax + iheight] = 2.0 * P2_data[y_size_idx_0 + iheight];
   }
 
-  costab.set_size(1, (nRows + 1));
-  for (i = 0; i <= nRows; i++) {
-    costab[i] = i;
+  frequencies_size[1] = pmin + 1;
+  for (y_size_idx_0 = 0; y_size_idx_0 <= pmin; y_size_idx_0++) {
+    frequencies_data[y_size_idx_0] = y_size_idx_0;
   }
 
   frequencies_size[0] = 1;
-  frequencies_size[1] = costab.size(1);
-  loop_ub = costab.size(0) * costab.size(1);
-  for (i = 0; i < loop_ub; i++) {
-    frequencies_data[i] = 100.0 * costab[i] / static_cast<double>(signal_size[1]);
+  for (y_size_idx_0 = 0; y_size_idx_0 <= pmin; y_size_idx_0++) {
+    frequencies_data[y_size_idx_0] = 100.0 * frequencies_data[y_size_idx_0] /
+      static_cast<double>(signal_size[1]);
   }
 
   //  fs = 100;               % sampling frequency

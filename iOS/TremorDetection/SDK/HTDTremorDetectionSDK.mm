@@ -21,10 +21,10 @@
 #include "extract_features_from_raw_data.h"
 
 static HTDClassificationResult * classify(coder::array<double, 2U> features) {
-    double input_features[48];
+    double input_features[87];
     std::copy(std::begin(features), std::end(features), std::begin(input_features));
 
-    // Tremor / Movement / Motionless
+    // Tremor / Movement / Static
 
     cell_wrap_0 predicted_label;
     

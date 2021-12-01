@@ -1,6 +1,7 @@
 %% Copy .h and .cpp from function folder to copy_files folder
 
-function_name = "classify_accelerometer";
+%function_name = "classify_accelerometer";
+function_name = "extract_features_from_raw_data";
 ignored_names = [];
 
 %% Delete all files

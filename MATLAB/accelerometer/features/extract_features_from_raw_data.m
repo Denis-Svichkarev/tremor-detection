@@ -42,5 +42,57 @@ function [data_features] = extract_features_from_raw_data(data, sample_number)
                      
      data_features = [data_features M2_X];
      data_features = [data_features M2_Y];
-     data_features = [data_features M2_Z];             
+     data_features = [data_features M2_Z]; 
+     
+     data_features = [data_features maxValue_X];
+     data_features = [data_features maxValue_Y];
+     data_features = [data_features maxValue_Z]; 
+     
+     data_features = [data_features minValue_X];
+     data_features = [data_features minValue_Y];
+     data_features = [data_features minValue_Z]; 
+     
+     data_features = [data_features I_X];
+     data_features = [data_features I_Y];
+     data_features = [data_features I_Z]; 
+     
+     data_features = [data_features Q_X];
+     data_features = [data_features Q_Y];
+     data_features = [data_features Q_Z]; 
+     
+     data_features = [data_features SK_X];
+     data_features = [data_features SK_Y];
+     data_features = [data_features SK_Z]; 
+     
+     data_features = [data_features K_X];
+     data_features = [data_features K_Y];
+     data_features = [data_features K_Z]; 
+     
+     data_features = [data_features M_T_X];
+     data_features = [data_features M_T_Y];
+     data_features = [data_features M_T_Z]; 
+     
+     data_features = [data_features S_T_X];
+     data_features = [data_features S_T_Y];
+     data_features = [data_features S_T_Z];
+     
+     data_features = [data_features M2_T_X];
+     data_features = [data_features M2_T_Y];
+     data_features = [data_features M2_T_Z]; 
+     
+     data_features = [data_features maxValue_T_X];
+     data_features = [data_features maxValue_T_Y];
+     data_features = [data_features maxValue_T_Z]; 
+     
+     data_features = [data_features minValue_T_X];
+     data_features = [data_features minValue_T_Y];
+     data_features = [data_features minValue_T_Z]; 
+     
+     data_features = [data_features I_T_X];
+     data_features = [data_features I_T_Y];
+     data_features = [data_features I_T_Z];
+     
+     data_features = [data_features Q_T_X];
+     data_features = [data_features Q_T_Y];
+     data_features = [data_features Q_T_Z];
 end

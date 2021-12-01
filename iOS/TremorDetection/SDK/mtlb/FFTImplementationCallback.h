@@ -2,14 +2,13 @@
 // File: FFTImplementationCallback.h
 //
 // MATLAB Coder version            : 5.1
-// C/C++ source code generated on  : 13-Feb-2021 18:42:55
+// C/C++ source code generated on  : 01-Dec-2021 20:21:40
 //
 #ifndef FFTIMPLEMENTATIONCALLBACK_H
 #define FFTIMPLEMENTATIONCALLBACK_H
 
 // Include Files
 #include "rtwtypes.h"
-#include "coder_array.h"
 #include <cstddef>
 #include <cstdlib>
 
@@ -18,34 +17,32 @@ namespace coder
 {
   namespace internal
   {
-    class FFTImplementationCallback
+    namespace fft
     {
-     public:
-      static void get_algo_sizes(int nfft, bool useRadix2, int *n2blue, int
-        *nRows);
-      static void generate_twiddle_tables(int nRows, bool useRadix2, ::coder::
-        array<double, 2U> &costab, ::coder::array<double, 2U> &sintab, ::coder::
-        array<double, 2U> &sintabinv);
-      static void r2br_r2dit_trig(const ::coder::array<double, 1U> &x, int
-        n1_unsigned, const ::coder::array<double, 2U> &costab, const ::coder::
-        array<double, 2U> &sintab, ::coder::array<creal_T, 1U> &y);
-      static void dobluesteinfft(const ::coder::array<double, 1U> &x, int n2blue,
-        int nfft, const ::coder::array<double, 2U> &costab, const ::coder::array<
-        double, 2U> &sintab, const ::coder::array<double, 2U> &sintabinv, ::
-        coder::array<creal_T, 1U> &y);
-     protected:
-      static void r2br_r2dit_trig_impl(const ::coder::array<creal_T, 1U> &x, int
-        unsigned_nRows, const ::coder::array<double, 2U> &costab, const ::coder::
-        array<double, 2U> &sintab, ::coder::array<creal_T, 1U> &y);
-      static void doHalfLengthRadix2(const ::coder::array<double, 1U> &x, ::
-        coder::array<creal_T, 1U> &y, int unsigned_nRows, const ::coder::array<
-        double, 2U> &costab, const ::coder::array<double, 2U> &sintab);
-      static void doHalfLengthBluestein(const ::coder::array<double, 1U> &x, ::
-        coder::array<creal_T, 1U> &y, int nrowsx, int nRows, int nfft, const ::
-        coder::array<creal_T, 1U> &wwc, const ::coder::array<double, 2U> &costab,
-        const ::coder::array<double, 2U> &sintab, const ::coder::array<double,
-        2U> &costabinv, const ::coder::array<double, 2U> &sintabinv);
-    };
+      class FFTImplementationCallback
+      {
+       public:
+        static void dobluesteinfft(const double x_data[], const int x_size[1],
+          int n2blue, int nfft, const double costab_data[], const int
+          costab_size[2], const double sintab_data[], const double
+          sintabinv_data[], creal_T y_data[], int y_size[1]);
+        static void doHalfLengthRadix2(const double x_data[], const int x_size[1],
+          creal_T y_data[], int y_size[1], int unsigned_nRows, const double
+          costab_data[], const int costab_size[2], const double sintab_data[]);
+       protected:
+        static void r2br_r2dit_trig(const creal_T x_data[], const int x_size[1],
+          int n1_unsigned, const double costab_data[], const double sintab_data[],
+          creal_T y_data[], int y_size[1]);
+        static void b_r2br_r2dit_trig(const creal_T x_data[], const int x_size[1],
+          int n1_unsigned, const double costab_data[], const double sintab_data[],
+          creal_T y_data[], int y_size[1]);
+        static void doHalfLengthBluestein(const double x_data[], const int
+          x_size[1], creal_T y_data[], int nrowsx, int nRows, int nfft, const
+          creal_T wwc_data[], const int wwc_size[1], const double costab_data[],
+          const int costab_size[2], const double sintab_data[], const double
+          costabinv_data[], const double sintabinv_data[]);
+      };
+    }
   }
 }
 
