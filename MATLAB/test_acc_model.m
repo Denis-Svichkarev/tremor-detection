@@ -1,4 +1,4 @@
-%% 1. Test ACC model
+%% Test ACC model
 
 is_Matlab=false; % false for MATLAB Coder
 

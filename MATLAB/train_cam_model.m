@@ -3,7 +3,7 @@
 close all
 clear all
 
-% ------ Load data ------
+%% Load data
 
 trainData = load('TremorDetection/MATLAB/model_data/TRAIN_CAM_MOV_STA.mat').TRAIN_CAM_MOV_STA;
 testData = load('TremorDetection/MATLAB/model_data/TEST_CAM_MOV_STA.mat').TEST_CAM_MOV_STA;
@@ -14,9 +14,9 @@ YTrain = trainData{:, end};
 XTest = testData(:,1:end-1);
 YTest = testData(:,end);
 
-classNames = {'Movement', 'Static'};
+%% Training
 
-% ------ Training ------
+classNames = {'Movement', 'Static'};
 
 classificationSVM = fitcsvm(XTrain, YTrain, 'Verbose', 1, 'OptimizeHyperparameters', 'auto', ...
     'ScoreTransform', 'logit', 'ClassNames', classNames);
@@ -32,7 +32,7 @@ RL
 
 % ------ ROC ------
 
-resp = strcmp(YTrain(:,:), 'Movement');
+resp = strcmp(YTrain, 'Movement');
 [~, score_svm] = resubPredict(model);
 
 [Xsvm, Ysvm, Tsvm, AUCsvm] = perfcurve(resp, score_svm(:, logical([1, 0])), 'true');
@@ -46,7 +46,7 @@ legend('Support Vector Machines')
 xlabel('False positive rate'); ylabel('True positive rate');
 title(['ROC Curves for SVM classification. AUC: ' num2str(AUCsvm)])
 
-%% ------ Confusion matrix ------
+%% Confusion matrix
 
 figure(2)
 
@@ -78,7 +78,7 @@ save('TremorDetection/MATLAB/models/MODEL_CAM_MOV_STA.mat', 'model');
 close all
 clear all
 
-% ------ Load data ------
+%% Load data
 
 trainData = load('TremorDetection/MATLAB/model_data/TRAIN_CAM_TRE_MOV.mat').TRAIN_CAM_TRE_MOV;
 testData = load('TremorDetection/MATLAB/model_data/TEST_CAM_TRE_MOV.mat').TEST_CAM_TRE_MOV;
@@ -89,9 +89,9 @@ YTrain = trainData{:, end};
 XTest = testData(:,1:end-1);
 YTest = testData(:,end);
 
-classNames = {'Tremor', 'Movement'};
+%% Training
 
-% ------ Training ------
+classNames = {'Tremor', 'Movement'};
 
 classificationSVM = fitcsvm(XTrain, YTrain, 'Verbose', 1, 'OptimizeHyperparameters', 'auto', ...
     'ScoreTransform', 'logit', 'ClassNames', classNames);
@@ -121,7 +121,7 @@ legend('Support Vector Machines')
 xlabel('False positive rate'); ylabel('True positive rate');
 title(['ROC Curves for SVM classification. AUC: ' num2str(AUCsvm)])
 
-%% ------ Confusion matrix ------
+%% Confusion matrix
 
 figure(2)
 
