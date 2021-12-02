@@ -1,4 +1,4 @@
-%% #1 ACC model (MOV-STA)
+%% ACC model (MOV-STA)
 
 close all
 clear all
@@ -32,7 +32,7 @@ RL
 
 % ------ ROC ------
 
-resp = strcmp(YTrain(:,:),'Movement');
+resp = strcmp(YTrain(:,:), 'Movement');
 [~, score_svm] = resubPredict(model);
 
 [Xsvm, Ysvm, Tsvm, AUCsvm] = perfcurve(resp, score_svm(:, logical([1, 0])), 'true');
@@ -46,7 +46,7 @@ legend('Support Vector Machines')
 xlabel('False positive rate'); ylabel('True positive rate');
 title(['ROC Curves for SVM classification. AUC: ' num2str(AUCsvm)])
 
-% ------ Confusion matrix ------
+%% ------ Confusion matrix ------
 
 figure(2)
 
@@ -73,7 +73,7 @@ F1
 saveLearnerForCoder(model, 'TremorDetection/MATLAB/models/SVM_MODEL_ACC_MOV_STA');
 save('TremorDetection/MATLAB/models/MODEL_ACC_MOV_STA.mat', 'model');
 
-%% #1 ACC model (TRE-MOV)
+%% ACC model (TRE-MOV)
 
 close all
 clear all
@@ -107,7 +107,7 @@ RL
 
 % ------ ROC ------
 
-resp = strcmp(YTrain(:,:),'Movement');
+resp = strcmp(YTrain(:,:), 'Movement');
 [~, score_svm] = resubPredict(model);
 
 [Xsvm, Ysvm, Tsvm, AUCsvm] = perfcurve(resp, score_svm(:, logical([1, 0])), 'true');
@@ -121,7 +121,7 @@ legend('Support Vector Machines')
 xlabel('False positive rate'); ylabel('True positive rate');
 title(['ROC Curves for SVM classification. AUC: ' num2str(AUCsvm)])
 
-% ------ Confusion matrix ------
+%% ------ Confusion matrix ------
 
 figure(2)
 

@@ -3,9 +3,9 @@ function data_features = extract_camera_square_features(data, time)
     index = 1;
     samples_per_sec = 30;
     timewindow_size = time * samples_per_sec;
+    measurement_time = size(data, 1);
 
-    measurement_time = data.timestamp(end);
-    data_features = cell(22, 1);
+    data_features = cell(floor(measurement_time / timewindow_size), 17);
      
     for j = 0:timewindow_size:measurement_time
         if j + timewindow_size <= measurement_time
@@ -18,26 +18,26 @@ function data_features = extract_camera_square_features(data, time)
 
              % Frequency domain features
                     
-             data_features{1, index} = amp;
-             data_features{2, index} = M;
-             data_features{3, index} = S;
-             data_features{4, index} = M2;
-             data_features{5, index} = maxValue;
-             data_features{6, index} = minValue;
-             data_features{7, index} = I;
-             data_features{8, index} = Q;
-             data_features{9, index} = SK;
-             data_features{10, index} = K;
+             data_features{index, 1} = amp;
+             data_features{index, 2} = M;
+             data_features{index, 3} = S;
+             data_features{index, 4} = M2;
+             data_features{index, 5} = maxValue;
+             data_features{index, 6} = minValue;
+             data_features{index, 7} = I;
+             data_features{index, 8} = Q;
+             data_features{index, 9} = SK;
+             data_features{index, 10} = K;
                      
              % Time domain features
                     
-             data_features{11, index} = Q_T;
-             data_features{12, index} = M_T;
-             data_features{13, index} = S_T;
-             data_features{14, index} = M2_T;
-             data_features{15, index} = maxValue_T;
-             data_features{16, index} = minValue_T;
-             data_features{17, index} = I_T;
+             data_features{index, 11} = Q_T;
+             data_features{index, 12} = M_T;
+             data_features{index, 13} = S_T;
+             data_features{index, 14} = M2_T;
+             data_features{index, 15} = maxValue_T;
+             data_features{index, 16} = minValue_T;
+             data_features{index, 17} = I_T;
                     
              index = index + 1;
         end

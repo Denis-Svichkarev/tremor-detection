@@ -137,23 +137,32 @@ tremorCameraFeatures = {};
 movementCameraFeatures = {};
 
 for i = 1:length(staticChunks)
-    features = extract_camera_features(staticChunks{i}.cameraData, timewindowSizeSec);
-    staticCameraFeatures = [staticCameraFeatures; features];
+    features = extract_camera_features(staticChunks{i}.cameraData, timewindowSizeSec);    
+    square_features = extract_camera_square_features(staticChunks{i}.cameraData, timewindowSizeSec);
+    
+    combined_features = [features square_features];
+    staticCameraFeatures = [staticCameraFeatures; combined_features];
 end
 
 for i = 1:length(tremorChunks)
     features = extract_camera_features(tremorChunks{i}.cameraData, timewindowSizeSec);
-    tremorCameraFeatures = [tremorCameraFeatures; features];
+    square_features = extract_camera_square_features(tremorChunks{i}.cameraData, timewindowSizeSec);
+    
+    combined_features = [features square_features];
+    tremorCameraFeatures = [tremorCameraFeatures; combined_features];
 end
 
 for i = 1:length(movementChunks)
     features = extract_camera_features(movementChunks{i}.cameraData, timewindowSizeSec);
-    movementCameraFeatures = [movementCameraFeatures; features];
+    square_features = extract_camera_square_features(movementChunks{i}.cameraData, timewindowSizeSec);
+    
+    combined_features = [features square_features];
+    movementCameraFeatures = [movementCameraFeatures; combined_features];
 end
 
-table_TRE_CAM = createTableFromFeatures(tremorCameraFeatures, 'Tremor');
-table_MOV_CAM = createTableFromFeatures(movementCameraFeatures, 'Movement');
-table_STA_CAM = createTableFromFeatures(staticCameraFeatures, 'Static');
+table_TRE_CAM = createTableFromCameraFeatures(tremorCameraFeatures, 'Tremor');
+table_MOV_CAM = createTableFromCameraFeatures(movementCameraFeatures, 'Movement');
+table_STA_CAM = createTableFromCameraFeatures(staticCameraFeatures, 'Static');
 
 % 80% TRAIN AND 20% TEST
 
