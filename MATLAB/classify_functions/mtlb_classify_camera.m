@@ -1,9 +1,12 @@
 function [label, p1, p2, p3] = mtlb_classify_camera(X)
-    act_mot_model = load('MODEL_CAM_MOV_STA').model;
-    tre_mov_model = load('MODEL_CAM_TRE_MOV').model;
+    A = load('MODEL_CAM_MOV_STA').model;
+    B = load('MODEL_CAM_TRE_MOV').model;
     
-    [act_label, act_p] = predict(act_mot_model, X);
-    [tre_label, tre_p] = predict(tre_mov_model, X);
+    A.ScoreTransform = 'logit';
+    B.ScoreTransform = 'logit';
+    
+    [act_label, act_p] = predict(A, X);
+    [tre_label, tre_p] = predict(B, X);
         
     if act_p(1,1) > 0.5
         label = tre_label;

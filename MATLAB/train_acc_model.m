@@ -19,10 +19,14 @@ YTest = testData(:,end);
 classNames = {'Movement', 'Static'};
 
 classificationSVM = fitcsvm(XTrain, YTrain, 'Verbose', 1, 'OptimizeHyperparameters', 'auto', ...
-    'ScoreTransform', 'logit', 'ClassNames', classNames);
+    'ScoreTransform', 'logit', 'ClassNames', classNames, 'Standardize', true);
+
 [model, ~] = fitSVMPosterior(classificationSVM);
 
 %% Calculate model performance
+
+% model = loadLearnerForCoder('SVM_MODEL_ACC_MOV_STA')
+model.ScoreTransform = 'logit';
 
 L = loss(model, XTrain, YTrain);
 L
@@ -68,7 +72,7 @@ precision
 recall
 F1
 
-% ------ Save model ------
+%% Save model
 
 saveLearnerForCoder(model, 'TremorDetection/MATLAB/models/SVM_MODEL_ACC_MOV_STA');
 save('TremorDetection/MATLAB/models/MODEL_ACC_MOV_STA.mat', 'model');
@@ -99,6 +103,9 @@ classificationSVM = fitcsvm(XTrain, YTrain, 'Verbose', 1, 'OptimizeHyperparamete
 
 %% Calculate model performance
 
+% model = loadLearnerForCoder('SVM_MODEL_ACC_TRE_MOV')
+model.ScoreTransform = 'logit';
+
 L = loss(model, XTrain, YTrain);
 L
 
@@ -143,7 +150,7 @@ precision
 recall
 F1
 
-% ------ Save model ------
+%% Save model
 
 saveLearnerForCoder(model, 'TremorDetection/MATLAB/models/SVM_MODEL_ACC_TRE_MOV');
 save('TremorDetection/MATLAB/models/MODEL_ACC_TRE_MOV.mat', 'model');

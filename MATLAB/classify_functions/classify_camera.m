@@ -2,6 +2,9 @@ function [label, p1, p2, p3] = classify_camera(X)
 	A = loadLearnerForCoder('SVM_MODEL_CAM_MOV_STA');
 	B = loadLearnerForCoder('SVM_MODEL_CAM_TRE_MOV');
 
+    A.ScoreTransform = 'logit';
+    B.ScoreTransform = 'logit';
+    
     [act_label, act_p] = predict(A, X);
     [tre_label, tre_p] = predict(B, X);
         

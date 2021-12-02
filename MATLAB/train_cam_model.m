@@ -19,10 +19,14 @@ YTest = testData(:,end);
 classNames = {'Movement', 'Static'};
 
 classificationSVM = fitcsvm(XTrain, YTrain, 'Verbose', 1, 'OptimizeHyperparameters', 'auto', ...
-    'ScoreTransform', 'logit', 'ClassNames', classNames);
+    'ScoreTransform', 'logit', 'ClassNames', classNames, 'Standardize', true);
+
 [model, ~] = fitSVMPosterior(classificationSVM);
 
 %% Calculate model performance
+
+% model = loadLearnerForCoder('SVM_MODEL_CAM_MOV_STA')
+model.ScoreTransform = 'logit';
 
 L = loss(model, XTrain, YTrain);
 L
@@ -30,10 +34,14 @@ L
 RL = resubLoss(model);
 RL
 
+CVSVMmodel = crossval(model);
+classLoss = kfoldLoss(CVSVMmodel)
+
 % ------ ROC ------
 
 resp = strcmp(YTrain, 'Movement');
-[~, score_svm] = resubPredict(model);
+%[~, score_svm] = resubPredict(model);
+[~, score_svm] = predict(model,XTrain);
 
 [Xsvm, Ysvm, Tsvm, AUCsvm] = perfcurve(resp, score_svm(:, logical([1, 0])), 'true');
 AUCsvm
@@ -68,7 +76,7 @@ precision
 recall
 F1
 
-% ------ Save model ------
+%% Save model
 
 saveLearnerForCoder(model, 'TremorDetection/MATLAB/models/SVM_MODEL_CAM_MOV_STA');
 save('TremorDetection/MATLAB/models/MODEL_CAM_MOV_STA.mat', 'model');
@@ -94,10 +102,14 @@ YTest = testData(:,end);
 classNames = {'Tremor', 'Movement'};
 
 classificationSVM = fitcsvm(XTrain, YTrain, 'Verbose', 1, 'OptimizeHyperparameters', 'auto', ...
-    'ScoreTransform', 'logit', 'ClassNames', classNames);
+    'ScoreTransform', 'logit', 'ClassNames', classNames, 'Standardize', true);
+
 [model, ~] = fitSVMPosterior(classificationSVM);
 
 %% Calculate model performance
+
+% model = loadLearnerForCoder('SVM_MODEL_CAM_TRE_MOV')
+model.ScoreTransform = 'logit';
 
 L = loss(model, XTrain, YTrain);
 L
@@ -107,8 +119,9 @@ RL
 
 % ------ ROC ------
 
-resp = strcmp(YTrain(:,:), 'Movement');
-[~, score_svm] = resubPredict(model);
+resp = strcmp(YTrain, 'Tremor');
+%[~, score_svm] = resubPredict(model);
+[~, score_svm] = predict(model,XTrain);
 
 [Xsvm, Ysvm, Tsvm, AUCsvm] = perfcurve(resp, score_svm(:, logical([1, 0])), 'true');
 AUCsvm
@@ -143,7 +156,7 @@ precision
 recall
 F1
 
-% ------ Save model ------
+%% Save model
 
 saveLearnerForCoder(model, 'TremorDetection/MATLAB/models/SVM_MODEL_CAM_TRE_MOV');
 save('TremorDetection/MATLAB/models/MODEL_CAM_TRE_MOV.mat', 'model');
