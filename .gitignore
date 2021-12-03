@@ -57,3 +57,5 @@ Thumbs.db
 *.mp4
 *.csv
 *.m4a
+
+model_data/
