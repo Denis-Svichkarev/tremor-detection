@@ -2,7 +2,7 @@
 // File: CompactClassificationSVM.cpp
 //
 // MATLAB Coder version            : 5.1
-// C/C++ source code generated on  : 01-Dec-2021 19:14:56
+// C/C++ source code generated on  : 03-Dec-2021 23:28:35
 //
 
 // Include Files
@@ -32,10 +32,11 @@ namespace coder
         void CompactClassificationSVM::predict(const double Xin[87], cell_wrap_0
           labels[1], double scores[2]) const
         {
-          double obj[957];
+          double obj[1566];
           double b_Xin[87];
-          double dv[11];
+          double dv[18];
           double d;
+          double d1;
           int i;
           int k;
           int loop_ub;
@@ -43,23 +44,36 @@ namespace coder
           bool b_tmp;
           bool exitg1;
           bool y;
-          for (i = 0; i < 957; i++) {
-            obj[i] = this->SupportVectorsT[i] / 0.16687020375414277;
+          for (i = 0; i < 1566; i++) {
+            obj[i] = this->SupportVectorsT[i] / 1.6714765594064072;
           }
 
           for (i = 0; i < 87; i++) {
-            b_Xin[i] = Xin[i] / 0.16687020375414277;
+            b_Xin[i] = Xin[i] / 1.6714765594064072;
           }
 
           coder::kernel::Linear(obj, b_Xin, dv);
           d = 0.0;
-          for (i = 0; i < 11; i++) {
+          for (i = 0; i < 18; i++) {
             d += dv[i] * this->Alpha[i];
           }
 
-          scores[1] = 1.0 / (std::exp(-3.749837 * (d + 9.751595838538055) +
-            0.7183663) + 1.0);
-          scores[0] = 1.0 - scores[1];
+          for (i = 0; i < 1566; i++) {
+            obj[i] = this->SupportVectorsT[i] / 1.6714765594064072;
+          }
+
+          for (i = 0; i < 87; i++) {
+            b_Xin[i] = Xin[i] / 1.6714765594064072;
+          }
+
+          coder::kernel::Linear(obj, b_Xin, dv);
+          d1 = 0.0;
+          for (i = 0; i < 18; i++) {
+            d1 += dv[i] * this->Alpha[i];
+          }
+
+          scores[0] = 1.0 / (std::exp(d + 14.884357379312677) + 1.0);
+          scores[1] = 1.0 / (std::exp(-(d1 + 14.884357379312677)) + 1.0);
           b[0] = rtIsNaN(scores[0]);
           b_tmp = rtIsNaN(scores[1]);
           b[1] = b_tmp;
@@ -114,10 +128,11 @@ namespace coder
         void b_CompactClassificationSVM::predict(const double Xin[87],
           cell_wrap_0 labels[1], double scores[2]) const
         {
-          double obj[783];
+          double obj[1131];
           double b_Xin[87];
-          double dv[9];
+          double dv[13];
           double d;
+          double d1;
           int i;
           int k;
           int loop_ub;
@@ -125,23 +140,36 @@ namespace coder
           bool b_tmp;
           bool exitg1;
           bool y;
-          for (i = 0; i < 783; i++) {
-            obj[i] = this->SupportVectorsT[i] / 0.56158578110315682;
+          for (i = 0; i < 1131; i++) {
+            obj[i] = this->SupportVectorsT[i] / 0.025500262326221813;
           }
 
           for (i = 0; i < 87; i++) {
-            b_Xin[i] = Xin[i] / 0.56158578110315682;
+            b_Xin[i] = Xin[i] / 0.025500262326221813;
           }
 
           coder::kernel::b_Linear(obj, b_Xin, dv);
           d = 0.0;
-          for (i = 0; i < 9; i++) {
+          for (i = 0; i < 13; i++) {
             d += dv[i] * this->Alpha[i];
           }
 
-          scores[1] = 1.0 / (std::exp(-1.25624 * (d + 1.3709406738912839) +
-            -0.2505573) + 1.0);
-          scores[0] = 1.0 - scores[1];
+          for (i = 0; i < 1131; i++) {
+            obj[i] = this->SupportVectorsT[i] / 0.025500262326221813;
+          }
+
+          for (i = 0; i < 87; i++) {
+            b_Xin[i] = Xin[i] / 0.025500262326221813;
+          }
+
+          coder::kernel::b_Linear(obj, b_Xin, dv);
+          d1 = 0.0;
+          for (i = 0; i < 13; i++) {
+            d1 += dv[i] * this->Alpha[i];
+          }
+
+          scores[0] = 1.0 / (std::exp(d + -0.38865165524811857) + 1.0);
+          scores[1] = 1.0 / (std::exp(-(d1 + -0.38865165524811857)) + 1.0);
           b[0] = rtIsNaN(scores[0]);
           b_tmp = rtIsNaN(scores[1]);
           b[1] = b_tmp;
@@ -182,6 +210,99 @@ namespace coder
             labels[0].f1.size[0] = 1;
             labels[0].f1.size[1] = this->ClassNamesLength[k];
             for (i = 0; i < loop_ub; i++) {
+              labels[0].f1.data[i] = this->ClassNames[k + (i << 1)];
+            }
+          }
+        }
+
+        //
+        // Arguments    : const double Xin[87]
+        //                cell_wrap_0 labels[1]
+        //                double scores[2]
+        // Return Type  : void
+        //
+        void c_CompactClassificationSVM::predict(const double Xin[87],
+          cell_wrap_0 labels[1], double scores[2]) const
+        {
+          double obj[1218];
+          double b_Xin[87];
+          double dv[14];
+          double d;
+          double d1;
+          int i;
+          int k;
+          bool b[2];
+          bool b_tmp;
+          bool exitg1;
+          bool y;
+          for (i = 0; i < 1218; i++) {
+            obj[i] = this->SupportVectorsT[i] / 9.89180666785809;
+          }
+
+          for (i = 0; i < 87; i++) {
+            b_Xin[i] = Xin[i] / 9.89180666785809;
+          }
+
+          coder::kernel::c_Linear(obj, b_Xin, dv);
+          d = 0.0;
+          for (i = 0; i < 14; i++) {
+            d += dv[i] * this->Alpha[i];
+          }
+
+          for (i = 0; i < 1218; i++) {
+            obj[i] = this->SupportVectorsT[i] / 9.89180666785809;
+          }
+
+          for (i = 0; i < 87; i++) {
+            b_Xin[i] = Xin[i] / 9.89180666785809;
+          }
+
+          coder::kernel::c_Linear(obj, b_Xin, dv);
+          d1 = 0.0;
+          for (i = 0; i < 14; i++) {
+            d1 += dv[i] * this->Alpha[i];
+          }
+
+          scores[0] = 1.0 / (std::exp(d + 3.32053161977455) + 1.0);
+          scores[1] = 1.0 / (std::exp(-(d1 + 3.32053161977455)) + 1.0);
+          b[0] = rtIsNaN(scores[0]);
+          b_tmp = rtIsNaN(scores[1]);
+          b[1] = b_tmp;
+          y = true;
+          k = 0;
+          exitg1 = false;
+          while ((!exitg1) && (k < 2)) {
+            if (!b[k]) {
+              y = false;
+              exitg1 = true;
+            } else {
+              k++;
+            }
+          }
+
+          if ((this->Prior[0] < this->Prior[1]) || (rtIsNaN(this->Prior[0]) && (
+                !rtIsNaN(this->Prior[1])))) {
+            k = 1;
+          } else {
+            k = 0;
+          }
+
+          labels[0].f1.size[0] = 1;
+          labels[0].f1.size[1] = 6;
+          for (i = 0; i < 6; i++) {
+            labels[0].f1.data[i] = this->ClassNames[k + (i << 1)];
+          }
+
+          if (!y) {
+            if ((scores[0] < scores[1]) || (rtIsNaN(scores[0]) && (!b_tmp))) {
+              k = 1;
+            } else {
+              k = 0;
+            }
+
+            labels[0].f1.size[0] = 1;
+            labels[0].f1.size[1] = 6;
+            for (i = 0; i < 6; i++) {
               labels[0].f1.data[i] = this->ClassNames[k + (i << 1)];
             }
           }

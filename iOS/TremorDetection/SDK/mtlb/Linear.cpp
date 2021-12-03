@@ -2,7 +2,7 @@
 // File: Linear.cpp
 //
 // MATLAB Coder version            : 5.1
-// C/C++ source code generated on  : 01-Dec-2021 19:14:56
+// C/C++ source code generated on  : 03-Dec-2021 23:13:20
 //
 
 // Include Files
@@ -11,9 +11,9 @@
 
 // Function Definitions
 //
-// Arguments    : const double svT[957]
+// Arguments    : const double svT[1566]
 //                const double x[87]
-//                double kernelProduct[11]
+//                double kernelProduct[18]
 // Return Type  : void
 //
 namespace coder
@@ -26,11 +26,11 @@ namespace coder
       {
         namespace kernel
         {
-          void Linear(const double svT[957], const double x[87], double
-                      kernelProduct[11])
+          void Linear(const double svT[1566], const double x[87], double
+                      kernelProduct[18])
           {
             double d;
-            for (int i = 0; i < 11; i++) {
+            for (int i = 0; i < 18; i++) {
               d = 0.0;
               for (int i1 = 0; i1 < 87; i1++) {
                 d += x[i1] * svT[i1 + 87 * i];
@@ -41,16 +41,36 @@ namespace coder
           }
 
           //
-          // Arguments    : const double svT[783]
+          // Arguments    : const double svT[1131]
           //                const double x[87]
-          //                double kernelProduct[9]
+          //                double kernelProduct[13]
           // Return Type  : void
           //
-          void b_Linear(const double svT[783], const double x[87], double
-                        kernelProduct[9])
+          void b_Linear(const double svT[1131], const double x[87], double
+                        kernelProduct[13])
           {
             double d;
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < 13; i++) {
+              d = 0.0;
+              for (int i1 = 0; i1 < 87; i1++) {
+                d += x[i1] * svT[i1 + 87 * i];
+              }
+
+              kernelProduct[i] = d;
+            }
+          }
+
+          //
+          // Arguments    : const double svT[1218]
+          //                const double x[87]
+          //                double kernelProduct[14]
+          // Return Type  : void
+          //
+          void c_Linear(const double svT[1218], const double x[87], double
+                        kernelProduct[14])
+          {
+            double d;
+            for (int i = 0; i < 14; i++) {
               d = 0.0;
               for (int i1 = 0; i1 < 87; i1++) {
                 d += x[i1] * svT[i1 + 87 * i];

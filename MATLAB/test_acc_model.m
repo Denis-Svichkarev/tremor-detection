@@ -3,9 +3,10 @@
 is_Matlab=false; % false for MATLAB Coder
 
 testData1 = load('TremorDetection/MATLAB/model_data/TEST_ACC_MOV_STA.mat').TEST_ACC_MOV_STA;
-%testData2 = load('TremorDetection/MATLAB/model_data/TEST_ACC_TRE_MOV.mat').TEST_ACC_TRE_MOV;
+%testData1 = load('TremorDetection/MATLAB/model_data/TEST_ACC_TRE_MOV.mat').TEST_ACC_TRE_MOV;
+%testData1 = load('TremorDetection/MATLAB/model_data/TEST_ACC_TRE_STA.mat').TEST_ACC_TRE_STA;
 
-for i = 1:size(testData1, 1)
+for i = 1:size(testData1, 1)    
     if is_Matlab
         [label, p1, p2, p3] = mtlb_classify_accelerometer(table2array(testData1(i,1:end-1)));
     else 

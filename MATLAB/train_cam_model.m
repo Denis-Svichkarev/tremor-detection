@@ -1,4 +1,4 @@
-%% Camera model (MOV-STA)
+%% 1. Camera model (MOV-STA)
 
 close all
 clear all
@@ -36,8 +36,6 @@ RL
 
 CVSVMmodel = crossval(model);
 classLoss = kfoldLoss(CVSVMmodel)
-
-% ------ ROC ------
 
 resp = strcmp(YTrain, 'Movement');
 %[~, score_svm] = resubPredict(model);
@@ -81,7 +79,7 @@ F1
 saveLearnerForCoder(model, 'TremorDetection/MATLAB/models/SVM_MODEL_CAM_MOV_STA');
 save('TremorDetection/MATLAB/models/MODEL_CAM_MOV_STA.mat', 'model');
 
-%% Camera model (TRE-MOV)
+%% 2. Camera model (TRE-MOV)
 
 close all
 clear all
@@ -116,8 +114,6 @@ L
 
 RL = resubLoss(model);
 RL
-
-% ------ ROC ------
 
 resp = strcmp(YTrain, 'Tremor');
 %[~, score_svm] = resubPredict(model);

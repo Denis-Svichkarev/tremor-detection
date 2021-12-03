@@ -1,4 +1,4 @@
-%% AUD model (MOV-STA)
+%% 1. AUD model (MOV-STA)
 
 close all
 clear all
@@ -33,8 +33,6 @@ L
 
 RL = resubLoss(model);
 RL
-
-% ------ ROC ------
 
 resp = strcmp(YTrain(:,:), 'Movement');
 [~, score_svm] = resubPredict(model);
@@ -77,7 +75,7 @@ F1
 saveLearnerForCoder(model, 'TremorDetection/MATLAB/models/SVM_MODEL_AUD_MOV_STA');
 save('TremorDetection/MATLAB/models/MODEL_AUD_MOV_STA.mat', 'model');
 
-%% AUD model (TRE-MOV)
+%% 2. AUD model (TRE-MOV)
 
 close all
 clear all
@@ -111,8 +109,6 @@ L
 
 RL = resubLoss(model);
 RL
-
-% ------ ROC ------
 
 resp = strcmp(YTrain(:,:), 'Movement');
 [~, score_svm] = resubPredict(model);

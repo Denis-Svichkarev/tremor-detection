@@ -115,18 +115,22 @@ table_train_MOV_ACC = table_MOV_ACC(1:ceil(0.8 * end),:);
 table_train_STA_ACC = table_STA_ACC(1:ceil(0.8 * end),:);
 table_train_MOV_STA_ACC = [table_train_MOV_ACC; table_train_STA_ACC];
 table_train_TRE_MOV_ACC = [table_train_TRE_ACC; table_train_MOV_ACC];
+table_train_TRE_STA_ACC = [table_train_TRE_ACC; table_train_STA_ACC];
 
 writetable(table_train_MOV_STA_ACC, 'TremorDetection/MATLAB/model_data/TRAIN_ACC_MOV_STA.csv');
 writetable(table_train_TRE_MOV_ACC, 'TremorDetection/MATLAB/model_data/TRAIN_ACC_TRE_MOV.csv');
+writetable(table_train_TRE_STA_ACC, 'TremorDetection/MATLAB/model_data/TRAIN_ACC_TRE_STA.csv');
 
 table_test_TRE_ACC = table_TRE_ACC(ceil(0.8 * end)+1:end,:);
 table_test_MOV_ACC = table_MOV_ACC(ceil(0.8 * end)+1:end,:);
 table_test_STA_ACC = table_STA_ACC(ceil(0.8 * end)+1:end,:);
 table_test_MOV_STA_ACC = [table_test_MOV_ACC; table_test_STA_ACC];
 table_test_TRE_MOV_ACC = [table_test_TRE_ACC; table_test_MOV_ACC];
+table_test_TRE_STA_ACC = [table_test_TRE_ACC; table_test_STA_ACC];
 
 writetable(table_test_MOV_STA_ACC, 'TremorDetection/MATLAB/model_data/TEST_ACC_MOV_STA.csv');
 writetable(table_test_TRE_MOV_ACC, 'TremorDetection/MATLAB/model_data/TEST_ACC_TRE_MOV.csv');
+writetable(table_test_TRE_STA_ACC, 'TremorDetection/MATLAB/model_data/TEST_ACC_TRE_STA.csv');
 
 %% 2. Camera based Classification model
 
