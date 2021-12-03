@@ -3,10 +3,12 @@ function [label, p1, p2, p3] = classify_accelerometer(X)
 	A = loadLearnerForCoder('SVM_MODEL_ACC_MOV_STA');
 	B = loadLearnerForCoder('SVM_MODEL_ACC_TRE_MOV');
     C = loadLearnerForCoder('SVM_MODEL_ACC_TRE_STA');
-
-%     A.ScoreTransform = 'logit';
-%     B.ScoreTransform = 'logit';
-%     C.ScoreTransform = 'logit';
+    
+    % Comment ScoreTransform lines for MATLAB Coder, keep for test function
+    
+    A.ScoreTransform = 'logit';
+    B.ScoreTransform = 'logit';
+    C.ScoreTransform = 'logit';
      
     [a_label, mov_sta_p] = predict(A, X);
     [b_label, tre_mov_p] = predict(B, X);
