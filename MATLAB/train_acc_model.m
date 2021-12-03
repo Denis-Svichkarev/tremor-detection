@@ -19,7 +19,7 @@ YTest = testData(:,end);
 classNames = {'Movement', 'Static'};
 
 classificationSVM = fitcsvm(XTrain, YTrain, 'Verbose', 1, 'OptimizeHyperparameters', 'auto', ...
-    'ScoreTransform', 'logit', 'ClassNames', classNames, 'Standardize', true);
+    'ScoreTransform', 'logit', 'ClassNames', classNames);
 
 [model, ~] = fitSVMPosterior(classificationSVM);
 

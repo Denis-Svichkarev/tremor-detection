@@ -5,7 +5,31 @@ clear all
 
 measurements = sync_measurement_data("Research");
 
-%% Label measurement
+%% Get chunks by classes
+
+tremorChunks = {};
+movementChunks = {};
+staticChunks = {};
+
+for i = 1:length(measurements)
+    measurement = measurements{i};
+    
+    if isfield(measurement, 'chunks') 
+        for j = 1:length(measurement.chunks)
+            chunk = measurement.chunks{j};
+            
+            if chunk.classification == 1
+            	tremorChunks{end+1} = chunk;
+            elseif chunk.classification == 2
+                movementChunks{end+1} = chunk;
+            else
+                staticChunks{end+1} = chunk; 
+            end
+        end
+    end
+end
+
+%% ### Debug: Label measurement
 
 measurement = measurements{1};
 
@@ -38,7 +62,7 @@ measurement.isLabeled = 'true';
 measurements{1} = measurement;
 save('/Users/denissvichkarev/Projects/TremorDetection/MATLAB/measurements.mat', 'measurements');
     
-%% Get chunk data test
+%% ### Debug: Get chunk data test
 
 measurement = measurements{2};
 
@@ -55,30 +79,6 @@ for i = 1:length(chunks)
     chunks{i}.cameraData = cameraData;
     
     chunks{i}
-end
-
-%% Get chunks by classes
-
-tremorChunks = {};
-movementChunks = {};
-staticChunks = {};
-
-for i = 1:length(measurements)
-    measurement = measurements{i};
-    
-    if isfield(measurement, 'chunks') 
-        for j = 1:length(measurement.chunks)
-            chunk = measurement.chunks{j};
-            
-            if chunk.classification == 1
-            	tremorChunks{end+1} = chunk;
-            elseif chunk.classification == 2
-                movementChunks{end+1} = chunk;
-            else
-                staticChunks{end+1} = chunk; 
-            end
-        end
-    end
 end
 
 %% 1. Accelerometer based Classification model
@@ -183,3 +183,50 @@ table_test_TRE_MOV_CAM = [table_test_TRE_CAM; table_test_MOV_CAM];
 
 writetable(table_test_MOV_STA_CAM, 'TremorDetection/MATLAB/model_data/TEST_CAM_MOV_STA.csv');
 writetable(table_test_TRE_MOV_CAM, 'TremorDetection/MATLAB/model_data/TEST_CAM_TRE_MOV.csv');
+
+%% 3. Audio based Classification model
+
+timewindowSizeSec = 2;
+
+staticAudioFeatures = {};
+tremorAudioFeatures = {};
+movementAudioFeatures = {};
+
+for i = 1:length(staticChunks)
+    features = extract_audio_features(staticChunks{i}.audioData.y, staticChunks{i}.audioData.fs, timewindowSizeSec);
+    staticAudioFeatures = [staticAudioFeatures; features];
+end
+
+for i = 1:length(tremorChunks)
+    features = extract_audio_features(tremorChunks{i}.audioData.y, tremorChunks{i}.audioData.fs, timewindowSizeSec);
+    tremorAudioFeatures = [tremorAudioFeatures; features];
+end
+
+for i = 1:length(movementChunks)
+    features = extract_audio_features(movementChunks{i}.audioData.y, movementChunks{i}.audioData.fs, timewindowSizeSec);
+    movementAudioFeatures = [movementAudioFeatures; features];
+end
+
+table_TRE_AUD = createTableFromAudioFeatures(tremorAudioFeatures, 'Tremor');
+table_MOV_AUD = createTableFromAudioFeatures(movementAudioFeatures, 'Movement');
+table_STA_AUD = createTableFromAudioFeatures(staticAudioFeatures, 'Static');
+
+% 80% TRAIN AND 20% TEST
+
+table_train_TRE_AUD = table_TRE_AUD(1:ceil(0.8 * end),:);
+table_train_MOV_AUD = table_MOV_AUD(1:ceil(0.8 * end),:);
+table_train_STA_AUD = table_STA_AUD(1:ceil(0.8 * end),:);
+table_train_MOV_STA_AUD = [table_train_MOV_AUD; table_train_STA_AUD];
+table_train_TRE_MOV_AUD = [table_train_TRE_AUD; table_train_MOV_AUD];
+
+writetable(table_train_MOV_STA_AUD, 'TremorDetection/MATLAB/model_data/TRAIN_AUD_MOV_STA.csv');
+writetable(table_train_TRE_MOV_AUD, 'TremorDetection/MATLAB/model_data/TRAIN_AUD_TRE_MOV.csv');
+
+table_test_TRE_AUD = table_TRE_AUD(ceil(0.8 * end)+1:end,:);
+table_test_MOV_AUD = table_MOV_AUD(ceil(0.8 * end)+1:end,:);
+table_test_STA_AUD = table_STA_AUD(ceil(0.8 * end)+1:end,:);
+table_test_MOV_STA_AUD = [table_test_MOV_AUD; table_test_STA_AUD];
+table_test_TRE_MOV_AUD = [table_test_TRE_AUD; table_test_MOV_AUD];
+
+writetable(table_test_MOV_STA_AUD, 'TremorDetection/MATLAB/model_data/TEST_AUD_MOV_STA.csv');
+writetable(table_test_TRE_MOV_AUD, 'TremorDetection/MATLAB/model_data/TEST_AUD_TRE_MOV.csv');
