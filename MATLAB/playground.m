@@ -175,18 +175,22 @@ table_train_MOV_CAM = table_MOV_CAM(1:ceil(0.8 * end),:);
 table_train_STA_CAM = table_STA_CAM(1:ceil(0.8 * end),:);
 table_train_MOV_STA_CAM = [table_train_MOV_CAM; table_train_STA_CAM];
 table_train_TRE_MOV_CAM = [table_train_TRE_CAM; table_train_MOV_CAM];
+table_train_TRE_STA_CAM = [table_train_TRE_CAM; table_train_STA_CAM];
 
 writetable(table_train_MOV_STA_CAM, 'TremorDetection/MATLAB/model_data/TRAIN_CAM_MOV_STA.csv');
 writetable(table_train_TRE_MOV_CAM, 'TremorDetection/MATLAB/model_data/TRAIN_CAM_TRE_MOV.csv');
+writetable(table_train_TRE_STA_CAM, 'TremorDetection/MATLAB/model_data/TRAIN_CAM_TRE_STA.csv');
 
 table_test_TRE_CAM = table_TRE_CAM(ceil(0.8 * end)+1:end,:);
 table_test_MOV_CAM = table_MOV_CAM(ceil(0.8 * end)+1:end,:);
 table_test_STA_CAM = table_STA_CAM(ceil(0.8 * end)+1:end,:);
 table_test_MOV_STA_CAM = [table_test_MOV_CAM; table_test_STA_CAM];
 table_test_TRE_MOV_CAM = [table_test_TRE_CAM; table_test_MOV_CAM];
+table_test_TRE_STA_CAM = [table_test_TRE_CAM; table_test_STA_CAM];
 
 writetable(table_test_MOV_STA_CAM, 'TremorDetection/MATLAB/model_data/TEST_CAM_MOV_STA.csv');
 writetable(table_test_TRE_MOV_CAM, 'TremorDetection/MATLAB/model_data/TEST_CAM_TRE_MOV.csv');
+writetable(table_test_TRE_STA_CAM, 'TremorDetection/MATLAB/model_data/TEST_CAM_TRE_STA.csv');
 
 %% 3. Audio based Classification model
 

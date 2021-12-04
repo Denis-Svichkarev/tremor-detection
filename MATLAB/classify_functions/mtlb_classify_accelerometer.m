@@ -1,7 +1,7 @@
 function [label, p1, p2, p3] = mtlb_classify_accelerometer(X)
     A = load('MODEL_ACC_MOV_STA').model;
     B = load('MODEL_ACC_TRE_MOV').model;
-    B = load('MODEL_ACC_TRE_STA').model;
+    C = load('MODEL_ACC_TRE_STA').model;
     
     A.ScoreTransform = 'logit';
     B.ScoreTransform = 'logit';
