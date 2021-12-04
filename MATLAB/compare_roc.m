@@ -13,9 +13,15 @@ trainData_AUD_MOV_STA = load('TremorDetection/MATLAB/model_data/TRAIN_AUD_MOV_ST
 trainData_AUD_TRE_MOV = load('TremorDetection/MATLAB/model_data/TRAIN_AUD_TRE_MOV.mat').TRAIN_AUD_TRE_MOV;
 trainData_AUD_TRE_STA = load('TremorDetection/MATLAB/model_data/TRAIN_AUD_TRE_STA.mat').TRAIN_AUD_TRE_STA;
 
+XTrain_ACC_MOV_STA = trainData_ACC_MOV_STA{:, 1:end-1};
+XTrain_ACC_TRE_MOV = trainData_ACC_TRE_MOV{:, 1:end-1};
+XTrain_ACC_TRE_STA = trainData_ACC_TRE_STA{:, 1:end-1};
 XTrain_CAM_MOV_STA = trainData_CAM_MOV_STA{:, 1:end-1};
 XTrain_CAM_TRE_MOV = trainData_CAM_TRE_MOV{:, 1:end-1};
 XTrain_CAM_TRE_STA = trainData_CAM_TRE_STA{:, 1:end-1};
+XTrain_AUD_MOV_STA = trainData_AUD_MOV_STA{:, 1:end-1};
+XTrain_AUD_TRE_MOV = trainData_AUD_TRE_MOV{:, 1:end-1};
+XTrain_AUD_TRE_STA = trainData_AUD_TRE_STA{:, 1:end-1};
 
 YTrain_ACC_MOV_STA = trainData_ACC_MOV_STA{:, end};
 YTrain_ACC_TRE_MOV = trainData_ACC_TRE_MOV{:, end};
@@ -49,9 +55,9 @@ model_AUD_TRE_STA.ScoreTransform = 'logit';
 
 %% Calculate performance
 
-resp_ACC_MOV_STA = strcmp(YTrain_ACC_MOV_STA(:,:), 'Movement');
-resp_ACC_TRE_MOV = strcmp(YTrain_ACC_TRE_MOV(:,:), 'Tremor');
-resp_ACC_TRE_STA = strcmp(YTrain_ACC_TRE_STA(:,:), 'Tremor');
+resp_ACC_MOV_STA = strcmp(YTrain_ACC_MOV_STA, 'Movement');
+resp_ACC_TRE_MOV = strcmp(YTrain_ACC_TRE_MOV, 'Tremor');
+resp_ACC_TRE_STA = strcmp(YTrain_ACC_TRE_STA, 'Tremor');
 resp_CAM_MOV_STA = strcmp(YTrain_CAM_MOV_STA, 'Movement');
 resp_CAM_TRE_MOV = strcmp(YTrain_CAM_TRE_MOV, 'Tremor');
 resp_CAM_TRE_STA = strcmp(YTrain_CAM_TRE_STA, 'Tremor');
@@ -59,15 +65,15 @@ resp_AUD_MOV_STA = strcmp(YTrain_AUD_MOV_STA, 'Movement');
 resp_AUD_TRE_MOV = strcmp(YTrain_AUD_TRE_MOV, 'Tremor');
 resp_AUD_TRE_STA = strcmp(YTrain_AUD_TRE_STA, 'Tremor');
 
-[~, score_svm_ACC_MOV_STA] = resubPredict(model_ACC_MOV_STA);
-[~, score_svm_ACC_TRE_MOV] = resubPredict(model_ACC_TRE_MOV);
-[~, score_svm_ACC_TRE_STA] = resubPredict(model_ACC_TRE_STA);
+[~, score_svm_ACC_MOV_STA] = predict(model_ACC_MOV_STA, XTrain_ACC_MOV_STA);
+[~, score_svm_ACC_TRE_MOV] = predict(model_ACC_TRE_MOV, XTrain_ACC_TRE_MOV);
+[~, score_svm_ACC_TRE_STA] = predict(model_ACC_TRE_STA, XTrain_ACC_TRE_STA);
 [~, score_svm_CAM_MOV_STA] = predict(model_CAM_MOV_STA, XTrain_CAM_MOV_STA);
 [~, score_svm_CAM_TRE_MOV] = predict(model_CAM_TRE_MOV, XTrain_CAM_TRE_MOV);
 [~, score_svm_CAM_TRE_STA] = predict(model_CAM_TRE_STA, XTrain_CAM_TRE_STA);
-[~, score_svm_AUD_MOV_STA] = resubPredict(model_AUD_MOV_STA);
-[~, score_svm_AUD_TRE_MOV] = resubPredict(model_AUD_TRE_MOV);
-[~, score_svm_AUD_TRE_STA] = resubPredict(model_AUD_TRE_STA);
+[~, score_svm_AUD_MOV_STA] = predict(model_AUD_MOV_STA, XTrain_AUD_MOV_STA);
+[~, score_svm_AUD_TRE_MOV] = predict(model_AUD_TRE_MOV, XTrain_AUD_TRE_MOV);
+[~, score_svm_AUD_TRE_STA] = predict(model_AUD_TRE_STA, XTrain_AUD_TRE_STA);
 
 [Xsvm_ACC_MOV_STA, Ysvm_ACC_MOV_STA, Tsvm_ACC_MOV_STA, AUCsvm_ACC_MOV_STA] = perfcurve(resp_ACC_MOV_STA, score_svm_ACC_MOV_STA(:, logical([1, 0])), 'true');
 [Xsvm_ACC_TRE_MOV, Ysvm_ACC_TRE_MOV, Tsvm_ACC_TRE_MOV, AUCsvm_ACC_TRE_MOV] = perfcurve(resp_ACC_TRE_MOV, score_svm_ACC_TRE_MOV(:, logical([1, 0])), 'true');
@@ -87,19 +93,19 @@ AUCsvm_AUD = (AUCsvm_AUD_MOV_STA + AUCsvm_AUD_TRE_MOV + AUCsvm_AUD_TRE_STA) / 3;
 
 figure(1)
 hold on;
-% plot(Xsvm_ACC_MOV_STA, Ysvm_ACC_MOV_STA, 'LineWidth', 2, 'Color', [1 0 0]);
-% plot(Xsvm_ACC_TRE_MOV, Ysvm_ACC_TRE_MOV, 'LineWidth', 2, 'Color', [0 1 0]);
-% plot(Xsvm_ACC_TRE_STA, Ysvm_ACC_TRE_STA, 'LineWidth', 2, 'Color', [0 0 1]);
+plot(Xsvm_ACC_MOV_STA, Ysvm_ACC_MOV_STA, 'LineWidth', 2, 'Color', [1 0 0]);
+plot(Xsvm_ACC_TRE_MOV, Ysvm_ACC_TRE_MOV, 'LineWidth', 2, 'Color', [0 1 0]);
+plot(Xsvm_ACC_TRE_STA, Ysvm_ACC_TRE_STA, 'LineWidth', 2, 'Color', [0 0 1]);
 
 % plot(Xsvm_CAM_MOV_STA, Ysvm_CAM_MOV_STA, 'LineWidth', 2, 'Color', [1 0 0]);
 % plot(Xsvm_CAM_TRE_MOV, Ysvm_CAM_TRE_MOV, 'LineWidth', 2, 'Color', [0 1 0]);
 % plot(Xsvm_CAM_TRE_STA, Ysvm_CAM_TRE_STA, 'LineWidth', 2, 'Color', [0 0 1]);
 
-plot(Xsvm_AUD_MOV_STA, Ysvm_AUD_MOV_STA, 'LineWidth', 2, 'Color', [1 0 0]);
-plot(Xsvm_AUD_TRE_MOV, Ysvm_AUD_TRE_MOV, 'LineWidth', 2, 'Color', [0 1 0]);
-plot(Xsvm_AUD_TRE_STA, Ysvm_AUD_TRE_STA, 'LineWidth', 2, 'Color', [0 0 1]);
+% plot(Xsvm_AUD_MOV_STA, Ysvm_AUD_MOV_STA, 'LineWidth', 2, 'Color', [1 0 0]);
+% plot(Xsvm_AUD_TRE_MOV, Ysvm_AUD_TRE_MOV, 'LineWidth', 2, 'Color', [0 1 0]);
+% plot(Xsvm_AUD_TRE_STA, Ysvm_AUD_TRE_STA, 'LineWidth', 2, 'Color', [0 0 1]);
 
-legend(['AUC: ' num2str(AUCsvm_AUD)])
+legend(['AUC: ' num2str(AUCsvm_ACC)])
 xlabel('False positive rate'); ylabel('True positive rate');
 title('ROC curves for SVM classification')
 
