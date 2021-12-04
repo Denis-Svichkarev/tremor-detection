@@ -93,19 +93,19 @@ AUCsvm_AUD = (AUCsvm_AUD_MOV_STA + AUCsvm_AUD_TRE_MOV + AUCsvm_AUD_TRE_STA) / 3;
 
 figure(1)
 hold on;
-plot(Xsvm_ACC_MOV_STA, Ysvm_ACC_MOV_STA, 'LineWidth', 2, 'Color', [1 0 0]);
-plot(Xsvm_ACC_TRE_MOV, Ysvm_ACC_TRE_MOV, 'LineWidth', 2, 'Color', [0 1 0]);
-plot(Xsvm_ACC_TRE_STA, Ysvm_ACC_TRE_STA, 'LineWidth', 2, 'Color', [0 0 1]);
+% plot(Xsvm_ACC_MOV_STA, Ysvm_ACC_MOV_STA, 'LineWidth', 2, 'Color', [1 0 0]);
+% plot(Xsvm_ACC_TRE_MOV, Ysvm_ACC_TRE_MOV, 'LineWidth', 2, 'Color', [0 1 0]);
+% plot(Xsvm_ACC_TRE_STA, Ysvm_ACC_TRE_STA, 'LineWidth', 2, 'Color', [0 0 1]);
 
 % plot(Xsvm_CAM_MOV_STA, Ysvm_CAM_MOV_STA, 'LineWidth', 2, 'Color', [1 0 0]);
 % plot(Xsvm_CAM_TRE_MOV, Ysvm_CAM_TRE_MOV, 'LineWidth', 2, 'Color', [0 1 0]);
 % plot(Xsvm_CAM_TRE_STA, Ysvm_CAM_TRE_STA, 'LineWidth', 2, 'Color', [0 0 1]);
 
-% plot(Xsvm_AUD_MOV_STA, Ysvm_AUD_MOV_STA, 'LineWidth', 2, 'Color', [1 0 0]);
-% plot(Xsvm_AUD_TRE_MOV, Ysvm_AUD_TRE_MOV, 'LineWidth', 2, 'Color', [0 1 0]);
-% plot(Xsvm_AUD_TRE_STA, Ysvm_AUD_TRE_STA, 'LineWidth', 2, 'Color', [0 0 1]);
+plot(Xsvm_AUD_MOV_STA, Ysvm_AUD_MOV_STA, 'LineWidth', 2, 'Color', [1 0 0]);
+plot(Xsvm_AUD_TRE_MOV, Ysvm_AUD_TRE_MOV, 'LineWidth', 2, 'Color', [0 1 0]);
+plot(Xsvm_AUD_TRE_STA, Ysvm_AUD_TRE_STA, 'LineWidth', 2, 'Color', [0 0 1]);
 
-legend(['AUC: ' num2str(AUCsvm_ACC)])
+legend(['AUC: ' num2str(AUCsvm_AUD)])
 xlabel('False positive rate'); ylabel('True positive rate');
 title('ROC curves for SVM classification')
 
