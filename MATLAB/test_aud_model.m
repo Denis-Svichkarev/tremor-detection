@@ -4,6 +4,7 @@ is_Matlab=false; % false for MATLAB Coder
 
 testData1 = load('TremorDetection/MATLAB/model_data/TEST_AUD_MOV_STA.mat').TEST_AUD_MOV_STA;
 %testData1 = load('TremorDetection/MATLAB/model_data/TEST_AUD_TRE_MOV.mat').TEST_AUD_TRE_MOV;
+%testData1 = load('TremorDetection/MATLAB/model_data/TEST_AUD_TRE_STA.mat').TEST_AUD_TRE_STA;
 
 for i = 1:size(testData1, 1)
     if is_Matlab

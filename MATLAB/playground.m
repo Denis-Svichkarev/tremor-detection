@@ -226,15 +226,19 @@ table_train_MOV_AUD = table_MOV_AUD(1:ceil(0.8 * end),:);
 table_train_STA_AUD = table_STA_AUD(1:ceil(0.8 * end),:);
 table_train_MOV_STA_AUD = [table_train_MOV_AUD; table_train_STA_AUD];
 table_train_TRE_MOV_AUD = [table_train_TRE_AUD; table_train_MOV_AUD];
+table_train_TRE_STA_AUD = [table_train_TRE_AUD; table_train_STA_AUD];
 
 writetable(table_train_MOV_STA_AUD, 'TremorDetection/MATLAB/model_data/TRAIN_AUD_MOV_STA.csv');
 writetable(table_train_TRE_MOV_AUD, 'TremorDetection/MATLAB/model_data/TRAIN_AUD_TRE_MOV.csv');
+writetable(table_train_TRE_STA_AUD, 'TremorDetection/MATLAB/model_data/TRAIN_AUD_TRE_STA.csv');
 
 table_test_TRE_AUD = table_TRE_AUD(ceil(0.8 * end)+1:end,:);
 table_test_MOV_AUD = table_MOV_AUD(ceil(0.8 * end)+1:end,:);
 table_test_STA_AUD = table_STA_AUD(ceil(0.8 * end)+1:end,:);
 table_test_MOV_STA_AUD = [table_test_MOV_AUD; table_test_STA_AUD];
 table_test_TRE_MOV_AUD = [table_test_TRE_AUD; table_test_MOV_AUD];
+table_test_TRE_STA_AUD = [table_test_TRE_AUD; table_test_STA_AUD];
 
 writetable(table_test_MOV_STA_AUD, 'TremorDetection/MATLAB/model_data/TEST_AUD_MOV_STA.csv');
 writetable(table_test_TRE_MOV_AUD, 'TremorDetection/MATLAB/model_data/TEST_AUD_TRE_MOV.csv');
+writetable(table_test_TRE_STA_AUD, 'TremorDetection/MATLAB/model_data/TEST_AUD_TRE_STA.csv');

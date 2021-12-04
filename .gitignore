@@ -58,4 +58,5 @@ Thumbs.db
 *.csv
 *.m4a
 
-model_data/
+*/model_data/*
+*.mat
