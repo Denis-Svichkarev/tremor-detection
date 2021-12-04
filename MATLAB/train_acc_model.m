@@ -25,7 +25,9 @@ classificationSVM = fitcsvm(XTrain, YTrain, 'Verbose', 1, 'OptimizeHyperparamete
 
 %% Calculate model performance
 
-% model = loadLearnerForCoder('SVM_MODEL_ACC_MOV_STA')
+% load existing model in MATLAB
+% model = load('MODEL_ACC_MOV_STA').model;
+
 model.ScoreTransform = 'logit';
 
 L = loss(model, XTrain, YTrain);
@@ -101,7 +103,9 @@ classificationSVM = fitcsvm(XTrain, YTrain, 'Verbose', 1, 'OptimizeHyperparamete
 
 %% Calculate model performance
 
-% model = loadLearnerForCoder('SVM_MODEL_ACC_TRE_MOV')
+% load existing model in MATLAB
+% model = load('MODEL_ACC_TRE_MOV').model;
+
 model.ScoreTransform = 'logit';
 
 L = loss(model, XTrain, YTrain);
@@ -110,7 +114,7 @@ L
 RL = resubLoss(model);
 RL
 
-resp = strcmp(YTrain(:,:), 'Movement');
+resp = strcmp(YTrain(:,:), 'Tremor');
 [~, score_svm] = resubPredict(model);
 
 [Xsvm, Ysvm, Tsvm, AUCsvm] = perfcurve(resp, score_svm(:, logical([1, 0])), 'true');

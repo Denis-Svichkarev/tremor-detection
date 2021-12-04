@@ -25,7 +25,9 @@ classificationSVM = fitcsvm(XTrain, YTrain, 'Verbose', 1, 'OptimizeHyperparamete
 
 %% Calculate model performance
 
-% model = loadLearnerForCoder('SVM_MODEL_CAM_MOV_STA')
+% load existing model in MATLAB
+% model = load('MODEL_CAM_MOV_STA').model;
+
 model.ScoreTransform = 'logit';
 
 L = loss(model, XTrain, YTrain);
@@ -106,7 +108,9 @@ classificationSVM = fitcsvm(XTrain, YTrain, 'Verbose', 1, 'OptimizeHyperparamete
 
 %% Calculate model performance
 
-% model = loadLearnerForCoder('SVM_MODEL_CAM_TRE_MOV')
+% load existing model in MATLAB
+% model = load('MODEL_CAM_TRE_MOV').model;
+
 model.ScoreTransform = 'logit';
 
 L = loss(model, XTrain, YTrain);

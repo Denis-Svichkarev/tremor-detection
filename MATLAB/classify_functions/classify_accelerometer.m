@@ -23,9 +23,9 @@ function [label, p1, p2, p3] = classify_accelerometer(X)
     t2 = tre_sta_p(1, 1);
     s2 = tre_sta_p(1, 2);
     
-    p1 = (t1 + t2) / 3;
-    p2 = (m1 + m2) / 3;
-    p3 = (s1 + s2) / 3;
+    p1 = (t1 + t2) / 2;
+    p2 = (m1 + m2) / 2;
+    p3 = (s1 + s2) / 2;
     
     if p1 > p2
        if p1 > p3
