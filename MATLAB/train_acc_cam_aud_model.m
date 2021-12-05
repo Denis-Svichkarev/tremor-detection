@@ -155,7 +155,7 @@ F1
 saveLearnerForCoder(model, 'TremorDetection/MATLAB/models/SVM_MODEL_ACC_CAM_AUD_TRE_MOV');
 save('TremorDetection/MATLAB/models/MODEL_ACC_CAM_AUD_TRE_MOV.mat', 'model');
 
-%% 7. ACC-CAM-TRE model (TRE-STA)
+%% 7. ACC-CAM-AUD model (TRE-STA)
 
 close all
 clear all

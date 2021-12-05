@@ -243,6 +243,111 @@ writetable(table_test_MOV_STA_AUD, 'TremorDetection/MATLAB/model_data/TEST_AUD_M
 writetable(table_test_TRE_MOV_AUD, 'TremorDetection/MATLAB/model_data/TEST_AUD_TRE_MOV.csv');
 writetable(table_test_TRE_STA_AUD, 'TremorDetection/MATLAB/model_data/TEST_AUD_TRE_STA.csv');
 
+%% 4. Accelerometer, Camera based Classification model
+
+timewindowSizeSec = 2;
+
+staticAccFeatures = {};
+tremorAccFeatures = {};
+movementAccFeatures = {};
+
+staticCameraFeatures = {};
+tremorCameraFeatures = {};
+movementCameraFeatures = {};
+
+for i = 1:length(staticChunks)
+    features = extractAccFeatures(staticChunks{i}.accData, timewindowSizeSec);
+    staticAccFeatures = [staticAccFeatures; features];
+end
+
+for i = 1:length(tremorChunks)
+    features = extractAccFeatures(tremorChunks{i}.accData, timewindowSizeSec);
+    tremorAccFeatures = [tremorAccFeatures; features];
+end
+
+for i = 1:length(movementChunks)
+    features = extractAccFeatures(movementChunks{i}.accData, timewindowSizeSec);
+    movementAccFeatures = [movementAccFeatures; features];
+end
+
+for i = 1:length(staticChunks)
+    features = extract_camera_features(staticChunks{i}.cameraData, timewindowSizeSec);    
+    square_features = extract_camera_square_features(staticChunks{i}.cameraData, timewindowSizeSec);
+    
+    combined_features = [features square_features];
+    staticCameraFeatures = [staticCameraFeatures; combined_features];
+end
+
+for i = 1:length(tremorChunks)
+    features = extract_camera_features(tremorChunks{i}.cameraData, timewindowSizeSec);
+    square_features = extract_camera_square_features(tremorChunks{i}.cameraData, timewindowSizeSec);
+    
+    combined_features = [features square_features];
+    tremorCameraFeatures = [tremorCameraFeatures; combined_features];
+end
+
+for i = 1:length(movementChunks)
+    features = extract_camera_features(movementChunks{i}.cameraData, timewindowSizeSec);
+    square_features = extract_camera_square_features(movementChunks{i}.cameraData, timewindowSizeSec);
+    
+    combined_features = [features square_features];
+    movementCameraFeatures = [movementCameraFeatures; combined_features];
+end
+
+S_N1 = size(staticAccFeatures, 1);
+S_N2 = size(staticCameraFeatures, 1);
+
+S_MIN = S_N1;
+
+if S_N2 < S_MIN
+    S_MIN = S_N2;
+end
+
+staticAccFeatures = staticAccFeatures(1:S_MIN,:);
+staticCameraFeatures = staticCameraFeatures(1:S_MIN,:);
+
+table_TRE_ACC = createTableFromFeatures(tremorAccFeatures, 'Tremor');
+table_MOV_ACC = createTableFromFeatures(movementAccFeatures, 'Movement');
+table_STA_ACC = createTableFromFeatures(staticAccFeatures, 'Static');
+
+table_TRE_CAM = createTableFromCameraFeatures(tremorCameraFeatures, 'Tremor');
+table_MOV_CAM = createTableFromCameraFeatures(movementCameraFeatures, 'Movement');
+table_STA_CAM = createTableFromCameraFeatures(staticCameraFeatures, 'Static');
+
+% 80% TRAIN AND 20% TEST
+
+table_train_TRE_ACC = table_TRE_ACC(1:ceil(0.8 * end),:);
+table_train_MOV_ACC = table_MOV_ACC(1:ceil(0.8 * end),:);
+table_train_STA_ACC = table_STA_ACC(1:ceil(0.8 * end),:);
+
+table_train_TRE_CAM = table_TRE_CAM(1:ceil(0.8 * end),:);
+table_train_MOV_CAM = table_MOV_CAM(1:ceil(0.8 * end),:);
+table_train_STA_CAM = table_STA_CAM(1:ceil(0.8 * end),:);
+
+table_train_MOV_STA_ACC_CAM = [table_train_MOV_ACC(:,1:end-1), table_train_MOV_CAM; table_train_STA_ACC(:,1:end-1), table_train_STA_CAM];
+table_train_TRE_MOV_ACC_CAM = [table_train_TRE_ACC(:,1:end-1), table_train_TRE_CAM; table_train_MOV_ACC(:,1:end-1), table_train_MOV_CAM];
+table_train_TRE_STA_ACC_CAM = [table_train_TRE_ACC(:,1:end-1), table_train_TRE_CAM; table_train_STA_ACC(:,1:end-1), table_train_STA_CAM];
+
+writetable(table_train_MOV_STA_ACC_CAM, 'TremorDetection/MATLAB/model_data/TRAIN_ACC_CAM_MOV_STA.csv');
+writetable(table_train_TRE_MOV_ACC_CAM, 'TremorDetection/MATLAB/model_data/TRAIN_ACC_CAM_TRE_MOV.csv');
+writetable(table_train_TRE_STA_ACC_CAM, 'TremorDetection/MATLAB/model_data/TRAIN_ACC_CAM_TRE_STA.csv');
+
+table_test_TRE_ACC = table_TRE_ACC(ceil(0.8 * end)+1:end,:);
+table_test_MOV_ACC = table_MOV_ACC(ceil(0.8 * end)+1:end,:);
+table_test_STA_ACC = table_STA_ACC(ceil(0.8 * end)+1:end,:);
+
+table_test_TRE_CAM = table_TRE_CAM(ceil(0.8 * end)+1:end,:);
+table_test_MOV_CAM = table_MOV_CAM(ceil(0.8 * end)+1:end,:);
+table_test_STA_CAM = table_STA_CAM(ceil(0.8 * end)+1:end,:);
+
+table_test_MOV_STA_ACC_CAM = [table_test_MOV_ACC(:,1:end-1), table_test_MOV_CAM; table_test_STA_ACC(:,1:end-1), table_test_STA_CAM];
+table_test_TRE_MOV_ACC_CAM = [table_test_TRE_ACC(:,1:end-1), table_test_TRE_CAM; table_test_MOV_ACC(:,1:end-1), table_test_MOV_CAM];
+table_test_TRE_STA_ACC_CAM = [table_test_TRE_ACC(:,1:end-1), table_test_TRE_CAM; table_test_STA_ACC(:,1:end-1), table_test_STA_CAM];
+
+writetable(table_test_MOV_STA_ACC_CAM, 'TremorDetection/MATLAB/model_data/TEST_ACC_CAM_MOV_STA.csv');
+writetable(table_test_TRE_MOV_ACC_CAM, 'TremorDetection/MATLAB/model_data/TEST_ACC_CAM_TRE_MOV.csv');
+writetable(table_test_TRE_STA_ACC_CAM, 'TremorDetection/MATLAB/model_data/TEST_ACC_CAM_TRE_STA.csv');
+
 %% 7. Accelerometer, Camera, Audio based Classification model
 
 timewindowSizeSec = 2;
