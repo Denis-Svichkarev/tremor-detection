@@ -78,6 +78,22 @@ save('TremorDetection/MATLAB/model_data/TEST_ACC_AUD_TRE_MOV.mat');
 TEST_ACC_AUD_TRE_STA = readtable('TremorDetection/MATLAB/model_data/TEST_ACC_AUD_TRE_STA.csv');
 save('TremorDetection/MATLAB/model_data/TEST_ACC_AUD_TRE_STA.mat');
 
+%% CAM-AUD classification model #6
+
+TRAIN_CAM_AUD_MOV_STA = readtable('TremorDetection/MATLAB/model_data/TRAIN_CAM_AUD_MOV_STA.csv');
+save('TremorDetection/MATLAB/model_data/TRAIN_CAM_AUD_MOV_STA.mat');
+TRAIN_CAM_AUD_TRE_MOV = readtable('TremorDetection/MATLAB/model_data/TRAIN_CAM_AUD_TRE_MOV.csv');
+save('TremorDetection/MATLAB/model_data/TRAIN_CAM_AUD_TRE_MOV.mat');
+TRAIN_CAM_AUD_TRE_STA = readtable('TremorDetection/MATLAB/model_data/TRAIN_CAM_AUD_TRE_STA.csv');
+save('TremorDetection/MATLAB/model_data/TRAIN_CAM_AUD_TRE_STA.mat');
+
+TEST_CAM_AUD_MOV_STA = readtable('TremorDetection/MATLAB/model_data/TEST_CAM_AUD_MOV_STA.csv');
+save('TremorDetection/MATLAB/model_data/TEST_CAM_AUD_MOV_STA.mat');
+TEST_CAM_AUD_TRE_MOV = readtable('TremorDetection/MATLAB/model_data/TEST_CAM_AUD_TRE_MOV.csv');
+save('TremorDetection/MATLAB/model_data/TEST_CAM_AUD_TRE_MOV.mat');
+TEST_CAM_AUD_TRE_STA = readtable('TremorDetection/MATLAB/model_data/TEST_CAM_AUD_TRE_STA.csv');
+save('TremorDetection/MATLAB/model_data/TEST_CAM_AUD_TRE_STA.mat');
+
 %% ACC-CAM-AUD classification model #7
 
 TRAIN_ACC_CAM_AUD_MOV_STA = readtable('TremorDetection/MATLAB/model_data/TRAIN_ACC_CAM_AUD_MOV_STA.csv');
