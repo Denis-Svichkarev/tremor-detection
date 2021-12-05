@@ -3,7 +3,7 @@ function data_features = extract_audio_features(data, fs, timewindow)
     index = 1;
     timewindow_size = timewindow * fs;
 
-    measurement_time = size(data, 1);
+    measurement_time = size(data, 2);
     data_features = cell(floor(measurement_time / timewindow_size), 18);
      
     for j = 0:timewindow_size:measurement_time

@@ -201,17 +201,17 @@ tremorAudioFeatures = {};
 movementAudioFeatures = {};
 
 for i = 1:length(staticChunks)
-    features = extract_audio_features(staticChunks{i}.audioData.y, staticChunks{i}.audioData.fs, timewindowSizeSec);
+    features = extractAudioFeatures(staticChunks{i}.audioData.y, staticChunks{i}.audioData.fs, timewindowSizeSec);
     staticAudioFeatures = [staticAudioFeatures; features];
 end
 
 for i = 1:length(tremorChunks)
-    features = extract_audio_features(tremorChunks{i}.audioData.y, tremorChunks{i}.audioData.fs, timewindowSizeSec);
+    features = extractAudioFeatures(tremorChunks{i}.audioData.y, tremorChunks{i}.audioData.fs, timewindowSizeSec);
     tremorAudioFeatures = [tremorAudioFeatures; features];
 end
 
 for i = 1:length(movementChunks)
-    features = extract_audio_features(movementChunks{i}.audioData.y, movementChunks{i}.audioData.fs, timewindowSizeSec);
+    features = extractAudioFeatures(movementChunks{i}.audioData.y, movementChunks{i}.audioData.fs, timewindowSizeSec);
     movementAudioFeatures = [movementAudioFeatures; features];
 end
 
@@ -376,17 +376,17 @@ for i = 1:length(movementChunks)
 end
 
 for i = 1:length(staticChunks)
-    features = extract_audio_features(staticChunks{i}.audioData.y, staticChunks{i}.audioData.fs, timewindowSizeSec);
+    features = extractAudioFeatures(staticChunks{i}.audioData.y, staticChunks{i}.audioData.fs, timewindowSizeSec);
     staticAudioFeatures = [staticAudioFeatures; features];
 end
 
 for i = 1:length(tremorChunks)
-    features = extract_audio_features(tremorChunks{i}.audioData.y, tremorChunks{i}.audioData.fs, timewindowSizeSec);
+    features = extractAudioFeatures(tremorChunks{i}.audioData.y, tremorChunks{i}.audioData.fs, timewindowSizeSec);
     tremorAudioFeatures = [tremorAudioFeatures; features];
 end
 
 for i = 1:length(movementChunks)
-    features = extract_audio_features(movementChunks{i}.audioData.y, movementChunks{i}.audioData.fs, timewindowSizeSec);
+    features = extractAudioFeatures(movementChunks{i}.audioData.y, movementChunks{i}.audioData.fs, timewindowSizeSec);
     movementAudioFeatures = [movementAudioFeatures; features];
 end
 
@@ -481,17 +481,17 @@ for i = 1:length(movementChunks)
 end
 
 for i = 1:length(staticChunks)
-    features = extract_audio_features(staticChunks{i}.audioData.y, staticChunks{i}.audioData.fs, timewindowSizeSec);
+    features = extractAudioFeatures(staticChunks{i}.audioData.y, staticChunks{i}.audioData.fs, timewindowSizeSec);
     staticAudioFeatures = [staticAudioFeatures; features];
 end
 
 for i = 1:length(tremorChunks)
-    features = extract_audio_features(tremorChunks{i}.audioData.y, tremorChunks{i}.audioData.fs, timewindowSizeSec);
+    features = extractAudioFeatures(tremorChunks{i}.audioData.y, tremorChunks{i}.audioData.fs, timewindowSizeSec);
     tremorAudioFeatures = [tremorAudioFeatures; features];
 end
 
 for i = 1:length(movementChunks)
-    features = extract_audio_features(movementChunks{i}.audioData.y, movementChunks{i}.audioData.fs, timewindowSizeSec);
+    features = extractAudioFeatures(movementChunks{i}.audioData.y, movementChunks{i}.audioData.fs, timewindowSizeSec);
     movementAudioFeatures = [movementAudioFeatures; features];
 end
 
@@ -605,17 +605,17 @@ for i = 1:length(movementChunks)
 end
 
 for i = 1:length(staticChunks)
-    features = extract_audio_features(staticChunks{i}.audioData.y, staticChunks{i}.audioData.fs, timewindowSizeSec);
+    features = extractAudioFeatures(staticChunks{i}.audioData.y, staticChunks{i}.audioData.fs, timewindowSizeSec);
     staticAudioFeatures = [staticAudioFeatures; features];
 end
 
 for i = 1:length(tremorChunks)
-    features = extract_audio_features(tremorChunks{i}.audioData.y, tremorChunks{i}.audioData.fs, timewindowSizeSec);
+    features = extractAudioFeatures(tremorChunks{i}.audioData.y, tremorChunks{i}.audioData.fs, timewindowSizeSec);
     tremorAudioFeatures = [tremorAudioFeatures; features];
 end
 
 for i = 1:length(movementChunks)
-    features = extract_audio_features(movementChunks{i}.audioData.y, movementChunks{i}.audioData.fs, timewindowSizeSec);
+    features = extractAudioFeatures(movementChunks{i}.audioData.y, movementChunks{i}.audioData.fs, timewindowSizeSec);
     movementAudioFeatures = [movementAudioFeatures; features];
 end
 
