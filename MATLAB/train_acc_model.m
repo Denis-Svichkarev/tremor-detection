@@ -67,9 +67,12 @@ precision = TP / (TP + FP);
 recall = TP / (TP + FN);
 F1 = (2 * precision * recall) / (precision + recall);
 
+% precision - специфичность
+% recall - чувствительность
+
 accuracy
 precision
-recall
+recall 
 F1
 
 %% Save model
@@ -190,7 +193,7 @@ L
 RL = resubLoss(model);
 RL
 
-resp = strcmp(YTrain(:,:), 'Static');
+resp = strcmp(YTrain(:,:), 'Tremor');
 [~, score_svm] = resubPredict(model);
 
 [Xsvm, Ysvm, Tsvm, AUCsvm] = perfcurve(resp, score_svm(:, logical([1, 0])), 'true');
