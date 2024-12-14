@@ -1,0 +1,53 @@
+%% Get measurements from folder
+% Be sure you are in this directory: cd denissvichkarev/Projects/
+function measurements = get_measurement_data(folderName) 
+    dataPath = insertAfter('TremorDetection/web/iOS//', "iOS/", folderName);
+    directory = dir(dataPath);
+    filenames = {directory(:).name}';
+    
+    accFiles = filenames(startsWith(filenames, 'ACT-'));
+    audioFiles = filenames(startsWith(filenames, 'AUT-'));
+    camFiles = filenames(startsWith(filenames, 'RCT-'));
+    %accFiles = filenames(startsWith(filenames, 'ACT-'));
+    
+    N = length(accFiles);
+    measurements = cell(N);
+    
+    for i = 1:N
+        measurement = struct;
+        accStr = erase(accFiles{i}, ".csv");
+        accStr = erase(accStr, "ACT-");
+        accData = readtable(strcat(dataPath, accFiles{i}));
+        
+        % camera
+        
+        M = length(camFiles);
+        for j = 1:M
+            cameraStr = erase(camFiles{j}, ".csv");
+            cameraStr = erase(cameraStr, "RCT-");
+            
+            if cameraStr == accStr
+                cameraData = readtable(strcat(dataPath, camFiles{j}));
+                measurement.cameraData = cameraData;
+            end
+        end
+        
+        % audio
+        
+        M = length(audioFiles);
+        for j = 1:M
+            audioStr = erase(audioFiles{j}, ".m4a");
+            audioStr = erase(audioStr, "AUT-");
+             
+            if audioStr == accStr
+                %audioData = audioFiles{j};
+                %[y, fs] = audioread(audioFiles{j});
+                measurement.audioData = audioread(audioFiles{j});
+            end
+        end
+        
+        measurement.accData = accData;
+        measurement.isLabeled = 'false';
+        measurements{i} = measurement;
+    end
+end
